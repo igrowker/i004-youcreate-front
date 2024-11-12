@@ -1,6 +1,6 @@
 import  {FC} from "react";
 import {Routes, Route} from "react-router-dom";
-import {Login} from "./login.tsx";
+import {Login} from "./components/RegistroLoginComponent/login.tsx";
 import {RouterLayout} from "./pages/common/RouterLayout";
 
 
