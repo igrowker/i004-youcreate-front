@@ -1,4 +1,6 @@
 import React from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { FaGoogle, FaApple } from 'react-icons/fa';
 
 type LoginType = {
     email: string;
@@ -6,55 +8,43 @@ type LoginType = {
 }
 
 export const Login: React.FC = () => {
-    const [loginData, setLoginData] = React.useState<LoginType>({
-        email: '',
-        password: ''
-    });
+    const { register, handleSubmit, formState: { errors } } = useForm<LoginType>();
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setLoginData({
-            ...loginData,
-            [event.target.name]: event.target.value
-        });
-    }
-
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        console.log(loginData);
-    }
+    const onSubmit: SubmitHandler<LoginType> = data => {
+        console.log(data);
+    };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-300">
-            <div className="w-full max-w-md p-8 space-y-4 bg-white rounded-lg shadow-md">
-                <div className="flex justify-center mb-4">
-                    <div className="w-16 h-16 bg-black text-white flex items-center justify-center rounded-full">
-                        LOGO
-                    </div>
+        <div className="flex items-center justify-center min-h-screen bg-gray-100">
+            <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
+                <div className="flex justify-center mb-6">
+                    <img className="w-10 h-10" src="https://cdn-icons-png.flaticon.com/512/5087/5087579.png" alt="Login Logo" />
                 </div>
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-4">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                    <div>
+                        <h2 className="text-2xl font-semibold text-center">Iniciar sesión</h2>
                         <input
-                            name="email"
+                            {...register('email', { required: 'Email is required' })}
                             type="email"
                             placeholder="Email"
-                            className="w-full p-3 border border-gray-300 rounded-lg"
-                            onChange={handleChange}
+                            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
+                        {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>}
                     </div>
-                    <div className="mb-4">
+                    <div>
                         <input
-                            name="password"
+                            {...register('password', { required: 'Password is required' })}
                             type="password"
                             placeholder="Contraseña"
-                            className="w-full p-3 border border-gray-300 rounded-lg"
-                            onChange={handleChange}
+                            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
+                        {errors.password && <p className="mt-1 text-sm text-red-500">{errors.password.message}</p>}
                     </div>
                     <button
                         type="submit"
-                        className="w-full p-3 text-white bg-gray-800 rounded-lg"
+                        className="w-full p-3 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
-                        Iniciar sesión
+                        Continuar
                     </button>
                 </form>
                 <p className="text-center text-sm">
@@ -70,16 +60,16 @@ export const Login: React.FC = () => {
                 </div>
                 <button
                     type="button"
-                    className="flex items-center justify-center w-full p-3 mb-2 text-gray-800 bg-white border border-gray-300 rounded-lg"
+                    className="flex items-center justify-center w-full p-3 mb-2 text-gray-800 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300"
                 >
-                    <img src="/path-to-google-icon.png" alt="Google" className="w-5 h-5 mr-2" />
+                    <FaGoogle className="w-5 h-5 mr-2" />
                     Continuar con Google
                 </button>
                 <button
                     type="button"
-                    className="flex items-center justify-center w-full p-3 text-gray-800 bg-white border border-gray-300 rounded-lg"
+                    className="flex items-center justify-center w-full p-3 text-gray-800 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300"
                 >
-                    <img src="/path-to-apple-icon.png" alt="Apple" className="w-5 h-5 mr-2" />
+                    <FaApple className="w-5 h-5 mr-2" />
                     Continuar con Apple
                 </button>
             </div>
