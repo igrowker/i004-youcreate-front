@@ -39,7 +39,7 @@ export const Login: React.FC = () => {
                     </div>
                     <div className="mt-4">
                         <input
-                            {...register('password', {required: 'Password is required'})}
+                            {...register('password', {required: 'Password is requiredd'})}
                             type="password"
                             placeholder="Contraseña"
                             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
