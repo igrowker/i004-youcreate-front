@@ -40,8 +40,10 @@ export const Login: React.FC = () => {
                     <div className="mt-4">
                         <input
                             {...register('password', {
-                                required: 'Password is required',
-                                validate: (value: string) => value.length > 4 || 'La contraseña debe de tener al menos 4 caracteres'
+                                required: { value: true, message: 'Este campo es requerido, por favor ingrese su nombre' },
+                                minLength: { value: 3, message: 'El nombre debe tener al menos 3 caracteres, por favor ingrese una contraseña válida' },
+                                maxLength: { value: 20, message: 'El nombre debe tener menos de 20 caracteres, por favor ingrese una contraseña válida' }
+
                             })}
                             type="password"
                             placeholder="Contraseña"
