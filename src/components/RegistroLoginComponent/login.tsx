@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { FaGoogle, FaApple } from 'react-icons/fa'; // Elimina el icono que no necesitas
+import { FaGoogle, FaApple } from 'react-icons/fa';
 
 type LoginType = {
     email: string;
@@ -39,7 +39,10 @@ export const Login: React.FC = () => {
                     </div>
                     <div className="mt-4">
                         <input
-                            {...register('password', {required: 'Password is requiredd'})}
+                            {...register('password', {
+                                required: 'Password is required',
+                                validate: (value: string) => value.length > 4 || 'La contraseña debe de tener al menos 4 caracteres'
+                            })}
                             type="password"
                             placeholder="Contraseña"
                             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
