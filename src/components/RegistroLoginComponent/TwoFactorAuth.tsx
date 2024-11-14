@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import iconTwoFactorAuth from "../../assets/vectors/iconTwoFactorAuth.svg";
+import iconYoucreate from "../../assets/vectors/iconYoucreate.svg";
 import arrowLeft from "../../assets/vectors/arrowLeft.svg";
 import { useNavigate } from "react-router-dom";
 
@@ -38,7 +38,7 @@ const TwoFactorAuth: React.FC = () => {
         alt=""
       />
       <form className="bg-[#FFFFFF] relative rounded-xl m-auto w-[95%] h-[500px]  max-w-[630px] p-3 flex flex-col justify-center items-center  gap-5 ">
-        <img src={iconTwoFactorAuth} alt="icon youcreate" />
+        <img src={iconYoucreate} alt="icon youcreate" />
         <span className="absolute top-5 right-5">Paso 2 de 2</span>
         <h2 className="text-center font-bold text-2xl ">
           Verificación de seguridad
