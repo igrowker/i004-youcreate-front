@@ -7,7 +7,7 @@ const Banner: React.FC = () => {
   
   const images = [banner1, banner2, banner3];
   const [currentImage, setCurrentImage] = useState(0);
-  const [fade, setFade] = useState(false);
+  const [fade, setFade] = useState(true);
 
   // Cambiar la imagen cada 2 segundos
   useEffect(() => {
