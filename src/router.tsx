@@ -3,7 +3,7 @@ import {Routes, Route} from "react-router-dom";
 import {Login} from "./components/RegistroLoginComponent/login.tsx";
 import {RouterLayout} from "./pages/common/RouterLayout";
 import TwoFactorAuth from "./components/RegistroLoginComponent/TwoFactorAuth.tsx";
-import NotFound from "./pages/NotFount.tsx";
+import NotFound from "./pages/NotFound.tsx";
 
 
 
