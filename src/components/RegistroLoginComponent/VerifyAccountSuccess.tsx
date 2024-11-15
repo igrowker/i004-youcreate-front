@@ -2,12 +2,11 @@ import React from 'react';
 import { HiCheckCircle } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 
-const VerifyAccountSucces: React.FC = () => {
+const VerifyAccountSuccess: React.FC = () => {
   
   const navigate = useNavigate();
 
   const handleContinue = () => {
-    
     navigate('/login');
   };
 
@@ -32,4 +31,4 @@ const VerifyAccountSucces: React.FC = () => {
   );
 };
 
-export default VerifyAccountSucces;
+export default VerifyAccountSuccess;
