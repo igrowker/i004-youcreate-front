@@ -1,9 +1,8 @@
 import React from "react";
 import NotFoundImg from "../assets/images/404img 1.webp";
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 
 const NotFound: React.FC = () => {
-  const navigate = useNavigate();
 
   return (
     <section className="w-full h-[100vh] flex items-center justify-center overflow-hidden">
