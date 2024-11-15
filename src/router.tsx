@@ -14,6 +14,7 @@ export const AppRouter: FC = () => {
 
                 </Route>
                 <Route path="/login" element={<Login/>}/>
+
             </Routes>
         )
     }
