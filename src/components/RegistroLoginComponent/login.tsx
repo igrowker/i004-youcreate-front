@@ -30,7 +30,7 @@ export const Login: React.FC = () => {
                             </a>
                         </p>
                         <input
-                            {...register('email', {required: 'Email is required'})}
+                            {...register('email', {required: 'Email es requerido'})}
                             type="email"
                             placeholder="Email"
                             className="w-full p-3 mt-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -40,9 +40,9 @@ export const Login: React.FC = () => {
                     <div className="mt-4">
                         <input
                             {...register('password', {
-                                required: { value: true, message: 'Este campo es requerido, por favor ingrese su nombre' },
-                                minLength: { value: 3, message: 'El nombre debe tener al menos 3 caracteres, por favor ingrese una contraseña válida' },
-                                maxLength: { value: 20, message: 'El nombre debe tener menos de 20 caracteres, por favor ingrese una contraseña válida' }
+                                required: { value: true, message: 'Este campo es requerido, por favor ingrese su contraseña' },
+                                minLength: { value: 3, message: 'El password debe tener al menos 3 caracteres, por favor ingrese una contraseña válida' },
+                                maxLength: { value: 20, message: 'El password debe tener menos de 20 caracteres, por favor ingrese una contraseña válida' }
 
                             })}
                             type="password"
