@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import banner1 from '../../assets/imagesBanner/Banner01.png';
-import banner2 from '../../assets/imagesBanner/Banner02.png';
-import banner3 from '../../assets/imagesBanner/Banner03.png';
+import banner1 from '../../assets/imagesLanding/Banner01.png';
+import banner2 from '../../assets/imagesLanding/Banner02.png';
+import banner3 from '../../assets/imagesLanding/Banner03.png';
 
 const Banner: React.FC = () => {
   
