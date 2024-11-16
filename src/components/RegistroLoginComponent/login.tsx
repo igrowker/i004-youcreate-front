@@ -8,6 +8,7 @@ type LoginType = {
 }
 
 export const Login: React.FC = () => {
+    
     const { register, handleSubmit, formState: { errors } } = useForm<LoginType>();
 
     const onSubmit: SubmitHandler<LoginType> = data => {
