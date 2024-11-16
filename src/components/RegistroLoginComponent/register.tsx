@@ -41,10 +41,10 @@ export const Register: React.FC = () => {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-200 p-6">
-            <form onSubmit={handleSubmit} className="bg-gray-300 p-10 rounded-lg shadow-md w-full max-w-md">
+            <form onSubmit={handleSubmit} className="bg-gray-300 p-10 rounded-lg shadow-lg w-full max-w-md">
 
-                <div className="flex justify-end space-x-16 items-top mb-4">
-                    <img className="w-20 h-20 text-center" src="https://cdn-icons-png.flaticon.com/512/6681/6681204.png" alt="Login Logo" />
+                <div className="flex justify-end space-x-14 items-top mb-4">
+                    <img className="w-20 h-20 text-center" src="https://cdn-icons-png.flaticon.com/512/6681/6681204.png" alt="YouCreate Logo"/>
                     <span>Paso 1 de 2</span>
                 </div>
                 <h2 className="text-2xl font-bold text-center mb-4">Crear una cuenta</h2>
