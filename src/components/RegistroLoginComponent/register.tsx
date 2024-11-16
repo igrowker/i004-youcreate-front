@@ -1,4 +1,17 @@
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { faApple } from '@fortawesome/free-brands-svg-icons';
+
+
+const GoogleIcon = () => {
+    return (
+        <i className="fab fa-google"></i>
+    );
+};
+
+export default GoogleIcon;
+
 
 export const Register: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -40,19 +53,22 @@ export const Register: React.FC = () => {
 
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-200 p-4">
-            <form onSubmit={handleSubmit} className="bg-gray-300 p-6 rounded-lg shadow-md w-full max-w-md">
-                <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-lg font-bold">Crear una cuenta</h2>
+
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-200 p-6">
+            <form onSubmit={handleSubmit} className="bg-gray-300 p-10 rounded-lg shadow-md w-full max-w-md">
+
+                <div className="flex justify-end space-x-16 items-top mb-4">
+                    <img className="w-20 h-20 text-center" src="https://cdn-icons-png.flaticon.com/512/6681/6681204.png" alt="Login Logo" />
                     <span>Paso 1 de 2</span>
                 </div>
+                <h2 className="text-2xl font-bold text-center mb-4">Crear una cuenta</h2>
                 <div className="flex justify-center space-x-4 mb-4">
-                    <button type="button" className="p-2 rounded-full bg-white shadow-md">
-                        <span role="img" aria-label="Google">G</span>
-                    </button>
-                    <button type="button" className="p-2 rounded-full bg-white shadow-md">
-                        <span role="img" aria-label="Apple"></span>
-                    </button>
+
+                    <button type="button" className="bg-gray-800 hover:bg-black text-white text-2xl font-bold w-10 h-10 rounded-full"><h1><FontAwesomeIcon icon={faGoogle} /></h1></button>
+
+                    <button type="button" className="bg-gray-800 hover:bg-black text-white text-2xl font-bold w-10 h-10 rounded-full"><h1><FontAwesomeIcon icon={faApple} /></h1></button>
+
+
                 </div>
 
                 <h3 className="text-sm font-semibold mb-2">Tus datos</h3>
@@ -96,6 +112,6 @@ export const Register: React.FC = () => {
                 <button type="submit" className="bg-gray-800 text-white p-2 rounded w-full">Continuar</button>
             </form>
         </div>
-    );
+    );
 };
 
