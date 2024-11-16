@@ -40,7 +40,6 @@ export const Register: React.FC = () => {
     };
 
     return (
-
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-200 p-6">
             <form onSubmit={handleSubmit} className="bg-gray-300 p-10 rounded-lg shadow-md w-full max-w-md">
 

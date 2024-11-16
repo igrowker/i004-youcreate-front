@@ -25,7 +25,7 @@ export const Login: React.FC = () => {
                         <h2 className="text-2xl font-semibold text-center">Iniciar sesión</h2>
                         <p className="text-center text-sm">
                             ¿No tenés una cuenta?{' '}
-                            <a href="#" className="text-blue-500 underline">
+                            <a href="http://localhost:5173/register" className="text-blue-500 underline">
                                 Registrate acá
                             </a>
                         </p>
