@@ -1,6 +1,7 @@
 import  {FC} from "react";
 import {Routes, Route} from "react-router-dom";
 import {Login} from "./components/RegistroLoginComponent/login.tsx";
+import {Register} from "./components/RegistroLoginComponent/register.tsx";
 import {RouterLayout} from "./pages/common/RouterLayout";
 import VerifyAccountSuccess  from "./components/RegistroLoginComponent/VerifyAccountSuccess.tsx";
 
@@ -15,8 +16,13 @@ export const AppRouter: FC = () => {
 
                 </Route>
                 <Route path="/login" element={<Login/>}/>
+                <Route path="/register" element={<Register/>}/>
+
                 <Route path="/verify/succesful" element={<VerifyAccountSuccess/>}/>
             </Routes>
         )
     }
 ;
+
+
+
