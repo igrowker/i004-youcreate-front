@@ -3,16 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { faApple } from '@fortawesome/free-brands-svg-icons';
 
-
-const GoogleIcon = () => {
-    return (
-        <i className="fab fa-google"></i>
-    );
-};
-
-export default GoogleIcon;
-
-
 export const Register: React.FC = () => {
     const [formData, setFormData] = useState({
         firstName: '',
@@ -49,9 +39,6 @@ export const Register: React.FC = () => {
         console.log(formData);
     };
 
-
-
-
     return (
 
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-200 p-6">
@@ -64,11 +51,8 @@ export const Register: React.FC = () => {
                 <h2 className="text-2xl font-bold text-center mb-4">Crear una cuenta</h2>
                 <div className="flex justify-center space-x-4 mb-4">
 
-                    <button type="button" className="bg-gray-800 hover:bg-black text-white text-2xl font-bold w-10 h-10 rounded-full"><h1><FontAwesomeIcon icon={faGoogle} /></h1></button>
-
-                    <button type="button" className="bg-gray-800 hover:bg-black text-white text-2xl font-bold w-10 h-10 rounded-full"><h1><FontAwesomeIcon icon={faApple} /></h1></button>
-
-
+                <a href="https://myaccount.google.com/"><button type="button" className="bg-gray-800 hover:bg-black text-white text-2xl font-bold w-10 h-10 rounded-full"><h1><FontAwesomeIcon icon={faGoogle} /></h1></button></a>
+                <a href="https://www.icloud.com/"><button type="button" className="bg-gray-800 hover:bg-black text-white text-2xl font-bold w-10 h-10 rounded-full"><h1><FontAwesomeIcon icon={faApple} /></h1></button></a>
                 </div>
 
                 <h3 className="text-sm font-semibold mb-2">Tus datos</h3>
@@ -114,4 +98,3 @@ export const Register: React.FC = () => {
         </div>
     );
 };
-
