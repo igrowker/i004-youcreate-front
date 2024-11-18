@@ -44,7 +44,6 @@ export const Login: React.FC = () => {
                                 required: { value: true, message: 'Este campo es requerido, por favor ingrese su contraseña' },
                                 minLength: { value: 3, message: 'El password debe tener al menos 3 caracteres, por favor ingrese una contraseña válida' },
                                 maxLength: { value: 20, message: 'El password debe tener menos de 20 caracteres, por favor ingrese una contraseña válida' }
-
                             })}
                             type="password"
                             placeholder="Contraseña"
