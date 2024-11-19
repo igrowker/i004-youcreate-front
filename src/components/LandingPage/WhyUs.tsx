@@ -26,7 +26,7 @@ const WhyUs: React.FC = () => {
       <div className="md:flex gap-x-5">
         {whyUsData.map(({ title, description }, index) => {
           return (
-            <div className="space-y-10 border-[3px] rounded-lg border-[#5B0068] lg:min-h-[450px] flex flex-col justify-evenly mb-20 lg:mb-52" key={index}>
+            <div className="space-y-10 border-[3px] rounded-lg border-[#5B0068] lg:min-h-[470px] flex flex-col mb-20 lg:mb-52" key={index}>
                 <h3 className="text-xl md:text-xl lg:text-[28px] text-center font-bold px-2 pt-11">{title}</h3>
                 <p className="text-lg md:text-xl lg:text-[26px] text-center px-4 pb-9">{description}</p>
             </div>
