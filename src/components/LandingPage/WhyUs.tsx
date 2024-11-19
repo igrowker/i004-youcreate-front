@@ -23,10 +23,10 @@ const WhyUs: React.FC = () => {
       <h2 className="text-center font-bold text-2xl lg:text-3xl my-12 md:my-24 lg:my-32">
         ¿Por qué elegir You Create?
       </h2>
-      <div className="md:flex gap-x-5">
+      <div className="md:flex gap-x-7">
         {whyUsData.map(({ title, description }, index) => {
           return (
-            <div className="space-y-10 border-[3px] rounded-lg border-[#5B0068] lg:min-h-[470px] flex flex-col mb-20 lg:mb-52" key={index}>
+            <div className="space-y-10 border-[3px] rounded-lg border-[#5B0068] lg:min-h-[410px] flex flex-col mb-20 lg:mb-52" key={index}>
                 <h3 className="text-xl md:text-xl lg:text-[28px] text-center font-bold px-2 pt-11">{title}</h3>
                 <p className="text-lg md:text-xl lg:text-[26px] text-center px-4 pb-9">{description}</p>
             </div>
