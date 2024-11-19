@@ -10,8 +10,10 @@ const LandingPage: React.FC = () => {
     <div>
       <NavBar />
       <Banner />
-      <Features />
-      <WhyUs />
+      <div className="px-10 md:px-16 lg:px-48">
+        <Features />
+        <WhyUs />
+      </div>
       <Footer />
     </div>
   );

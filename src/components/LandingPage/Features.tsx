@@ -43,8 +43,8 @@ const Features: React.FC = () => {
     },
   ];
   return (
-    <div className="px-48">
-      <h2 className="text-center font-bold text-[#5B0068] text-3xl my-32">¿Cómo funciona?</h2>
+    <div>
+      <h2 className="text-center font-bold text-[#5B0068] text-2xl lg:text-3xl my-12 md:my-24 lg:my-32">¿Cómo funciona?</h2>
       <div className="space-y-20">
         {worksData.map(({ title, description, image, color }, index) => {
           const isInverted = index % 2 === 1;
@@ -52,22 +52,22 @@ const Features: React.FC = () => {
             <div
               key={index}
               style={{ backgroundColor: color }}
-              className={`flex flex-col h-[450px] ${
+              className={`flex flex-col lg:h-[450px] ${
                 isInverted ? "md:flex-row" : "md:flex-row-reverse"
               } items-center gap-x-5 justify-between`}
             >
               {/* Imagen */}
-              <div className="h-full">
+              <div className="w-full h-full lg:w-auto">
                 <img
                   src={image}
                   alt={title}
-                  className="h-full w-[700px] shadow-md"
+                  className="lg:h-full md:h-full min-h-64 min-w-48 w-full h-52 lg:w-[700px] shadow-md"
                 />
               </div>
               {/* Texto */}
-              <div className="w-[800px] px-16 space-y-12">
-                <h3 className="text-3xl font-bold">{title}</h3>
-                <p className="text-2xl">{description}</p>
+              <div className="p-5 lg:w-[800px] lg:px-16 space-y-12">
+                <h3 className="text-xl text-center lg:text-left lg:text-3xl font-bold">{title}</h3>
+                <p className="text-lg text-center lg:text-left lg:text-2xl">{description}</p>
               </div>
             </div>
           );

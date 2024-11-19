@@ -23,7 +23,7 @@ const Banner: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex justify-center items-center px-48 mt-16">
+    <div className="md:px-16 lg:px-48 flex justify-center items-center sm:mt-16">
       <img
         src={images[currentImage]}
         alt="Banner"
