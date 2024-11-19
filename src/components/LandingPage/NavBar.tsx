@@ -3,7 +3,7 @@ import logo from "../../assets/logo.svg";
 
 const NavBar: React.FC = () => {
   return (
-    <nav className="flex justify-between items-center bg-[#2B2829] px-16 py-5">
+    <nav className="flex fixed top-0 w-full z-10 justify-between items-center bg-[#2B2829] px-16 py-5">
       {/* Logo */}
       <div>
         <img src={logo} alt="Logo" className="h-24 w-24" />
