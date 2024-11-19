@@ -8,6 +8,7 @@ type LoginType = {
 }
 
 export const Login: React.FC = () => {
+    
     const { register, handleSubmit, formState: { errors } } = useForm<LoginType>();
 
     const onSubmit: SubmitHandler<LoginType> = data => {
@@ -25,12 +26,12 @@ export const Login: React.FC = () => {
                         <h2 className="text-2xl font-semibold text-center">Iniciar sesión</h2>
                         <p className="text-center text-sm">
                             ¿No tenés una cuenta?{' '}
-                            <a href="#" className="text-blue-500 underline">
+                            <a href="http://localhost:5173/register" className="text-blue-500 underline">
                                 Registrate acá
                             </a>
                         </p>
                         <input
-                            {...register('email', {required: 'Email is required'})}
+                            {...register('email', {required: 'Email es requerido'})}
                             type="email"
                             placeholder="Email"
                             className="w-full p-3 mt-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -40,9 +41,9 @@ export const Login: React.FC = () => {
                     <div className="mt-4">
                         <input
                             {...register('password', {
-                                required: { value: true, message: 'Este campo es requerido, por favor ingrese su nombre' },
-                                minLength: { value: 3, message: 'El nombre debe tener al menos 3 caracteres, por favor ingrese una contraseña válida' },
-                                maxLength: { value: 20, message: 'El nombre debe tener menos de 20 caracteres, por favor ingrese una contraseña válida' }
+                                required: { value: true, message: 'Este campo es requerido, por favor ingrese su contraseña' },
+                                minLength: { value: 3, message: 'El password debe tener al menos 3 caracteres, por favor ingrese una contraseña válida' },
+                                maxLength: { value: 20, message: 'El password debe tener menos de 20 caracteres, por favor ingrese una contraseña válida' }
 
                             })}
                             type="password"
