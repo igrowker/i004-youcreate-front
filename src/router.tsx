@@ -8,6 +8,7 @@ import TwoFactorAuth from "./components/RegistroLoginComponent/TwoFactorAuth.tsx
 import NotFound from "./pages/NotFound.tsx";
 import VerifyAccountSuccess  from "./components/RegistroLoginComponent/VerifyAccountSuccess.tsx"; 
 import { ResetPassword } from "./components/RegistroLoginComponent/ResetPassword.tsx";
+import {Login1} from "./components/RegistroLoginComponent/login1.tsx";
 
 
 
@@ -22,6 +23,9 @@ export const AppRouter: FC = () => {
                     <Route index element={<LandingPage />} />
                 </Route>
                 <Route path="/login" element={<Login/>}/>
+                <Route path="/login1" element={<Login1/>}/>
+
+
                 <Route path="/register" element={<Register/>}/>
                 <Route path="/reset-password" element={<ResetPassword/>}/>
 
