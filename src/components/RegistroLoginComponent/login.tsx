@@ -19,7 +19,7 @@ export const Login: React.FC = () => {
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
-            <div className="bg-white rounded-2xl border border-[#4d4d4d] shadow-lg w-[502px] h-[730px] overflow-hidden p-6">
+            <div className="bg-white rounded-2xl border border-[#4d4d4d] shadow-lg w-[502px] h-[760px] overflow-hidden p-6">
                 <div className="relative">
                     <img
                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlbzQSwEkbwmAZ0yt9AKLOPbz_8mYlFM7bCg&s"
@@ -93,7 +93,7 @@ export const Login: React.FC = () => {
                             {errors.password && <p className="mt-1 text-sm text-red-500">{errors.password.message}</p>}
                         </div>
 
-                        <div className="flex items-center justify-between text-sm">
+                        <div className="flex items-center justify-between text-sm mb-6">
                             <label className="flex items-center">
                                 <input
                                     type="checkbox"
@@ -109,7 +109,7 @@ export const Login: React.FC = () => {
 
                         <button
                             type="submit"
-                            className="w-full bg-gray-800 text-white py-2 rounded hover:bg-gray-900 transition text-base font-bold font-['Lato'] tracking-tight mt-4"
+                            className="w-full bg-gray-800 text-white py-2 hover:bg-gray-900 transition text-base font-bold font-['Lato'] tracking-tight mt-4 rounded-lg shadow"
                         >
                             INICIAR SESIÓN
                         </button>

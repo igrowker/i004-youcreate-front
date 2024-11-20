@@ -21,7 +21,7 @@ const TwoFactorAuth: React.FC = () => {
   const verifyCode = async (): Promise<void> => {
     const codeString = userCode.join(""); // Unir los 4 dígitos en una cadena de texto
     try {
-      const response = await axios.post("/api/verify-2fa", {
+      await axios.post("/api/verify-2fa", {
         code: codeString, // El código ingresado por el usuario
       });
     } catch (err) {
