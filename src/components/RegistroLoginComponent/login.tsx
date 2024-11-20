@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { FaGoogle, FaApple } from 'react-icons/fa';
+import { Link } from 'react-router-dom'
 
 type LoginType = {
     email: string;
@@ -58,6 +59,10 @@ export const Login: React.FC = () => {
                     >
                         Continuar
                     </button>
+
+                    <Link to="/reset-password" className=" text-blue-500  hover:underline">
+                    ¿Olvidaste tu contraseña?
+                    </Link>
                 </form>
 
                 <div className="flex items-center justify-center my-4">
