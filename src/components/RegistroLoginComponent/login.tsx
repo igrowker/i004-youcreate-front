@@ -13,8 +13,25 @@ export const Login: React.FC = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<LoginType>();
     const [showPassword, setShowPassword] = useState(false);
 
-    const onSubmit: SubmitHandler<LoginType> = data => {
-        console.log("Iniciando sesión con:", data);
+    const onSubmit: SubmitHandler<LoginType> = async data => {
+        try {
+            const response = await fetch('/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (!response.ok) {
+                throw new Error('Error en la solicitud');
+            }
+
+            const result = await response.json();
+            console.log("Iniciando sesión con:", result);
+        } catch (error) {
+            console.error("Error al iniciar sesión:", error);
+        }
     };
 
     return (
