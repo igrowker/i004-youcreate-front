@@ -18,12 +18,17 @@ export const AppRouter: FC = () => {
             <Routes>
                 <Route path="/auth" element={<TwoFactorAuth/>}/>
                 <Route path="*" element={<NotFound />} />
+
                 <Route path="/" element={<RouterLayout/>}>
                     <Route index element={<LandingPage />} />
                 </Route>
                 <Route path="/login" element={<Login/>}/>
+
+
+
                 <Route path="/register" element={<Register/>}/>
                 <Route path="/reset-password" element={<ResetPassword/>}/>
+
                 <Route path="/verify/succesful" element={<VerifyAccountSuccess/>}/>
             </Routes>
         )
