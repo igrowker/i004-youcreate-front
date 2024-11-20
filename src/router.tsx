@@ -24,11 +24,8 @@ export const AppRouter: FC = () => {
                 </Route>
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/login1" element={<Login1/>}/>
-
-
                 <Route path="/register" element={<Register/>}/>
                 <Route path="/reset-password" element={<ResetPassword/>}/>
-
                 <Route path="/verify/succesful" element={<VerifyAccountSuccess/>}/>
             </Routes>
         )
