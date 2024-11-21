@@ -2,38 +2,43 @@ import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { FaGoogle, FaFacebook, FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
-
-type LoginType = {
-    email: string;
-    password: string;
-    rememberMe: boolean;
-};
+import {login, LoginType} from "../../services/auth/auth-services.ts";
+import {Flip, toast} from "react-toastify";
+import {Loader} from "../Loader/Loader.tsx";
 
 export const Login: React.FC = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<LoginType>();
     const [showPassword, setShowPassword] = useState(false);
+    const [isLoading, setIsLoading] = useState(false)
 
     const onSubmit: SubmitHandler<LoginType> = async data => {
+        setIsLoading(true);
+        const id = toast.loading("Cargando", {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Flip,
+        });
         try {
-            const response = await fetch('/auth/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-
-            if (!response.ok) {
-                throw new Error('Error en la solicitud');
-            }
-
-            const result = await response.json();
-            console.log("Iniciando sesión con:", result);
+            const response = await login(data);
+            console.log("Iniciando sesión con:", response);
+            localStorage.setItem('loginData', JSON.stringify(response.data));
+            setIsLoading(false);
+            toast.update(id, { render: `Sesion iniciada correctamente`, type: "success", isLoading: false });
         } catch (error) {
+            setIsLoading(false);
+            toast.update(id, { render: `Error al iniciar sesión: ${error}`, type: "error", isLoading: false });
             console.error("Error al iniciar sesión:", error);
         }
     };
-
+if (isLoading ){
+    return  <Loader/>
+}
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
             <div className="bg-white rounded-2xl border border-[#4d4d4d] shadow-lg w-[502px] h-[760px] overflow-hidden p-6">
