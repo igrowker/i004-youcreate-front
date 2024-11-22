@@ -11,7 +11,6 @@ const App: FC = () => {
             <ToastContainer />
             <AppRouter/>
         </BrowserRouter>
-
     );
 }
 
