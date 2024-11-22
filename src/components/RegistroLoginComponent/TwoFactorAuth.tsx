@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import iconYoucreate from "../../assets/vectors/iconYoucreate.svg";
+import Verify from "../../assets/vectors/lockedVerify.svg";
 import arrowLeft from "../../assets/vectors/arrowLeft.svg";
 import { useNavigate } from "react-router-dom";
 
@@ -30,7 +30,7 @@ const TwoFactorAuth: React.FC = () => {
   };
 
   return (
-    <section className="bg-[#E7DEFF] w-full h-[100vh] relative overflow-hidden flex ali items-center">
+    <section className=" bg-gray-100 w-full h-[100vh] relative overflow-hidden flex ali items-center">
       <img
         onClick={() => navigate(-1)}
         className="absolute top-7 left-5 lg:top-10 lg:left-10"
@@ -38,7 +38,7 @@ const TwoFactorAuth: React.FC = () => {
         alt=""
       />
       <form className="bg-[#FFFFFF] relative rounded-xl m-auto w-[95%] h-[500px]  max-w-[630px] p-3 flex flex-col justify-center items-center  gap-5 ">
-        <img src={iconYoucreate} alt="icon youcreate" />
+        <img src={Verify} alt="icon youcreate" />
         <span className="absolute top-5 right-5">Paso 2 de 2</span>
         <h2 className="text-center font-bold text-2xl ">
           Verificación de seguridad
@@ -60,7 +60,7 @@ const TwoFactorAuth: React.FC = () => {
           ))}
         </div>
         <button
-          className="bg-[#7E008F] rounded-md text-[#FFFFFF] w-[200px] h-[50px]"
+          className="bg-[#000000] rounded-md text-[#FFFFFF] w-[200px] h-[50px] hover:bg-gray-700"
           onClick={verifyCode}
         >
           Verificar cuenta
