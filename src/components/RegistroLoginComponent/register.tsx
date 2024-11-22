@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { faApple } from '@fortawesome/free-brands-svg-icons';
-
+import Logo from "../../assets/uCreate.svg"
 export const Register: React.FC = () => {
     const [formData, setFormData] = useState({
         firstName: '',
@@ -15,6 +15,7 @@ export const Register: React.FC = () => {
         confirmPassword: '',
         youtubeUser: '',
         twitchUser: '',
+        
         youtubeChecked: false,
         twitchChecked: false,
     });
@@ -44,7 +45,7 @@ export const Register: React.FC = () => {
             <form onSubmit={handleSubmit} className="bg-gray-300 p-10 rounded-lg shadow-lg w-full max-w-md">
 
                 <div className="flex justify-end space-x-14 items-top mb-4">
-                    <img className="w-20 h-20 text-center" src="https://cdn-icons-png.flaticon.com/512/6681/6681204.png" alt="YouCreate Logo"/>
+                    <img className="w-20 h-20 text-center" src={Logo} alt="YouCreate Logo"/>
                     <span>Paso 1 de 2</span>
                 </div>
                 <h2 className="text-2xl font-bold text-center mb-4">Crear una cuenta</h2>

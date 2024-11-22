@@ -124,9 +124,9 @@ if (isLoading ){
                                 />
                                 Recordarme
                             </label>
-                            <a href="#" className="text-gray-500">
+                           <Link to="/reset-password" className="text-gray-500 hover:underline">
                                 ¿Has olvidado la contraseña?
-                            </a>
+                                </Link>
                         </div>
 
                         <button

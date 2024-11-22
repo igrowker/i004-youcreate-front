@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-
+import Logo  from "../../assets/uCreate.svg"
 type ResetPasswordType = {
     email: string;
 }
@@ -9,7 +9,7 @@ export const ResetPassword: React.FC = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<ResetPasswordType>();
 
     const onSubmit: SubmitHandler<ResetPasswordType> = data => {
-       
+      
 
     };
 
@@ -19,7 +19,7 @@ export const ResetPassword: React.FC = () => {
                 <div className="flex justify-center mb-6">
                     <img
                         className="w-20 h-20"
-                        src="https://cdn-icons-png.flaticon.com/512/6681/6681204.png"
+                        src={Logo}
                         alt="Restablecer contraseña"
                     />
                 </div>
