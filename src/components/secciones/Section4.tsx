@@ -3,9 +3,10 @@ import React from 'react';
 const Section4: React.FC = () => {
 
   return (
-    <div className='w-[500px] ml-10 p-4 text-yellow-50 bg-slate-700  m-auto h-[100px]'>
-      <br />
-      <h1 className='text-xl'>section 4</h1>
+    <div className="flex justify-center items-center h-screen bg-[#EEEEEE]">
+       <div className="bg-white rounded-2xl shadow-lg w-[800px] h-[560px] overflow-hidden p-4 transform translate-x-16 md:translate-x-24 lg:translate-x-32">
+
+      </div>
     </div>
   );
 };

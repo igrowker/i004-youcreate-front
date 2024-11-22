@@ -11,6 +11,8 @@ interface UserDashboardProps {
   section2: ReactNode;
   section3: ReactNode;
   section4: ReactNode;
+ 
+  section5: ReactNode;
 }
 
 // Componente de Dashboard con navegación
@@ -19,14 +21,18 @@ const UserDashboard: React.FC<UserDashboardProps> = ({
   section2,
   section3,
   section4,
+  
+  section5,
 }) => {
   const [activeSection, setActiveSection] = useState<string>("section1");
 
   const navigation = [
-    { title: "inicio", section: "section1", icon: houseIcon },
+    { title: "Inicio", section: "section1", icon: houseIcon },
     { title: "Mis ingresos", section: "section2", icon: dashboardIcon },
     { title: "Pagos", section: "section3", icon: walletIcon },
-    { title: "Ajustes", section: "section4", icon: configIcon },
+    { title: "Impuestos", section: "section4", icon: walletIcon },
+   
+    { title: "Ajustes", section: "section5", icon: configIcon },
   ];
 
   const handleNavClick = (section: string) => {
@@ -63,6 +69,8 @@ const UserDashboard: React.FC<UserDashboardProps> = ({
         {activeSection === "section2" && <>{section2}</>}
         {activeSection === "section3" && <>{section3}</>}
         {activeSection === "section4" && <>{section4}</>}
+        
+        {activeSection === "section5" && <>{section5}</>}
      
       </div>
     </section>

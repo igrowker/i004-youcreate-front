@@ -8,7 +8,7 @@ import TwoFactorAuth from "./components/RegistroLoginComponent/TwoFactorAuth.tsx
 import NotFound from "./pages/NotFound.tsx";
 import VerifyAccountSuccess  from "./components/RegistroLoginComponent/VerifyAccountSuccess.tsx"; 
 
-import UserAdmin from "./pages/userAdmin.tsx";
+import UserAdmin from "./pages/UserAdmin.tsx";
 
 import { ResetPassword } from "./components/RegistroLoginComponent/ResetPassword.tsx";
 

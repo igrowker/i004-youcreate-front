@@ -1,6 +1,7 @@
-import React from "react";
+import React from 'react';
 
-const Section2: React.FC = () => {
+const Section5: React.FC = () => {
+
   return (
     <div className="flex justify-center items-center h-screen bg-[#EEEEEE]">
        <div className="bg-white rounded-2xl shadow-lg w-[800px] h-[560px] overflow-hidden p-4 transform translate-x-16 md:translate-x-24 lg:translate-x-32">
@@ -10,4 +11,4 @@ const Section2: React.FC = () => {
   );
 };
 
-export default Section2;
+export default Section5;
