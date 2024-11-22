@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { faApple } from '@fortawesome/free-brands-svg-icons';
-import Logo from "../../assets/uCreate.svg"
+import Logo from "../../assets/vectors/uCreate.svg"
 export const Register: React.FC = () => {
     const [formData, setFormData] = useState({
         firstName: '',

@@ -1,5 +1,5 @@
 import React from 'react';
-import Verify from "../../assets/verify.svg";
+import Verify from "../../assets/vectors/verify.svg";
 import { useNavigate } from 'react-router-dom';
 
 const VerifyAccountSuccess: React.FC = () => {

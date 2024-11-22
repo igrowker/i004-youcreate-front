@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import Logo  from "../../assets/uCreate.svg"
+import Logo  from "../../assets/vectors/uCreate.svg"
 type ResetPasswordType = {
     email: string;
 }
