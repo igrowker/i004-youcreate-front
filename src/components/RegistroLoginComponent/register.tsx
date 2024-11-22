@@ -15,7 +15,7 @@ export const Register: React.FC = () => {
         confirmPassword: '',
         youtubeUser: '',
         twitchUser: '',
-        
+
         youtubeChecked: false,
         twitchChecked: false,
     });
@@ -40,19 +40,27 @@ export const Register: React.FC = () => {
         console.log(formData);
     };
 
+
+    const mergedPhoneNumber = `${formData.phoneCode}${formData.phoneNumber}`;
+    console.log({
+        ...formData,
+        phoneNumber: mergedPhoneNumber,  // Este es el número de teléfono combinado
+    });
+
+
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-200 p-6">
             <form onSubmit={handleSubmit} className="bg-gray-300 p-10 rounded-lg shadow-lg w-full max-w-md">
 
                 <div className="flex justify-end space-x-14 items-top mb-4">
-                    <img className="w-20 h-20 text-center" src={Logo} alt="YouCreate Logo"/>
+                    <img className="w-20 h-20 text-center" src={Logo} alt="YouCreate Logo" />
                     <span>Paso 1 de 2</span>
                 </div>
                 <h2 className="text-2xl font-bold text-center mb-4">Crear una cuenta</h2>
                 <div className="flex justify-center space-x-4 mb-4">
 
-                <a href="https://myaccount.google.com/"><button type="button" className="bg-gray-800 hover:bg-black text-white text-2xl font-bold w-10 h-10 rounded-full"><h1><FontAwesomeIcon icon={faGoogle} /></h1></button></a>
-                <a href="https://www.icloud.com/"><button type="button" className="bg-gray-800 hover:bg-black text-white text-2xl font-bold w-10 h-10 rounded-full"><h1><FontAwesomeIcon icon={faApple} /></h1></button></a>
+                    <a href="https://myaccount.google.com/"><button type="button" className="bg-gray-800 hover:bg-black text-white text-2xl font-bold w-10 h-10 rounded-full"><h1><FontAwesomeIcon icon={faGoogle} /></h1></button></a>
+                    <a href="https://www.icloud.com/"><button type="button" className="bg-gray-800 hover:bg-black text-white text-2xl font-bold w-10 h-10 rounded-full"><h1><FontAwesomeIcon icon={faApple} /></h1></button></a>
                 </div>
 
                 <h3 className="text-sm font-semibold mb-2">Tus datos</h3>
