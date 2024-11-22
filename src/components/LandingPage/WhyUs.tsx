@@ -20,7 +20,7 @@ const WhyUs: React.FC = () => {
   ];
   return (
     <div className="text-[#5B0068]">
-      <h2 className="text-center font-bold text-2xl lg:text-3xl my-12 md:my-24 lg:my-32">
+      <h2 className="text-center font-bold text-2xl lg:text-3xl my-16 md:my-24 lg:my-32">
         ¿Por qué elegir You Create?
       </h2>
       <div className="md:flex gap-x-7">

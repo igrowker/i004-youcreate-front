@@ -44,7 +44,7 @@ const Features: React.FC = () => {
   ];
   return (
     <div>
-      <h2 className="text-center font-bold text-[#5B0068] text-2xl lg:text-3xl my-12 md:my-24 lg:my-32">¿Cómo funciona?</h2>
+      <h2 className="text-center font-bold text-[#5B0068] text-2xl lg:text-3xl my-16 md:my-24 lg:my-32">¿Cómo funciona?</h2>
       <div className="space-y-20">
         {worksData.map(({ title, description, image, color }, index) => {
           const isInverted = index % 2 === 1;
