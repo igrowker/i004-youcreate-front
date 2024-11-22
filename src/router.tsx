@@ -7,6 +7,7 @@ import LandingPage from "./components/LandingPage/LandingPage.tsx";
 import TwoFactorAuth from "./components/RegistroLoginComponent/TwoFactorAuth.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import VerifyAccountSuccess  from "./components/RegistroLoginComponent/VerifyAccountSuccess.tsx"; 
+import UserAdmin from "./pages/userAdmin.tsx";
 
 
 
@@ -17,6 +18,7 @@ export const AppRouter: FC = () => {
             <Routes>
                 <Route path="/auth" element={<TwoFactorAuth/>}/>
                 <Route path="*" element={<NotFound />} />
+                <Route path="/admin"  element={<UserAdmin/>} />
 
                 <Route path="/" element={<RouterLayout/>}>
                     <Route index element={<LandingPage />} />
