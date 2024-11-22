@@ -44,7 +44,7 @@ export const Register: React.FC = () => {
     const mergedPhoneNumber = `${formData.phoneCode}${formData.phoneNumber}`;
     console.log({
         ...formData,
-        phoneNumber: mergedPhoneNumber,  // Este es el número de teléfono combinado
+        phoneNumber: mergedPhoneNumber,
     });
 
 
@@ -65,8 +65,8 @@ export const Register: React.FC = () => {
 
                 <h3 className="text-sm font-semibold mb-2">Tus datos</h3>
 
-                <input type="text" name="firstName" placeholder="Nombre" value={formData.firstName} onChange={handleChange} className="mb-2 p-2 border rounded w-full" />
-                <input type="text" name="lastName" placeholder="Apellido" value={formData.lastName} onChange={handleChange} className="mb-2 p-2 border rounded w-full" />
+                <input type="text" name="firstName" placeholder="Nombre*" value={formData.firstName} onChange={handleChange} className="mb-2 p-2 border rounded w-full" />
+                <input type="text" name="lastName" placeholder="Apellido*" value={formData.lastName} onChange={handleChange} className="mb-2 p-2 border rounded w-full" />
 
                 <select name="country" value={formData.country} onChange={handleChange} className="mb-2 p-2 border rounded w-full">
                     <option value="">País</option>
@@ -82,10 +82,10 @@ export const Register: React.FC = () => {
                         <option value="+1">+1</option>
                         <option value="+34">+34</option>
                     </select>
-                    <input type="text" name="phoneNumber" placeholder="Número de teléfono" value={formData.phoneNumber} onChange={handleChange} className="p-2 border rounded w-2/3" />
+                    <input type="text" name="phoneNumber" placeholder="Número de teléfono*" value={formData.phoneNumber} onChange={handleChange} className="p-2 border rounded w-2/3" />
                 </div>
 
-                <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} className="mb-2 p-2 border rounded w-full" />
+                <input type="email" name="email" placeholder="Email*" value={formData.email} onChange={handleChange} className="mb-2 p-2 border rounded w-full" />
                 <input type="password" name="password" placeholder="Contraseña *" value={formData.password} onChange={handleChange} className="mb-2 p-2 border rounded w-full" />
                 <input type="password" name="confirmPassword" placeholder="Confirmar contraseña *" value={formData.confirmPassword} onChange={handleChange} className="mb-2 p-2 border rounded w-full" />
 
