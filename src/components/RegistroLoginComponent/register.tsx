@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    faEye,
+    faEyeSlash
+} from "@fortawesome/free-solid-svg-icons";
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { faApple } from '@fortawesome/free-brands-svg-icons';
 import Logo from "../../assets/vectors/uCreate.svg"
@@ -67,6 +71,7 @@ export const Register: React.FC = () => {
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-200 p-6">
             <form onSubmit={handleSubmit} className="bg-gray-300 p-10 rounded-lg shadow-lg w-full max-w-md">
 
+
                 <div className="flex justify-end space-x-14 items-top mb-4">
                     <img className="w-20 h-20 text-center" src={Logo} alt="YouCreate Logo" />
                     <span>Paso 1 de 2</span>
@@ -114,7 +119,11 @@ export const Register: React.FC = () => {
                             cursor: 'pointer',
                             padding: 'none',
                         }}
-                    >{showPassword ? 'Ocultar' : 'Mostrar'}
+                    >{showPassword ? (
+                        <FontAwesomeIcon icon={faEye} />
+                    ) : (
+                        <FontAwesomeIcon icon={faEyeSlash} />
+                    )}
                     </button>
                 </div>
 
@@ -130,7 +139,11 @@ export const Register: React.FC = () => {
                             cursor: 'pointer',
                             padding: 'none',
                         }}
-                    >{showPassword ? 'Ocultar' : 'Mostrar'}
+                    >{showPassword ? (
+                        <FontAwesomeIcon icon={faEye} />
+                    ) : (
+                        <FontAwesomeIcon icon={faEyeSlash} />
+                    )}
                     </button>
                 </div>
 
