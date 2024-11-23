@@ -15,7 +15,6 @@ export const Register: React.FC = () => {
         confirmPassword: '',
         youtubeUser: '',
         twitchUser: '',
-
         youtubeChecked: false,
         twitchChecked: false,
     });
@@ -40,12 +39,28 @@ export const Register: React.FC = () => {
         console.log(formData);
     };
 
-
+    //Unir codigo pais con numero telefonico
     const mergedPhoneNumber = `${formData.phoneCode}${formData.phoneNumber}`;
     console.log({
         ...formData,
         phoneNumber: mergedPhoneNumber,
     });
+
+    // Mostrar contraseña
+    const [visualPassword, setPassword] = useState<string>('');
+    const [showPassword, setShowPassword] = useState<boolean>(false);
+    console.log({
+        ...formData,
+        password: visualPassword,
+    });
+
+    const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setPassword(event.target.value);
+    };
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
 
 
     return (
@@ -86,8 +101,38 @@ export const Register: React.FC = () => {
                 </div>
 
                 <input type="email" name="email" placeholder="Email*" value={formData.email} onChange={handleChange} className="mb-2 p-2 border rounded w-full" />
-                <input type="password" name="password" placeholder="Contraseña *" value={formData.password} onChange={handleChange} className="mb-2 p-2 border rounded w-full" />
-                <input type="password" name="confirmPassword" placeholder="Confirmar contraseña *" value={formData.confirmPassword} onChange={handleChange} className="mb-2 p-2 border rounded w-full" />
+
+                <div className='flex items-center'>
+                    <input type={showPassword ? 'text' : 'password'} name="password" placeholder="Contraseña *" value={visualPassword} onChange={handlePasswordChange} className="mb-2 p-2 border rounded w-full" style={{ marginRight: '10px' }} />
+                    <button
+                        type="button"
+                        onClick={togglePasswordVisibility}
+                        style={{
+                            background: 'none',
+                            border: 'none',
+                            color: 'black',
+                            cursor: 'pointer',
+                            padding: 'none',
+                        }}
+                    >{showPassword ? 'Ocultar' : 'Mostrar'}
+                    </button>
+                </div>
+
+                <div className='flex items-center'>
+                    <input type={showPassword ? 'text' : 'password'} name="password" placeholder="Contraseña *" value={visualPassword} onChange={handlePasswordChange} className="mb-2 p-2 border rounded w-full" style={{ marginRight: '10px' }} />
+                    <button
+                        type="button"
+                        onClick={togglePasswordVisibility}
+                        style={{
+                            background: 'none',
+                            border: 'none',
+                            color: 'black',
+                            cursor: 'pointer',
+                            padding: 'none',
+                        }}
+                    >{showPassword ? 'Ocultar' : 'Mostrar'}
+                    </button>
+                </div>
 
                 <h3 className="text-sm font-semibold mt-4 mb-2">¿Dónde estás creando contenido?</h3>
                 <div className="flex items-center mb-2">
