@@ -51,21 +51,37 @@ export const Register: React.FC = () => {
     });
 
     // Mostrar contraseña
-    const [visualPassword, setPassword] = useState<string>('');
-    const [showPassword, setShowPassword] = useState<boolean>(false);
+    const [password1, setPassword1] = useState<string>('');
+    const [showPassword1, setShowPassword1] = useState<boolean>(false);
+
+    // State for the second password input
+    const [password2, setPassword2] = useState<string>('');
+    const [showPassword2, setShowPassword2] = useState<boolean>(false);
+
+
     console.log({
         ...formData,
-        password: visualPassword,
+        password: password1,
     });
 
-    const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(event.target.value);
+    const handlePasswordChange1 = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPassword1(e.target.value);
     };
 
-    const togglePasswordVisibility = () => {
-        setShowPassword(!showPassword);
+    // Handle password change for second input
+    const handlePasswordChange2 = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPassword2(e.target.value);
     };
 
+    const togglePasswordVisibility1 = () => {
+        setShowPassword1(!showPassword1);
+    };
+
+
+    const togglePasswordVisibility2 = () => {
+        setShowPassword2(!showPassword2);
+
+    }
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-200 p-6">
@@ -107,11 +123,13 @@ export const Register: React.FC = () => {
 
                 <input type="email" name="email" placeholder="Email*" value={formData.email} onChange={handleChange} className="mb-2 p-2 border rounded w-full" />
 
+
+
                 <div className='flex items-center'>
-                    <input type={showPassword ? 'text' : 'password'} name="password" placeholder="Contraseña *" value={visualPassword} onChange={handlePasswordChange} className="mb-2 p-2 border rounded w-full" style={{ marginRight: '10px' }} />
+                    <input type={showPassword1 ? 'text' : 'password'} name="password" placeholder="Contraseña *" value={password1} onChange={handlePasswordChange1} className="mb-2 p-2 border rounded w-full" style={{ marginRight: '10px' }} />
                     <button
                         type="button"
-                        onClick={togglePasswordVisibility}
+                        onClick={togglePasswordVisibility1}
                         style={{
                             background: 'none',
                             border: 'none',
@@ -119,7 +137,7 @@ export const Register: React.FC = () => {
                             cursor: 'pointer',
                             padding: 'none',
                         }}
-                    >{showPassword ? (
+                    >{showPassword1 ? (
                         <FontAwesomeIcon icon={faEye} />
                     ) : (
                         <FontAwesomeIcon icon={faEyeSlash} />
@@ -128,10 +146,10 @@ export const Register: React.FC = () => {
                 </div>
 
                 <div className='flex items-center'>
-                    <input type={showPassword ? 'text' : 'password'} name="password" placeholder="Contraseña *" value={visualPassword} onChange={handlePasswordChange} className="mb-2 p-2 border rounded w-full" style={{ marginRight: '10px' }} />
+                    <input type={showPassword2 ? 'text' : 'password'} name="password" placeholder="Contraseña *" value={password2} onChange={handlePasswordChange2} className="mb-2 p-2 border rounded w-full" style={{ marginRight: '10px' }} />
                     <button
                         type="button"
-                        onClick={togglePasswordVisibility}
+                        onClick={togglePasswordVisibility2}
                         style={{
                             background: 'none',
                             border: 'none',
@@ -139,7 +157,7 @@ export const Register: React.FC = () => {
                             cursor: 'pointer',
                             padding: 'none',
                         }}
-                    >{showPassword ? (
+                    >{showPassword2 ? (
                         <FontAwesomeIcon icon={faEye} />
                     ) : (
                         <FontAwesomeIcon icon={faEyeSlash} />
@@ -164,3 +182,5 @@ export const Register: React.FC = () => {
         </div>
     );
 };
+
+
