@@ -40,22 +40,18 @@ export const Register: React.FC = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log(formData);
+    
+        //Unir codigo pais con numero telefonico
+        const mergedPhoneNumber = `${formData.phoneCode}${formData.phoneNumber}`;
+        console.log({
+            ...formData,
+            phoneNumber: mergedPhoneNumber,
+        });
     };
 
-    //Unir codigo pais con numero telefonico
-    const mergedPhoneNumber = `${formData.phoneCode}${formData.phoneNumber}`;
-    console.log({
-        ...formData,
-        phoneNumber: mergedPhoneNumber,
-    });
-
-    // Mostrar contraseña
     const [password1, setPassword1] = useState<string>('');
-    const [showPassword1, setShowPassword1] = useState<boolean>(false);
-
-    // State for the second password input
     const [password2, setPassword2] = useState<string>('');
+    const [showPassword1, setShowPassword1] = useState<boolean>(false);
     const [showPassword2, setShowPassword2] = useState<boolean>(false);
 
 
@@ -68,7 +64,6 @@ export const Register: React.FC = () => {
         setPassword1(e.target.value);
     };
 
-    // Handle password change for second input
     const handlePasswordChange2 = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPassword2(e.target.value);
     };
@@ -77,10 +72,8 @@ export const Register: React.FC = () => {
         setShowPassword1(!showPassword1);
     };
 
-
     const togglePasswordVisibility2 = () => {
         setShowPassword2(!showPassword2);
-
     }
 
     return (
@@ -123,19 +116,15 @@ export const Register: React.FC = () => {
 
                 <input type="email" name="email" placeholder="Email*" value={formData.email} onChange={handleChange} className="mb-2 p-2 border rounded w-full" />
 
-
-
-                <div className='flex items-center'>
-                    <input type={showPassword1 ? 'text' : 'password'} name="password" placeholder="Contraseña *" value={password1} onChange={handlePasswordChange1} className="mb-2 p-2 border rounded w-full" style={{ marginRight: '10px' }} />
-                    <button
-                        type="button"
+                <div className='flex justify-end' style={{position: 'relative', width: 'auto'}}>
+                    <input className="mb-2 p-2 border rounded w-full" type={showPassword1 ? 'text' : 'password'} name="password" placeholder="Contraseña *" value={password1} onChange={handlePasswordChange1}  />
+                    <button className='flex mr-3 mt-3' type="button"
                         onClick={togglePasswordVisibility1}
                         style={{
-                            background: 'none',
-                            border: 'none',
+                            position: 'absolute',
                             color: 'black',
                             cursor: 'pointer',
-                            padding: 'none',
+                            
                         }}
                     >{showPassword1 ? (
                         <FontAwesomeIcon icon={faEye} />
@@ -145,17 +134,16 @@ export const Register: React.FC = () => {
                     </button>
                 </div>
 
-                <div className='flex items-center'>
-                    <input type={showPassword2 ? 'text' : 'password'} name="password" placeholder="Contraseña *" value={password2} onChange={handlePasswordChange2} className="mb-2 p-2 border rounded w-full" style={{ marginRight: '10px' }} />
-                    <button
-                        type="button"
+                <div className='flex justify-end' style={{position: 'relative', width: 'auto'}}>
+                    <input className="mb-2 p-2 border rounded w-full" type={showPassword2 ? 'text' : 'password'} name="password" placeholder="Contraseña *" value={password2} onChange={handlePasswordChange2} />
+                    <button className='flex mr-3 mt-3' type="button"
                         onClick={togglePasswordVisibility2}
                         style={{
-                            background: 'none',
-                            border: 'none',
+                            
+                            position: 'absolute',
                             color: 'black',
                             cursor: 'pointer',
-                            padding: 'none',
+                            
                         }}
                     >{showPassword2 ? (
                         <FontAwesomeIcon icon={faEye} />
