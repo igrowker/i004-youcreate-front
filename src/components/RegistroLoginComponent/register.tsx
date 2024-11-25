@@ -55,10 +55,10 @@ export const Register: React.FC = () => {
     const [showPassword2, setShowPassword2] = useState<boolean>(false);
 
 
-    console.log({
+ /*    console.log({
         ...formData,
         password: password1,
-    });
+    }); */
 
     const handlePasswordChange1 = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPassword1(e.target.value);
@@ -75,6 +75,7 @@ export const Register: React.FC = () => {
     const togglePasswordVisibility2 = () => {
         setShowPassword2(!showPassword2);
     }
+
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-200 p-6">
@@ -124,7 +125,7 @@ export const Register: React.FC = () => {
                             position: 'absolute',
                             color: 'black',
                             cursor: 'pointer',
-                            
+                            fontSize: 15                           
                         }}
                     >{showPassword1 ? (
                         <FontAwesomeIcon icon={faEye} />
@@ -136,14 +137,13 @@ export const Register: React.FC = () => {
 
                 <div className='flex justify-end' style={{position: 'relative', width: 'auto'}}>
                     <input className="mb-2 p-2 border rounded w-full" type={showPassword2 ? 'text' : 'password'} name="password" placeholder="Contraseña *" value={password2} onChange={handlePasswordChange2} />
-                    <button className='flex mr-3 mt-3' type="button"
+                    <button className='flex mx-3 mt-3' type="button"
                         onClick={togglePasswordVisibility2}
                         style={{
-                            
                             position: 'absolute',
                             color: 'black',
                             cursor: 'pointer',
-                            
+                            fontSize: 15,                        
                         }}
                     >{showPassword2 ? (
                         <FontAwesomeIcon icon={faEye} />
@@ -170,5 +170,3 @@ export const Register: React.FC = () => {
         </div>
     );
 };
-
-
