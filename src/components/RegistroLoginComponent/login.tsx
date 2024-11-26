@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { FaGoogle, FaFacebook, FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import {login, LoginType} from "../../services/auth/auth-services.ts";
-import {Flip, toast} from "react-toastify";
-import {Loader} from "../Loader/Loader.tsx";
+import { Link, useNavigate } from "react-router-dom";
+import { login, LoginType } from "../../services/auth/auth-services.ts";
+import { Flip, toast } from "react-toastify";
+import { Loader } from "../Loader/Loader.tsx";
+
 
 export const Login: React.FC = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<LoginType>();
     const [showPassword, setShowPassword] = useState(false);
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(false); 
+    const navigate = useNavigate();
 
     const onSubmit: SubmitHandler<LoginType> = async data => {
         setIsLoading(true);
@@ -30,15 +32,16 @@ export const Login: React.FC = () => {
             localStorage.setItem('loginData', JSON.stringify(response.data));
             setIsLoading(false);
             toast.update(id, { render: `Sesion iniciada correctamente`, type: "success", isLoading: false });
+            navigate("/admin")
         } catch (error) {
             setIsLoading(false);
             toast.update(id, { render: `Error al iniciar sesión: ${error}`, type: "error", isLoading: false });
             console.error("Error al iniciar sesión:", error);
         }
     };
-if (isLoading ){
-    return  <Loader/>
-}
+    if (isLoading) {
+        return <Loader />
+    }
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
             <div className="bg-white rounded-2xl border border-[#4d4d4d] shadow-lg w-[502px] h-[760px] overflow-hidden p-6">
@@ -124,31 +127,33 @@ if (isLoading ){
                                 />
                                 Recordarme
                             </label>
-                           <Link to="/reset-password" className="text-gray-500 hover:underline">
+                            <Link to="/reset-password" className="text-gray-500 hover:underline">
                                 ¿Has olvidado la contraseña?
-                                </Link>
+                            </Link>
                         </div>
 
-                        <button
+                        <button 
                             type="submit"
                             className="w-full bg-gray-800 text-white py-2 hover:bg-gray-900 transition text-base font-bold font-['Lato'] tracking-tight mt-4 rounded-lg shadow"
-                        >
+                        > 
                             INICIAR SESIÓN
                         </button>
+
+                                
                     </form>
 
                     <div className="mt-6">
                         <div className="flex items-center justify-center space-x-2">
-                            <hr className="w-1/3 border-gray-300"/>
+                            <hr className="w-1/3 border-gray-300" />
                             <span className="text-sm text-gray-500">o continuar con</span>
-                            <hr className="w-1/3 border-gray-300"/>
+                            <hr className="w-1/3 border-gray-300" />
                         </div>
                         <div className="flex justify-center space-x-4 mt-4">
                             <button className="w-12 h-12 p-2 bg-gray-200 aspect-square-full flex items-center justify-center">
-                                <FaFacebook className="text-gray-600 text-lg"/>
+                                <FaFacebook className="text-gray-600 text-lg" />
                             </button>
                             <button className="w-12 h-12 p-2 bg-gray-200 aspect-square-full flex items-center justify-center">
-                                <FaGoogle className="text-gray-600 text-lg"/>
+                                <FaGoogle className="text-gray-600 text-lg" />
                             </button>
                         </div>
                     </div>
@@ -164,3 +169,5 @@ if (isLoading ){
         </div>
     );
 };
+
+
