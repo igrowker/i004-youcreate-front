@@ -45,7 +45,6 @@ export const Dashboard: React.FC = () => {
                     </div>
                 </div>
             </aside>
-
             <main className="flex-1 flex flex-col">
                 <header className="flex items-center justify-between h-16 px-6 bg-white shadow-md">
                     <div className="relative">
