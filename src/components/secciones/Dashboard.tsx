@@ -68,7 +68,7 @@ export const Dashboard: React.FC = () => {
 
                     <section className="flex-1 p-6">
                         <div className="h-full bg-white rounded-b-lg shadow-md">
-                            {/* Add your content here */}
+
                         </div>
                     </section>
                 </main>
