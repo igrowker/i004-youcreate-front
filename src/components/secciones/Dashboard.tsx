@@ -3,17 +3,17 @@ import logo from "../../assets/icons/logo.svg";
 
 export const Dashboard: React.FC = () => {
     return (
-        <div className="flex h-screen bg-gray-100">
+        <div className="h-screen bg-gray-400 p-12">
             <div className="flex w-full h-full bg-white shadow-md rounded-lg">
                 <aside className="w-64 bg-gray-200 flex flex-col h-full">
-                    <div className="flex items-center justify-center h-16 bg-gray-300">
+                    <div className="flex items-center justify-center h-16 bg-gray-400">
                         <img
                             src={logo}
                             alt="Logo"
                             className="h-12"
                         />
                     </div>
-                    <nav className="flex-1 mt-4">
+                    <nav className="flex-1 mt-4 p-3">
                         <ul className="space-y-2">
                             <li className="flex items-center px-6 py-2 bg-gray-300 text-black rounded-l-full font-medium">
                                 <span className="material-icons">dashboard</span>
@@ -37,7 +37,7 @@ export const Dashboard: React.FC = () => {
                             </li>
                         </ul>
                     </nav>
-                    <div className="px-6 py-4 border-t border-gray-300">
+                    <div className="px-6 py-4 border-t border-gray-300 p-12">
                         <button className="flex items-center w-full px-4 py-2 text-red-600 hover:bg-gray-300 rounded-l-full font-medium">
                             <span className="material-icons">logout</span>
                             <span className="ml-4">Cerrar sesión</span>
@@ -46,7 +46,7 @@ export const Dashboard: React.FC = () => {
                 </aside>
 
                 <main className="flex-1 flex flex-col">
-                    <header className="flex items-center justify-between h-16 px-6 bg-white shadow-md rounded-t-lg">
+                    <header className="flex items-center justify-between h-16 px-6 bg-gray-400 shadow-md rounded-t-lg">
                         <div className="relative">
                             <input
                                 type="text"
