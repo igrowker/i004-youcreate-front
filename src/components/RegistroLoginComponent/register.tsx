@@ -11,23 +11,30 @@ import { useNavigate } from "react-router-dom";
 export const Register: React.FC = () => {
   const { register, handleSubmit, getValues, formState: { errors } } = useForm<RegisterType>();
   const [isLoading, setIsLoading] = useState(false);
-  const [showPassword1, setShowPassword1] = useState(false);
-  const [showPassword2, setShowPassword2] = useState(false);
+  const [passwordVisibility, setPasswordVisibility] = useState({
+    password: false,
+    confirmPassword: false,
+  });
+
   const navigate = useNavigate();
 
-  const togglePasswordVisibility1 = () => setShowPassword1(!showPassword1);
-  const togglePasswordVisibility2 = () => setShowPassword2(!showPassword2);
+  const togglePasswordVisibility = (field: keyof typeof passwordVisibility) => {
+    setPasswordVisibility((prev) => ({
+      ...prev,
+      [field]: !prev[field],
+    }));
+  };
 
   const onSubmit: SubmitHandler<RegisterType> = async (data) => {
     setIsLoading(true);
     const toastId = toast.loading("Cargando...");
     try {
-      const response = await registerService(data);
+      await registerService(data);
       toast.update(toastId, {
         render: "Registro exitoso. Por favor verifica tu correo.",
         type: "success",
         isLoading: false,
-        autoClose:4000
+        autoClose: 4000,
       });
       navigate("/verifyRegister", { state: { email: data.email } });
     } catch (error: any) {
@@ -43,44 +50,12 @@ export const Register: React.FC = () => {
     }
   };
 
-  const PasswordInput = ({
-    name,
-    placeholder,
-    showPassword,
-    togglePasswordVisibility,
-  }: {
-    name: keyof RegisterType;
-    placeholder: string;
-    showPassword: boolean;
-    togglePasswordVisibility: () => void;
-  }) => (
-    <div className="relative mb-2">
-      <input
-        type={showPassword ? "text" : "password"}
-        {...register(name, {
-          required: `${placeholder} es obligatorio`,
-          ...(name === "password" && { minLength: { value: 8, message: "Debe tener al menos 8 caracteres" } }),
-          ...(name === "confirmPassword" && {
-            validate: (value) => value === getValues("password") || "Las contraseñas no coinciden",
-          }),
-        })}
-        placeholder={placeholder}
-        className="p-2 border rounded w-full"
-      />
-      <button
-        type="button"
-        onClick={togglePasswordVisibility}
-        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-700"
-      >
-        <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
-      </button>
-      {errors[name] && <span className="text-red-500 text-sm">{(errors as any)[name]?.message}</span>}
-    </div>
-  );
-
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-200 p-6">
-      <form onSubmit={handleSubmit(onSubmit)} className="bg-gray-300 p-10 rounded-lg shadow-lg w-full max-w-md">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="bg-gray-300 p-10 rounded-lg shadow-lg w-full max-w-md"
+      >
         <div className="flex justify-between items-center mb-4">
           <img className="w-20 h-20" src={Logo} alt="YouCreate Logo" />
           <span>Paso 1 de 2</span>
@@ -112,7 +87,10 @@ export const Register: React.FC = () => {
           className="mb-2 p-2 border rounded w-full"
         />
         {errors.lastName && <span className="text-red-500 text-sm">{errors.lastName.message}</span>}
-        <select {...register("country", { required: "El país es obligatorio" })} className="mb-2 p-2 border rounded w-full">
+        <select
+          {...register("country", { required: "El país es obligatorio" })}
+          className="mb-2 p-2 border rounded w-full"
+        >
           <option value="">País</option>
           <option value="MX">México</option>
           <option value="US">Estados Unidos</option>
@@ -133,18 +111,38 @@ export const Register: React.FC = () => {
           className="mb-2 p-2 border rounded w-full"
         />
         {errors.email && <span className="text-red-500 text-sm">{errors.email.message}</span>}
-        <PasswordInput
-          name="password"
-          placeholder="Contraseña *"
-          showPassword={showPassword1}
-          togglePasswordVisibility={togglePasswordVisibility1}
-        />
-        <PasswordInput
-          name="confirmPassword"
-          placeholder="Confirmar Contraseña *"
-          showPassword={showPassword2}
-          togglePasswordVisibility={togglePasswordVisibility2}
-        />
+        {["password", "confirmPassword"].map((field, index) => (
+          <div className="relative mb-2" key={field}>
+            <input
+              type={passwordVisibility[field as keyof RegisterType] ? "text" : "password"}
+              {...register(field as keyof RegisterType, {
+                required: `${index === 0 ? "Contraseña" : "Confirmar contraseña"} es obligatoria`,
+                ...(field === "password" && {
+                  minLength: { value: 8, message: "Debe tener al menos 8 caracteres" },
+                }),
+                ...(field === "confirmPassword" && {
+                  validate: (value) => value === getValues("password") || "Las contraseñas no coinciden",
+                }),
+              })}
+              placeholder={`${index === 0 ? "Contraseña" : "Confirmar contraseña"} *`}
+              className="p-2 border rounded w-full"
+            />
+            <button
+              type="button"
+              onClick={() => togglePasswordVisibility(field as keyof RegisterType)}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-700"
+            >
+              <FontAwesomeIcon
+                icon={passwordVisibility[field as keyof RegisterType] ? faEye : faEyeSlash}
+              />
+            </button>
+            {errors[field as keyof RegisterType] && (
+              <span className="text-red-500 text-sm">
+                {(errors as any)[field]?.message}
+              </span>
+            )}
+          </div>
+        ))}
         <button
           type="submit"
           className="bg-gray-800 text-white p-2 rounded w-full flex justify-center items-center"

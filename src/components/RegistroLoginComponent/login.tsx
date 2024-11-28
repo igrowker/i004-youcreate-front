@@ -9,10 +9,12 @@ import { Loader } from "../Loader/Loader.tsx";
 export const Login: React.FC = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<LoginType>();
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false); 
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<LoginType> = async data => {
+  const togglePasswordVisibility = () => setShowPassword(!showPassword);
+
+  const onSubmit: SubmitHandler<LoginType> = async (data) => {
     setIsLoading(true);
     const id = toast.loading("Cargando...", {
       position: "top-right",
@@ -27,54 +29,28 @@ export const Login: React.FC = () => {
     });
 
     try {
-        const response = await login(data);
-        console.log("Iniciando sesión con:", response);
-        localStorage.setItem('loginData', JSON.stringify(response.data));
-        setIsLoading(false);
-       
-        navigate("/admin")
+      const response = await login(data);
       if (response.status === 200) {
-        // Almacenar datos del usuario y redirigir
-        localStorage.setItem('loginData', JSON.stringify(response.data));
-        toast.update(id, { 
-          render: `Sesión iniciada correctamente`,
-          type: "success", 
+        localStorage.setItem("loginData", JSON.stringify(response.data));
+        toast.update(id, {
+          render: "Sesión iniciada correctamente.",
+          type: "success",
           isLoading: false,
           autoClose: 4000,
         });
-        setIsLoading(false);
         navigate("/admin");
       }
     } catch (error: any) {
+      toast.update(id, {
+        render: error.response?.status === 401
+          ? "Contraseña incorrecta. Inténtalo de nuevo."
+          : "Error al iniciar sesión. Verifique su cuenta",
+        type: "error",
+        isLoading: false,
+        autoClose: 4000,
+      });
+    } finally {
       setIsLoading(false);
-      
-      if (error.response?.status === 401) {
-        // Contraseña incorrecta
-        toast.update(id, { 
-          render: "Contraseña incorrecta. Por favor, inténtalo de nuevo.",
-          type: "error",
-          isLoading: false,
-          autoClose: 4000,
-        });
-      } else if (error.response?.status === 403) {
-        // Cuenta no verificada
-        toast.update(id, { 
-          render: "Error al iniciar sesión: Debe verificar su cuenta.",
-          type: "error",
-          isLoading: false,
-          autoClose: 4000,
-        });
-      } else {
-        // Otro error
-        toast.update(id, { 
-          render: `Error al iniciar sesión: ${error.message}`,
-          type: "error",
-          isLoading: false,
-          autoClose: 4000,
-        });
-      }
-      
-      console.error("Error al iniciar sesión:", error);
     }
   };
 
@@ -83,26 +59,25 @@ export const Login: React.FC = () => {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
-      <div className="bg-white rounded-2xl border border-[#4d4d4d] shadow-lg w-[502px] h-[760px] overflow-hidden p-6">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="w-full max-w-md bg-white rounded-lg shadow-lg">
         <div className="relative">
           <img
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlbzQSwEkbwmAZ0yt9AKLOPbz_8mYlFM7bCg&s"
             alt="Fondo"
-            className="w-[454px] h-[215px] object-cover rounded-lg"
+            className="w-full h-48 object-cover rounded-t-lg"
           />
-          <div
-            className="absolute bottom-0 left-0 transform translate-x-4 translate-y-14 w-[104px] h-[104px] bg-[#cccccc] rounded-[100px] border-4 border-[#fffcfc] flex items-center justify-center">
-            <span className="text-4xl text-gray-600">👤</span>
+          <div className="absolute bottom-0 left-4 transform translate-y-1/2 bg-gray-200 rounded-full border-4 border-white w-24 h-24 flex items-center justify-center shadow-lg">
+            <span className="text-3xl text-gray-600">👤</span>
           </div>
         </div>
 
         <div className="p-6">
-          <h2 className="text-center text-xl font-normal pl-[100px]">
+          <h2 className="text-lg font-medium text-center mb-6">
             Bienvenido de nuevo, <span className="font-bold">Matias!</span>
           </h2>
-
-          <form onSubmit={handleSubmit(onSubmit)} className="mt-6 space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            {/* Email Input */}
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                 Correo Electrónico
@@ -111,18 +86,19 @@ export const Login: React.FC = () => {
                 type="email"
                 id="email"
                 {...register("email", {
-                  required: "Correo Electrónico es requerido",
+                  required: "El correo es obligatorio",
                   pattern: {
                     value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                    message: "Correo Electrónico no es válido"
-                  }
+                    message: "Formato de correo inválido",
+                  },
                 })}
                 placeholder="Correo Electrónico"
-                className="w-full mt-1 px-3 py-2 border rounded shadow-sm focus:ring-gray-300 focus:border-gray-400"
+                className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-200"
               />
-              {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>}
+              {errors.email && <p className="text-sm text-red-500">{errors.email.message}</p>}
             </div>
 
+            {/* Password Input */}
             <div className="relative">
               <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                 Contraseña
@@ -130,72 +106,62 @@ export const Login: React.FC = () => {
               <input
                 type={showPassword ? "text" : "password"}
                 id="password"
-                {...register("password", {
-                  required: "Contraseña es requerida",
-                  minLength: {
-                    value: 3,
-                    message: "La contraseña debe tener al menos 3 caracteres"
-                  },
-                  maxLength: {
-                    value: 20,
-                    message: "La contraseña debe tener menos de 20 caracteres"
-                  }
-                })}
-                placeholder="Contraseña *"
-                className="w-full mt-1 px-3 py-2 border rounded shadow-sm focus:ring-gray-300 focus:border-gray-400"
+                {...register("password", { required: "La contraseña es obligatoria" })}
+                placeholder="Contraseña"
+                className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-200 pr-10"
               />
               <button
                 type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500"
+                onClick={togglePasswordVisibility}
+                className="absolute right-3 top-11 transform -translate-y-1/2 text-gray-500"
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
-              {errors.password && <p className="mt-1 text-sm text-red-500">{errors.password.message}</p>}
+              {errors.password && <p className="text-sm text-red-500">{errors.password.message}</p>}
             </div>
 
-            <div className="flex items-center justify-between text-sm mb-6">
+            {/* Remember Me and Forgot Password */}
+            <div className="flex items-center justify-between text-sm">
               <label className="flex items-center">
-                <input
-                  type="checkbox"
-                  {...register("rememberMe")}
-                  className="mr-2"
-                />
+                <input type="checkbox" {...register("rememberMe")} className="mr-2" />
                 Recordarme
               </label>
               <Link to="/reset-password" className="text-gray-500 hover:underline">
-                ¿Has olvidado la contraseña?
+                ¿Olvidaste tu contraseña?
               </Link>
             </div>
 
+            {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-gray-800 text-white py-2 hover:bg-gray-900 transition text-base font-bold font-['Lato'] tracking-tight mt-4 rounded-lg shadow"
+              className="w-full bg-gray-800 text-white py-2 rounded-lg hover:bg-gray-900 transition focus:ring-2 focus:ring-gray-300 focus:outline-none"
             >
-              INICIAR SESIÓN
+              Iniciar Sesión
             </button>
           </form>
 
+          {/* Social Login */}
           <div className="mt-6">
-            <div className="flex items-center justify-center space-x-2">
-              <hr className="w-1/3 border-gray-300" />
-              <span className="text-sm text-gray-500">o continuar con</span>
-              <hr className="w-1/3 border-gray-300" />
+            <div className="flex items-center space-x-4">
+              <div className="flex-1 h-px bg-gray-300" />
+              <span className="text-sm text-gray-500">o inicia sesión con</span>
+              <div className="flex-1 h-px bg-gray-300" />
             </div>
             <div className="flex justify-center space-x-4 mt-4">
-              <button className="w-12 h-12 p-2 bg-gray-200 aspect-square-full flex items-center justify-center">
-                <FaFacebook className="text-gray-600 text-lg" />
+              <button className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center shadow-md hover:bg-gray-200">
+                <FaFacebook className="text-blue-600 text-xl" />
               </button>
-              <button className="w-12 h-12 p-2 bg-gray-200 aspect-square-full flex items-center justify-center">
-                <FaGoogle className="text-gray-600 text-lg" />
+              <button className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center shadow-md hover:bg-gray-200">
+                <FaGoogle className="text-red-500 text-xl" />
               </button>
             </div>
           </div>
 
-          <p className="mt-6 text-center text-sm text-gray-500 ml-10">
+          {/* Register Link */}
+          <p className="mt-6 text-center text-sm text-gray-500">
             ¿No tienes una cuenta?{" "}
             <Link to="/register" className="text-gray-800 underline font-medium">
-              Regístrate acá
+              Regístrate aquí
             </Link>
           </p>
         </div>
