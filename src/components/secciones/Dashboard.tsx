@@ -6,7 +6,7 @@ export const Dashboard: React.FC = () => {
         <div className="flex h-screen bg-gray-100">
             <div className="flex w-full h-full bg-white  rounded-lg">
                 <aside className="w-64 bg-gray-200 flex flex-col h-full">
-                    <div className="flex items-center justify-center h-16 bg-gray-300">
+                    <div className="flex items-center justify-center h-17 bg-gray-300">
                         <img
                             src={logo}
                             alt="Logo"
