@@ -11,6 +11,7 @@ import VerifyAccountSuccess from "./components/RegistroLoginComponent/VerifyAcco
 import UserAdmin from "./pages/UserAdmin.tsx";
 import { ResetPassword } from "./components/RegistroLoginComponent/ResetPassword.tsx";
 import {Dashboard} from "./components/secciones/Dashboard.tsx";
+import {Cuenta} from "./components/secciones/Cuenta.tsx";
 
 export const AppRouter: FC = () => {
     return (
@@ -19,6 +20,7 @@ export const AppRouter: FC = () => {
             <Route path="/admin" element={<UserAdmin />} />
 
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/cuenta" element={<Cuenta />} />
 
 
             <Route path="/" element={<RouterLayout />}>
@@ -32,8 +34,8 @@ export const AppRouter: FC = () => {
             
             {/* Ruta para la verificación de la cuenta */}
             <Route path="/verifyRegister" element={<TwoFactorAuth />} />
-           
-           
+        
+        
         </Routes>
     );
 };
