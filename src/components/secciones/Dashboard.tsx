@@ -37,7 +37,7 @@ export const Dashboard: React.FC = () => {
 
             <main className="flex justify-center pb-36">
                 < div className="flex bg-gray-200 h-full w-[95%] justify-center py-12 rounded-r-3xl">
-                    < div className="flex bg-gray-50 h-full w-[95%] rounded-r-lg rounded-r-3xl">
+                    < div className="flex bg-gray-50 h-full w-[95%] rounded-r-3xl">
                         <div className="flex flex-col">
                             <nav className="flex-1  h-full  bg-gray-300">
                                 <ul className="flex flex-col">
