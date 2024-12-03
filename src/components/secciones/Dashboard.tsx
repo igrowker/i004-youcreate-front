@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import logo from "../../assets/icons/logo.svg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faGear, faUser } from "@fortawesome/free-solid-svg-icons";
-import { DashboardSection } from "./DashboardSection";
+// import { DashboardSection } from "./DashboardSection";
 import { PaymentsSection } from "../PagosComponent/PaymentsSection";
 import { CollaboratorsSection } from "../CollaboratorsComponent/CollaboratorsSection";
-import { IncomeSection } from "../IncomesComponent/IncomeSection";
+// import { IncomeSection } from "../IncomesComponent/IncomeSection";
 import { SocialSection } from "../SocialComponent/SocialSection";
 
 export const Dashboard: React.FC = () => {
@@ -80,10 +80,10 @@ export const Dashboard: React.FC = () => {
 
                         {/* Contenido Principal */}
                         <div className="flex-1 p-4 sm:p-8">
-                            {activeSection === "Dashboard" && <DashboardSection />}
+                            {/* {activeSection === "Dashboard" && <DashboardSection />} */}
                             {activeSection === "Mis pagos" && <PaymentsSection />}
                             {activeSection === "Colaboradores" && <CollaboratorsSection />}
-                            {activeSection === "Mis ingresos" && <IncomeSection />}
+                            {/* {activeSection === "Mis ingresos" && <IncomeSection />} */}
                             {activeSection === "Mis redes" && <SocialSection />}
                         </div>
                     </div>
