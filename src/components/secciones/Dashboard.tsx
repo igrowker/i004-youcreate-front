@@ -1,13 +1,14 @@
 import React from "react";
 import logo from "../../assets/icons/logo.svg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass, faGear, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass, faGear, faUser, faSliders } from "@fortawesome/free-solid-svg-icons";
+import { TbBackground } from "react-icons/tb";
 
 
 export const Dashboard: React.FC = () => {
     return (
 
-        < div className="bg-gray-400 h-100 w-screen" >
+        <div className=" bg-gradient-to-r from-pink-400 to-purple-600 h-100 w-screen">
             <header>
                 <nav className="flex justify-between items-end w-full p-4 mb-6">
 
@@ -15,9 +16,9 @@ export const Dashboard: React.FC = () => {
                         <img src={logo} alt="Logo" className="h-24 mx-5" />
                     </div>
 
-                    <div className="absolute ml-44 transform">
+                    <div className="pl-7 absolute ml-44 transform">
                         <div className="relative">
-                            <input className="rounded-md h-9 text-xl pl-10 w-[500px]" type="search" placeholder="Buscar" />
+                            <input className="rounded-md h-12 text-xl pl-10 w-[900px]" type="search" placeholder="Buscar" />
                             <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-xl text-gray-800">
                                 <FontAwesomeIcon icon={faMagnifyingGlass} />
                             </div>
@@ -85,9 +86,77 @@ export const Dashboard: React.FC = () => {
                                 </div>
                             </nav>
                         </div>
+
+
+
+                        <div className="flex bg-slate-200 w-full justify-around text-gray-700"> {/* Todo el box */}
+
+                            {/* Elemento 1 */}
+
+
+                            <div className="w-[45%] my-12">
+
+                                <div className="flex justify-between ">
+                                    <h1 className="text-3xl font-bold ">Ingresos totales</h1>
+                                    <FontAwesomeIcon className="text-3xl" icon={faSliders} />
+                                </div>
+
+
+                                <div className="flex row rounded-xl space-x-3 border-0 my-8">
+                                    <div className="w-[45%] card rounded-xl shadow-lg text-2xl text-center font-bold flex flex-col bg-slate-100">
+                                        <h1 className="flex items-center justify-center pb-54 pt-6">*Mes del Año*</h1>
+                                    </div>
+
+                                    <div className="w-[55%] space-y-4 flex-col">
+                                        <div className="flex items-center justify-center rounded-xl shadow-lg text-2xl text-center font-bold h-14 bg-slate-100">
+                                            <h1 className="px-10">YouTube</h1>
+                                        </div>
+                                        <div className="flex items-center justify-center card rounded-xl shadow-lg text-2xl text-center font-bold flex-col h-14 bg-slate-100">
+                                            <h1 className="px-10">Twitch</h1>
+                                        </div>
+                                        <div className="flex items-center justify-center card rounded-xl shadow-lg text-2xl text-center font-bold flex-col h-14 bg-slate-100">
+                                            <h1 className="px-10">Colaboraciones</h1>
+                                        </div>
+                                        <div className="flex items-center justify-center card rounded-xl shadow-lg text-2xl text-center font-bold flex-col h-14 bg-slate-100">
+                                            <h1 className="px-10">Campañas</h1>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            {/* Elemento 2 */}
+
+                            <div className="w-[45%] my-12 h-full">
+                                <div className="flex justify-between ">
+                                    <h1 className="text-3xl font-bold ">Evolución de Ingresos</h1>
+                                    <FontAwesomeIcon className="text-3xl" icon={faSliders} />
+                                </div>
+
+
+                                <div className="flex row rounded-xl space-x-3 border-0 my-8">
+                                    <div className="w-full h-[100%] card rounded-xl shadow-lg text-2xl text-center font-bold flex flex-col bg-slate-100">
+                                        <h1 className="flex items-center justify-center pb-54 pt-6">$$$$$$$$$$$$</h1>
+                                    </div>
+
+                                    
+
+                                </div>
+                            </div>
+
+
+
+
+
+
+                        </div>
                     </div>
                 </div>
+
+
             </main >
         </div >
     );
 };
+
+
