@@ -38,7 +38,7 @@ export const Login: React.FC = () => {
           isLoading: false,
           autoClose: 4000,
         });
-        navigate("/admin");
+        navigate("/dashboard");
       }
     } catch (error: any) {
       toast.update(id, {
@@ -74,7 +74,7 @@ export const Login: React.FC = () => {
 
         <div className="p-6">
           <h2 className="text-lg font-medium text-center mb-6">
-            Bienvenido de nuevo, <span className="font-bold">Matias!</span>
+           Bienvenido a YouCreate <span className="font-bold"></span>
           </h2>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             {/* Email Input */}
