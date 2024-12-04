@@ -15,6 +15,7 @@ import {Cuenta} from "./components/secciones/Cuenta.tsx";
 
 export const AppRouter: FC = () => {
     return (
+        
         <Routes>
             <Route path="*" element={<NotFound />} />
             <Route path="/admin" element={<UserAdmin />} />

@@ -5,11 +5,23 @@ import { faMagnifyingGlass, faGear, faUser } from "@fortawesome/free-solid-svg-i
 // import { DashboardSection } from "./DashboardSection";
 import { PaymentsSection } from "../PagosComponent/PaymentsSection";
 import { CollaboratorsSection } from "../CollaboratorsComponent/CollaboratorsSection";
-// import { IncomeSection } from "../IncomesComponent/IncomeSection";
+import { IncomeSection } from "../IncomesComponent/IncomeSection";
 import { SocialSection } from "../SocialComponent/SocialSection";
+import { useUser } from "../../context/UserContext"; 
+import { useNavigate } from "react-router-dom";
 
 export const Dashboard: React.FC = () => {
     const [activeSection, setActiveSection] = useState<string>("Dashboard");
+    const { user, setUser } = useUser();
+    const navigate = useNavigate(); 
+
+
+    const handleLogout = () => {
+        setUser(null); 
+        localStorage.removeItem("user"); 
+        navigate("/login"); 
+    };
+
 
     return (
         <div className="h-screen w-screen bg-cover bg-center bg-[url('/images/fondoDash.png')]">
@@ -71,8 +83,13 @@ export const Dashboard: React.FC = () => {
                                         ))}
                                     </ul>
                                 </div>
+
                                 <div className="px-6 pt-6 border-t border-gray-300">
-                                    <button className="flex items-center w-full px-4 py-6 sm:py-9 text-red-600 hover:bg-white text-lg sm:text-2xl font-semibold">
+                                    <button 
+                                    className="flex items-center w-full px-4 py-6 sm:py-9 text-red-600 hover:bg-white text-lg sm:text-2xl font-semibold"
+                                    onClick={handleLogout}
+                                    >
+
                                         <span className="material-icons">logout</span>
                                         <span className="ml-4">Cerrar sesión</span>
                                     </button>
@@ -85,7 +102,7 @@ export const Dashboard: React.FC = () => {
                             {/* {activeSection === "Dashboard" && <DashboardSection />} */}
                             {activeSection === "Mis pagos" && <PaymentsSection />}
                             {activeSection === "Colaboradores" && <CollaboratorsSection />}
-                            {/* {activeSection === "Mis ingresos" && <IncomeSection />} */}
+                            {activeSection === "Mis ingresos" && <IncomeSection />}
                             {activeSection === "Mis redes" && <SocialSection />}
                         </div>
                     </div>
