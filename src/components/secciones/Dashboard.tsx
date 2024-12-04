@@ -2,7 +2,7 @@ import React from "react";
 import logo from "../../assets/icons/logo.svg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faGear, faUser, faSliders } from "@fortawesome/free-solid-svg-icons";
-import { TbBackground } from "react-icons/tb";
+
 
 
 export const Dashboard: React.FC = () => {
@@ -95,7 +95,6 @@ export const Dashboard: React.FC = () => {
 
 
                             <div className="w-[45%] my-12">
-
                                 <div className="flex justify-between ">
                                     <h1 className="text-3xl font-bold ">Ingresos totales</h1>
                                     <FontAwesomeIcon className="text-3xl" icon={faSliders} />
