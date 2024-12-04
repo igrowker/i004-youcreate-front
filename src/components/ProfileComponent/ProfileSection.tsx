@@ -2,17 +2,29 @@ import React, { useState } from "react";
 import logo from "../../assets/icons/logo.svg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faGear, faUser } from "@fortawesome/free-solid-svg-icons";
-// import { DashboardSection } from "./DashboardSection";
-import { PaymentsSection } from "../PagosComponent/PaymentsSection";
-import { CollaboratorsSection } from "../CollaboratorsComponent/CollaboratorsSection";
-// import { IncomeSection } from "../IncomesComponent/IncomeSection";
-import { SocialSection } from "../SocialComponent/SocialSection";
+import { Dashboard } from "../../components/secciones/Dashboard.tsx";
+
+
+/* Agregar componente Dashboard */
+
+/* const DashboardProfile = () => {
+    return (
+        <div>
+            <h1>Este es el componente actual</h1>
+            <Dashboard /> 
+        </div>
+    );
+}
+export default DashboardProfile; */
+
+
 
 export const Profile: React.FC = () => {
     const [activeSection, setActiveSection] = useState<string>("Dashboard");
 
     return (
-        <div className="bg-gray-400 h-100 w-screen">
+        
+        <div id="dashboardContainer" className="bg-gray-400 h-100 w-screen">
             <header>
                 <nav className="flex flex-wrap justify-between items-center w-full p-4 mb-6">
                     <div className="flex items-center mb-3 sm:mb-0">
@@ -47,7 +59,7 @@ export const Profile: React.FC = () => {
 
             <main className="flex flex-col sm:flex-row justify-center pb-36">
                 <div className="flex bg-gray-200 h-full w-full sm:w-[95%] justify-center py-6 sm:py-12 rounded-r-3xl">
-                    <div className="flex bg-gray-50 h-full w-full sm:w-[95%] rounded-r-lg rounded-r-3xl">
+                    <div className="flex bg-gray-50 h-full w-full sm:w-[95%] rounded-r-3xl">
                         <div className="flex flex-col">
                             {/* Menú lateral */}
                             <nav className="flex-1 h-full bg-gray-300">
@@ -167,7 +179,7 @@ export const Profile: React.FC = () => {
                                     </div>
                                     <div className="flex justify-end mb-12">
 
-                                    <button className="bg-slate-600 text-gray-50 p-4 rounded-lg">EDITAR PERFIL</button>
+                                        <button className="bg-slate-600 text-gray-50 p-4 rounded-lg">EDITAR PERFIL</button>
                                     </div>
                                 </form>
                             </div>
