@@ -12,7 +12,7 @@ export const Dashboard: React.FC = () => {
     const [activeSection, setActiveSection] = useState<string>("Dashboard");
 
     return (
-        <div className="bg-gray-400 h-100 w-screen">
+        <div className="h-screen w-screen bg-cover bg-center bg-[url('/images/fondoDash.png')]">
             <header>
                 <nav className="flex flex-wrap justify-between items-center w-full p-4 mb-6">
                     <div className="flex items-center mb-3 sm:mb-0">
@@ -47,29 +47,31 @@ export const Dashboard: React.FC = () => {
                 </nav>
             </header>
 
-            <main className="flex flex-col sm:flex-row justify-center pb-36">
-                <div className="flex bg-gray-200 h-full w-full sm:w-[95%] justify-center py-6 sm:py-12 rounded-r-3xl">
+            <main className="flex flex-col sm:flex-row h-5/6 justify-center">
+                <div className="flex bg-gray-200 bg-opacity-40 w-full h-full sm:w-[95%] justify-center py-6 sm:py-12 rounded-r-3xl">
                     <div className="flex bg-gray-50 h-full w-full sm:w-[95%] rounded-r-lg rounded-r-3xl">
-                        <div className="flex flex-col">
+                        <div className="flex flex-col h-full">
                             {/* Menú lateral */}
-                            <nav className="flex-1 h-full bg-gray-300">
-                                <ul className="flex sm:flex-col overflow-x-auto sm:overflow-visible">
-                                    {["Dashboard", "Mis pagos", "Colaboradores", "Mis ingresos", "Mis redes"].map((section) => (
-                                        <li
-                                            key={section}
-                                            className={`flex items-center px-6 py-4 sm:py-8 text-black text-base sm:text-xl font-semibold cursor-pointer ${
-                                                activeSection === section
-                                                    ? "bg-white border-r-8 border-pink-500"
-                                                    : "hover:bg-white hover:border-r-8 hover:border-pink-500"
-                                            }`}
-                                            onClick={() => setActiveSection(section)}
-                                        >
-                                            <span className="material-icons">{getIcon(section)}</span>
-                                            <span className="ml-4">{section}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                                <div className="px-6 pt-6 mt-6 border-t border-gray-300">
+                            <nav className="flex flex-col h-full bg-gray-300 justify-between">
+                                <div>
+                                    <ul className="flex sm:flex-col overflow-x-auto sm:overflow-visible">
+                                        {["Dashboard", "Mis pagos", "Colaboradores", "Mis ingresos", "Mis redes"].map((section) => (
+                                            <li
+                                                key={section}
+                                                className={`flex items-center px-6 py-4 sm:py-8 text-black text-base sm:text-xl font-semibold cursor-pointer ${
+                                                    activeSection === section
+                                                        ? "bg-white border-r-8 border-pink-500"
+                                                        : "hover:bg-white hover:border-r-8 hover:border-pink-500"
+                                                }`}
+                                                onClick={() => setActiveSection(section)}
+                                            >
+                                                <span className="material-icons">{getIcon(section)}</span>
+                                                <span className="ml-4">{section}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                                <div className="px-6 pt-6 border-t border-gray-300">
                                     <button className="flex items-center w-full px-4 py-6 sm:py-9 text-red-600 hover:bg-white text-lg sm:text-2xl font-semibold">
                                         <span className="material-icons">logout</span>
                                         <span className="ml-4">Cerrar sesión</span>
