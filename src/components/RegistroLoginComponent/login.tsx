@@ -5,12 +5,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { login, LoginType } from "../../services/auth/auth-services.ts";
 import { Flip, toast } from "react-toastify";
 import { Loader } from "../Loader/Loader.tsx";
+import { useUser } from "../../context/UserContext"; 
 
 export const Login: React.FC = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<LoginType>();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { setUser } = useUser(); // 
 
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
@@ -31,13 +33,24 @@ export const Login: React.FC = () => {
     try {
       const response = await login(data);
       if (response.status === 200) {
+        // Guardar el usuario en el contexto
+        setUser({
+          id: response.data.id,
+          name: response.data.name,
+          email: response.data.email,
+        });
+
+        // Opcional: Guardar los datos en el localStorage
         localStorage.setItem("loginData", JSON.stringify(response.data));
+
         toast.update(id, {
           render: "Sesión iniciada correctamente.",
           type: "success",
           isLoading: false,
           autoClose: 4000,
         });
+
+        // Redirigir al dashboard
         navigate("/dashboard");
       }
     } catch (error: any) {
