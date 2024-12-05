@@ -2,14 +2,22 @@ import React, { useState } from "react";
 import logo from "../../assets/icons/logo.svg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faGear, faUser } from "@fortawesome/free-solid-svg-icons";
-import { DashboardSection } from "./DashboardSection";
 import { PaymentsSection } from "../PagosComponent/PaymentsSection";
 import { CollaboratorsSection } from "../CollaboratorsComponent/CollaboratorsSection";
-import { IncomeSection } from "../IncomesComponent/IncomeSection";
 import { SocialSection } from "../SocialComponent/SocialSection";
 
 export const Dashboard: React.FC = () => {
     const [activeSection, setActiveSection] = useState<string>("Dashboard");
+
+    const taxes = [
+        { type: "IVA", amount: "$100", dueDate: "2024-12-01", status: "Pendiente" },
+        { type: "ISR", amount: "$200", dueDate: "2024-12-15", status: "Pagado" },
+    ];
+
+    const collaborators = [
+        { name: "John Doe", amount: "$150", date: "2024-12-01", status: "Pendiente" },
+        { name: "Jane Smith", amount: "$200", date: "2024-12-15", status: "Pagado" },
+    ];
 
     return (
         <div className="bg-gray-400 h-100 w-screen">
@@ -21,7 +29,7 @@ export const Dashboard: React.FC = () => {
 
                     <div className="relative w-full sm:w-auto sm:ml-44 mb-3 sm:mb-0">
                         <input
-                            className="rounded-md h-9}7 text-xl pl-10 w-full sm:w-[500px]"
+                            className="rounded-md h-9 text-xl pl-10 w-full sm:w-[500px]"
                             type="search"
                             placeholder="Buscar"
                         />
@@ -51,7 +59,6 @@ export const Dashboard: React.FC = () => {
                 <div className="flex bg-gray-200 h-full w-full sm:w-[95%] justify-center py-6 sm:py-12 rounded-r-3xl">
                     <div className="flex bg-gray-50 h-full w-full sm:w-[95%] rounded-r-lg rounded-r-3xl">
                         <div className="flex flex-col">
-                            {/* Menú lateral */}
                             <nav className="flex-1 h-full bg-gray-300">
                                 <ul className="flex sm:flex-col overflow-x-auto sm:overflow-visible">
                                     {["Dashboard", "Mis pagos", "Colaboradores", "Mis ingresos", "Mis redes"].map((section) => (
@@ -78,12 +85,13 @@ export const Dashboard: React.FC = () => {
                             </nav>
                         </div>
 
-                        {/* Contenido Principal */}
                         <div className="flex-1 p-4 sm:p-8">
-                            {activeSection === "Dashboard" && <DashboardSection />}
-                            {activeSection === "Mis pagos" && <PaymentsSection />}
-                            {activeSection === "Colaboradores" && <CollaboratorsSection />}
-                            {activeSection === "Mis ingresos" && <IncomeSection />}
+                            {activeSection === "Mis pagos" && (
+                                <>
+                                    <PaymentsSection taxes={taxes} />
+                                    <CollaboratorsSection collaborators={collaborators} />
+                                </>
+                            )}
                             {activeSection === "Mis redes" && <SocialSection />}
                         </div>
                     </div>
@@ -93,7 +101,6 @@ export const Dashboard: React.FC = () => {
     );
 };
 
-// Función auxiliar para obtener íconos
 const getIcon = (section: string) => {
     switch (section) {
         case "Dashboard":

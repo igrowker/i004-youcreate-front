@@ -62,27 +62,8 @@ export const PaymentsSection: React.FC<TaxTableProps> = ({ taxes }) => {
                 ))}
                 </tbody>
             </table>
-            <div className="mt-8">
-                <h2 className="text-xl font-semibold">Pagos</h2>
-                <table className="w-full border border-gray-200 rounded mt-4">
-                    <thead>
-                    <tr className="bg-gray-100 text-left">
-                        <th className="p-2">Fecha</th>
-                        <th className="p-2">Monto</th>
-                        <th className="p-2">Estado</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {payments.map((payment) => (
-                        <tr key={payment.id} className="border-t">
-                            <td className="p-2">{payment.date}</td>
-                            <td className="p-2">{payment.amount}</td>
-                            <td className="p-2">{payment.status}</td>
-                        </tr>
-                    ))}
-                    </tbody>
-                </table>
-            </div>
+
         </section>
+
     );
 };
