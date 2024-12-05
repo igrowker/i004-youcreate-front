@@ -27,11 +27,11 @@ ChartJS.register(
 const Incomeschart: React.FC = () => {
   // Tipos para los datos del gráfico
   const chartData: ChartData<"line", number[], string> = {
-    labels: ["Agosto", "Septiembre", "Octubre", "Noviembre"], // Meses
+    labels: ["Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"], // Meses
     datasets: [
       {
         label: "Ingresos",
-        data: [200000, 600000, 400000, 800000], // Valores de ingresos
+        data: [200000, 600000, 400000, 800000, 500000], // Valores de ingresos
         borderColor: "#5B21B6", // Color de la línea
         backgroundColor: "rgba(91, 33, 182, 0.1)", // Fondo debajo de la línea
         pointBackgroundColor: "#5B21B6", // Color de los puntos
