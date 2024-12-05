@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import AddCollaboratorModal from "./AddCollaboratorModal";
 
 interface Collaborator {
     name: string;
@@ -13,11 +14,21 @@ interface CollaboratorsTableProps {
 }
 
 export const CollaboratorsSection: React.FC<CollaboratorsTableProps> = ({ collaborators }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [collaboratorsList, setCollaboratorsList] = useState(collaborators);
+
+    const handleAddCollaborator = (newCollaborator: Collaborator) => {
+        setCollaboratorsList([...collaboratorsList, newCollaborator]);
+    };
+
     return (
         <section>
             <div className="flex justify-between items-center mb-4">
                 <h2 className="text-xl font-semibold">Colaboradores</h2>
-                <button className="flex items-center gap-2 bg-gray-200 text-gray-600 px-4 py-2 rounded hover:bg-gray-300">
+                <button
+                    className="flex items-center gap-2 bg-gray-200 text-gray-600 px-4 py-2 rounded hover:bg-gray-300"
+                    onClick={() => setIsModalOpen(true)}
+                >
                     <span>✏️</span>
                     Agregar colaborador
                 </button>
@@ -34,22 +45,22 @@ export const CollaboratorsSection: React.FC<CollaboratorsTableProps> = ({ collab
                 </tr>
                 </thead>
                 <tbody>
-                {collaborators.map((collaborator, index) => (
+                {collaboratorsList.map((collaborator, index) => (
                     <tr key={index} className="border-t">
                         <td className="p-2">{collaborator.name}</td>
                         <td className="p-2">{collaborator.amount}</td>
                         <td className="p-2">{collaborator.date}</td>
                         <td className="p-2">{collaborator.campaign || "-"}</td>
                         <td className="p-2">
-                <span
-                    className={`px-2 py-1 rounded ${
-                        collaborator.status === "Pendiente"
-                            ? "bg-yellow-200 text-yellow-700"
-                            : "bg-green-200 text-green-700"
-                    }`}
-                >
-                  {collaborator.status}
-                </span>
+                                <span
+                                    className={`px-2 py-1 rounded ${
+                                        collaborator.status === "Pendiente"
+                                            ? "bg-yellow-200 text-yellow-700"
+                                            : "bg-green-200 text-green-700"
+                                    }`}
+                                >
+                                    {collaborator.status}
+                                </span>
                         </td>
                         <td className="p-2">
                             <button className="bg-gray-200 px-4 py-1 rounded hover:bg-gray-300">Ir</button>
@@ -58,6 +69,12 @@ export const CollaboratorsSection: React.FC<CollaboratorsTableProps> = ({ collab
                 ))}
                 </tbody>
             </table>
+
+            <AddCollaboratorModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onSave={handleAddCollaborator}
+            />
         </section>
     );
 };

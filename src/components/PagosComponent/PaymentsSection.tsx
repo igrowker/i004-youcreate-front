@@ -34,7 +34,7 @@ export const PaymentsSection: React.FC<TaxTableProps> = () => {
     useEffect(() => {
         const fetchTaxes = async () => {
             try {
-                const response = await axios.get("/api/payment/id");
+                const response = await axios.get("/api/payments/{id}");
                 setTaxes(response.data);
             } catch (error) {
                 console.error("Error fetching taxes:", error);
