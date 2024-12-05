@@ -4,24 +4,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faGear, faUser } from "@fortawesome/free-solid-svg-icons";
 // import { DashboardSection } from "./DashboardSection";
 import { PaymentsSection } from "../PagosComponent/PaymentsSection";
-import { CollaboratorsSection } from "../CollaboratorsComponent/CollaboratorsSection";
+
 import { IncomeSection } from "../IncomesComponent/IncomeSection";
 import { SocialSection } from "../SocialComponent/SocialSection";
 import { useUser } from "../../context/UserContext"; 
 import { useNavigate } from "react-router-dom";
+import { ProfileSection } from "../ProfileComponent/ProfileSection";
 
 export const Dashboard: React.FC = () => {
     const [activeSection, setActiveSection] = useState<string>("Dashboard");
     const { user, setUser } = useUser();
-    const navigate = useNavigate(); 
-
+    const navigate = useNavigate();
 
     const handleLogout = () => {
-        setUser(null); 
-        localStorage.removeItem("user"); 
-        navigate("/login"); 
+        setUser(null);
+        localStorage.removeItem("user");
+        navigate("/login");
     };
-
 
     return (
         <div className="h-screen w-screen bg-cover bg-center bg-[url('/images/fondoDash.png')]">
@@ -44,11 +43,13 @@ export const Dashboard: React.FC = () => {
 
                     <div className="flex items-center space-x-3 pt-5 sm:pt-0">
                         <button
-                            type="button"
-                            className="bg-gray-200 hover:bg-gray-400 text-black text-2xl font-bold w-10 h-10 rounded-full"
+                        type="button"
+                        className="bg-gray-200 hover:bg-gray-400 text-black text-2xl font-bold w-10 h-10 rounded-full"
+                        onClick={() => setActiveSection("Profile")}
                         >
-                            <FontAwesomeIcon icon={faGear} />
+                    <FontAwesomeIcon icon={faGear} />
                         </button>
+
                         <button
                             type="button"
                             className="bg-gray-200 hover:bg-gray-400 text-black text-3xl font-bold w-12 h-10 sm:w-14 sm:h-14 rounded-full"
@@ -67,7 +68,7 @@ export const Dashboard: React.FC = () => {
                             <nav className="flex flex-col h-full bg-gray-300 justify-between">
                                 <div>
                                     <ul className="flex sm:flex-col overflow-x-auto sm:overflow-visible">
-                                        {["Dashboard", "Mis pagos", "Colaboradores", "Mis ingresos", "Mis redes"].map((section) => (
+                                        {["Dashboard", "Mis pagos", "Mis ingresos", "Mis redes"].map((section) => (
                                             <li
                                                 key={section}
                                                 className={`flex items-center px-6 py-4 sm:py-8 text-black text-base sm:text-xl font-semibold cursor-pointer ${
@@ -99,11 +100,11 @@ export const Dashboard: React.FC = () => {
 
                         {/* Contenido Principal */}
                         <div className="flex-1 p-4 sm:p-8">
-                            {/* {activeSection === "Dashboard" && <DashboardSection />} */}
+                            {/* Renderizado condicional de secciones */}
                             {activeSection === "Mis pagos" && <PaymentsSection />}
-                            {activeSection === "Colaboradores" && <CollaboratorsSection />}
                             {activeSection === "Mis ingresos" && <IncomeSection />}
                             {activeSection === "Mis redes" && <SocialSection />}
+                            {activeSection === "Profile" && <ProfileSection />}
                         </div>
                     </div>
                 </div>
@@ -112,6 +113,7 @@ export const Dashboard: React.FC = () => {
     );
 };
 
+
 // Función auxiliar para obtener íconos
 const getIcon = (section: string) => {
     switch (section) {
@@ -119,8 +121,7 @@ const getIcon = (section: string) => {
             return "dashboard";
         case "Mis pagos":
             return "payments";
-        case "Colaboradores":
-            return "groups";
+       
         case "Mis ingresos":
             return "bar_chart";
         case "Mis redes":
