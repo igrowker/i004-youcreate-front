@@ -38,9 +38,20 @@ export const deleteIncome = async (id: number): Promise<void> => {
   await axios.delete(`${baseUrl}/api/income/${id}`);
 };
 
-export const filterIncomesByMonth = async (month: string): Promise<Income[]> => {
-  const response = await axios.get(`${baseUrl}/api/income/filterByMonth`, {
-    params: { month },
-  });
-  return response.data.data;
+export const filterIncomesByMonth = async (
+  userId: number,
+  month: string,
+  year: string
+): Promise<Income[]> => {
+  try {
+    const response = await axios.get(`${baseUrl}/api/income/filterByMonth`, {
+      params: { userId, month, year },
+    });
+
+    // Retorna los datos del array si existen
+    return response.data || [];
+  } catch (error) {
+    console.error("Error en la llamada a la API:", error);
+    return []; // En caso de error, devuelve un array vacío
+  }
 };
