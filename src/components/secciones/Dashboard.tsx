@@ -45,7 +45,7 @@ export const Dashboard: React.FC = () => {
                         <button
                         type="button"
                         className="bg-gray-200 hover:bg-gray-400 text-black text-2xl font-bold w-10 h-10 rounded-full"
-                        onClick={() => setActiveSection("Profile")}
+                       
                         >
                     <FontAwesomeIcon icon={faGear} />
                         </button>
@@ -53,6 +53,7 @@ export const Dashboard: React.FC = () => {
                         <button
                             type="button"
                             className="bg-gray-200 hover:bg-gray-400 text-black text-3xl font-bold w-12 h-10 sm:w-14 sm:h-14 rounded-full"
+                            onClick={() => setActiveSection("Profile")}
                         >
                             <FontAwesomeIcon icon={faUser} />
                         </button>
@@ -61,13 +62,13 @@ export const Dashboard: React.FC = () => {
             </header>
 
             <main className="flex flex-col sm:flex-row h-5/6 justify-center">
-                <div className="flex bg-[gray-200] bg-opacity-40 w-full h-full sm:w-[95%] justify-center py-6 sm:py-12 rounded-r-3xl">
-                    <div className="flex bg-[#FFFFFF] h-full w-full sm:w-[95%] rounded-r-lg rounded-r-3xl">
+                <div className="flex bg-white bg-opacity-30 w-full h-full sm:w-[95%] justify-center py-6 sm:py-12 rounded-r-3xl">
+                    <div className="flex  h-full w-full sm:w-[95%] rounded-r-lg rounded-r-3xl">
                         <div className="flex flex-col h-full">
                             {/* Menú lateral */}
-                            <nav className="flex flex-col h-full bg-gray-300 justify-between">
+                            <nav className="flex flex-col bg-white bg-opacity-35 h-full justify-between">
                                 <div>
-                                    <ul className="flex sm:flex-col overflow-x-auto sm:overflow-visible">
+                                    <ul className="flex sm:flex-col overflow-x-auto  sm:overflow-visible">
                                         {["Dashboard", "Mis pagos", "Mis ingresos", "Mis redes"].map((section) => (
                                             <li
                                                 key={section}
@@ -91,15 +92,15 @@ export const Dashboard: React.FC = () => {
                                     onClick={handleLogout}
                                     >
 
-                                        <span className="material-icons">logout</span>
-                                        <span className="ml-4">Cerrar sesión</span>
+                                        <span className="material-icons text-slate-500">logout</span>
+                                        <span className="ml-4 text-black">Cerrar sesión</span>
                                     </button>
                                 </div>
                             </nav>
                         </div>
 
                         {/* Contenido Principal */}
-                        <div className="flex-1 p-4 sm:p-8">
+                        <div className="flex-1 bg-white p-4 sm:p-8">
                             {/* Renderizado condicional de secciones */}
                             {activeSection === "Dashboard" && <DashboardSection />}
                             {activeSection === "Mis pagos" && <PaymentsSection />}
