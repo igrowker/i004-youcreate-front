@@ -22,10 +22,15 @@ export const getIncomesByUser = async (userId: number): Promise<Income[]> => {
 };
 
 export const createIncome = async (income: Partial<Income>): Promise<Income> => {
-  const response = await axios.post(`${baseUrl}/api/income/create`, income);
-  return response.data.data;
+  try {
+    console.log("Datos enviados al backend:", income);
+    const response = await axios.post(`${baseUrl}/api/income/create`, income);
+    return response.data.data;
+  } catch (error: any) {
+    console.error("Error al crear ingreso:", error.response?.data || error.message);
+    throw error;
+  }
 };
-
 export const updateIncome = async (
   id: number,
   updatedIncome: Partial<Income>
