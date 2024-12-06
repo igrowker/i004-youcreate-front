@@ -1,3 +1,4 @@
+
 import { FC } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Login } from "./components/RegistroLoginComponent/login.tsx";
@@ -21,12 +22,7 @@ export const AppRouter: FC = () => {
             <Route path="/admin" element={<UserAdmin />} />
 
             <Route path="/dashboard" element={<Dashboard />} />
-
-            <Route path="/dashboard/:section" element={<Dashboard />} />
-            <Route path="/cuenta" element={<Cuenta />} />
-
             <Route path="/profile" element={<ProfileSection/>} />
-
 
 
             <Route path="/" element={<RouterLayout />}>

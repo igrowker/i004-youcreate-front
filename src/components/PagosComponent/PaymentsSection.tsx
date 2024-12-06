@@ -70,54 +70,60 @@ export const PaymentsSection: React.FC = () => {
             <div className="flex justify-between items-center mb-4">
                 <h2 className="text-xl font-semibold">Impuestos</h2>
                 <button
-                    className="flex items-center gap-1 bg-indigo-800 text-white px-2 py-2 rounded"
+                     className="bg-[#56588C] shadow-full text-white px-4 py-3 rounded-lg hover:bg-[#56587C]"
                     onClick={() => setIsModalTaxesOpen(true)}
                 >
                     Agregar impuesto
                 </button>
             </div>
-            <table className="w-full text-sm text-left rtl:text-right text-black dark:text-gray-400">
-                <thead className="text-xs text-black uppercase">
-                <tr className="bg-indigo-300 text-left">
-                    <th scope= 'col' className="px-6 py-3">Tipo de Impuesto</th>
-                    <th scope= 'col' className="px-6 py-3">Monto</th>
-                    <th scope= 'col' className="px-6 py-3">Vencimiento</th>
-                    <th scope= 'col' className="px-6 py-3">Estado</th>
-                    <th scope= 'col' className="px-6 py-3">Pagar</th>
-                </tr>
-                </thead>
-                <tbody>
-                {taxList?.map((tax, index) => (
-                    <tr key={index} className="border-t">
-                        <td scope='row' className="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-black">{tax.category}</td>
-                        <td scope='row' className="px-6 py-4 font-medium text-indigo-400 whitespace-nowrap dark:text-black">$ {tax.amount}</td>
-                        <td scope='row' className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black">{tax.expired_date}</td>
-                        <td scope='row' className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black">
-                                <span
-                                    className={`px-2 py-1 rounded ${
-                                        tax.status === "PENDING"
-                                            ? "bg-yellow-200 text-yellow-700"
-                                            : tax.status === "EXPIRED"
-                                                ? "bg-red-200 text-red-700"
-                                                : "bg-green-200 text-green-700"
-                                    }`}
-                                >
-                                    {tax.status}
-                                </span>
-                        </td>
-                        <td className="p-2">
-                            <button className="bg-gray-200 px-4 py-1 rounded hover:bg-gray-300">Ir</button>
-                        </td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
+            <div className="relative">
+      {/* Encabezado */}
+      <div className="bg-[#DDDEEC] shadow-md rounded-lg text-sm font-semibold text-gray-500 grid grid-cols-5 mb-2">
+        <div className="p-4">Tipo de Impuesto</div>
+        <div className="p-4">Monto</div>
+        <div className="p-4">Vencimiento</div>
+        <div className="p-4">Estado</div>
+        <div className="p-4">Pagar</div>
+      </div>
+
+      {/* Lista de Impuestos */}
+      <div className="space-y-2 relative">
+        {taxList?.map((tax, index) => (
+          <div
+            key={index}
+            className="bg-white shadow-md rounded-lg grid grid-cols-5 text-gray-700 text-sm relative"
+          >
+            <div className="p-4 font-medium text-gray-900">{tax.category}</div>
+            <div className="p-4 font-medium text-indigo-400">${tax.amount}</div>
+            <div className="p-4 font-medium text-gray-900">{tax.expired_date}</div>
+            <div className="p-4 font-medium">
+              <span
+                className={`px-2 py-1 rounded ${
+                  tax.status === "PENDING"
+                    ? "bg-yellow-200 text-yellow-700"
+                    : tax.status === "EXPIRED"
+                    ? "bg-red-200 text-red-700"
+                    : "bg-green-200 text-green-700"
+                }`}
+              >
+                {tax.status}
+              </span>
+            </div>
+            <div className="p-4">
+              <button className="bg-gray-200 px-4 py-1 rounded hover:bg-gray-300">
+                Ir
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
             <AddTaxModal isOpen={isModalTaxesOpen} onClose={() => setIsModalTaxesOpen(false)}/>
 
             <div className="flex justify-between items-center mb-4 pt-5">
                 <h3 className="text-xl font-semibold">Colaboradores</h3>
                 <button
-                    className="flex items-center gap-2 bg-indigo-800 text-white px-2 py-2 rounded "
+                    className="bg-[#56588C] shadow-full text-white px-4 py-3 rounded-lg hover:bg-[#56587C]"
                     onClick={() => setIsModalCollaboratorsOpen(true)}
                 >
                     Agregar colaborador
