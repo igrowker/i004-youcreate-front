@@ -1,192 +1,209 @@
-// import React, { useState, useEffect } from "react";
-// import {
-//   getIncomesByUser,
-//   createIncome,
-//   updateIncome,
-//   deleteIncome,
-//   filterIncomesByMonth,
-//   Income,
-// } from "../../services/Incomes/IncomesService";
-// import { toast } from "react-toastify";
+import React, { useState, useEffect } from "react";
+import {
+  getIncomesByUser,
+  createIncome,
+  updateIncome,
+  deleteIncome,
+  Income,
+} from "../../services/Incomes/IncomesService";
+import { toast } from "react-toastify";
+import { useUser } from "../../context/UserContext";
+import { AddIncome } from "./AddIncome";
+import Edit from "../../assets/vectors/edit.svg";
+import DeleteIcon from "../../assets/vectors/delete.svg";
 
-// export const IncomeSection: React.FC = () => {
-//   const [incomes, setIncomes] = useState<Income[]>([]);
-//   const [newIncome, setNewIncome] = useState<Partial<Income>>({
-//     amount: 0,
-//     origin: "",
-//     date: "",
-//     category: "",
-//   });
-//   const [filterMonth, setFilterMonth] = useState("");
-//   const [userId] = useState(1); // Cambia esto según el ID del usuario actual
+export const IncomeSection: React.FC = () => {
+  const { user } = useUser();
+  const userId = user?.id;
+  const [incomes, setIncomes] = useState<Income[]>([]);
+  const [isAddingIncome, setIsAddingIncome] = useState(false);
+  const [editRowId, setEditRowId] = useState<number | null>(null);
+  const [newIncome, setNewIncome] = useState<Partial<Income>>({
+    origin: "",
+    category: "",
+    date: "",
+    amount: 0,
+  });
+  const [editedIncome, setEditedIncome] = useState<Partial<Income>>({});
 
-//   const fetchIncomes = async () => {
-//     try {
-//       const data = await getIncomesByUser(userId);
-//       setIncomes(data);
-//     } catch (error) {
-//       toast.error("Error al cargar los ingresos");
-//     }
-//   };
+  // Fetch incomes from the server
+  const fetchIncomes = async () => {
+    try {
+      if (userId) {
+        const data = await getIncomesByUser(userId);
+        setIncomes(data);
+      } else {
+        toast.error("Usuario no identificado");
+      }
+    } catch (error) {
+      toast.error("Error al cargar los ingresos");
+    }
+  };
 
-//   const handleCreateIncome = async () => {
-//     try {
-//       if (!newIncome.amount || !newIncome.origin || !newIncome.date || !newIncome.category) {
-//         toast.error("Todos los campos son obligatorios para crear un ingreso");
-//         return;
-//       }
-//       const created = await createIncome({ ...newIncome, user_id: userId });
-//       setIncomes((prev) => [...prev, created]);
-//       toast.success("Ingreso creado exitosamente");
-//       setNewIncome({ amount: 0, origin: "", date: "", category: "" });
-//     } catch (error) {
-//       toast.error("Error al crear el ingreso");
-//     }
-//   };
+  useEffect(() => {
+    fetchIncomes();
+  }, [userId]);
 
-//   const handleUpdateIncome = async (id: number, updatedIncome: Partial<Income>) => {
-//     try {
-//       const updated = await updateIncome(id, updatedIncome);
-//       setIncomes((prev) =>
-//         prev.map((income) => (income.id === id ? updated : income))
-//       );
-//       toast.success("Ingreso actualizado exitosamente");
-//     } catch (error) {
-//       toast.error("Error al actualizar el ingreso");
-//     }
-//   };
+  // Handle income creation
+  const handleCreateIncome = async () => {
+    try {
+      if (userId) {
+        if (!newIncome.origin || !newIncome.category || !newIncome.date || !newIncome.amount) {
+          toast.error("Todos los campos son obligatorios");
+          return;
+        }
+        await createIncome({ ...newIncome, user_id: userId });
+        toast.success("Ingreso creado exitosamente");
+        setIsAddingIncome(false);
+        fetchIncomes();
+      }
+    } catch (error: any) {
+      toast.error("Error al agregar el ingreso");
+    }
+  };
 
-//   const handleDeleteIncome = async (id: number) => {
-//     try {
-//       await deleteIncome(id);
-//       setIncomes((prev) => prev.filter((income) => income.id !== id));
-//       toast.success("Ingreso eliminado exitosamente");
-//     } catch (error) {
-//       toast.error("Error al eliminar el ingreso");
-//     }
-//   };
+  // Handle income update
+  const handleUpdateIncome = async (id: number) => {
+    try {
+      await updateIncome(id, editedIncome);
+      toast.success("Ingreso actualizado exitosamente");
+      setEditRowId(null);
+      fetchIncomes();
+    } catch (error) {
+      toast.error("Error al actualizar el ingreso");
+    }
+  };
 
-//   const handleFilterByMonth = async () => {
-//     try {
-//       const filtered = await filterIncomesByMonth(filterMonth);
-//       setIncomes(filtered);
-//     } catch (error) {
-//       toast.error("Error al filtrar los ingresos");
-//     }
-//   };
+  // Handle income deletion
+  const handleDeleteIncome = async (id: number) => {
+    try {
+      await deleteIncome(id);
+      setIncomes((prev) => prev.filter((income) => income.id !== id));
+      toast.success("Ingreso eliminado exitosamente");
+    } catch (error) {
+      toast.error("Error al eliminar el ingreso");
+    }
+  };
 
-//   useEffect(() => {
-//     fetchIncomes();
-//   }, []);
+  return (
+    <div className="relative">
+      {/* Header */}
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-2xl font-Nunito-bold">Mis ingresos</h2>
+        <div className="flex items-center space-x-4">
+          <button
+            onClick={() => setIsAddingIncome(!isAddingIncome)}
+            className="bg-[#56588C] shadow-full text-white px-4 py-3 rounded-lg hover:bg-[#56587C]"
+          >
+            Agregar ingreso
+          </button>
+        </div>
+      </div>
 
-//   return (
-//     <div className="p-6 bg-gray-100 min-h-screen">
-//       <h1 className="text-2xl font-bold mb-6">Mis Ingresos</h1>
+      {/* Add income form */}
+      {isAddingIncome && (
+        <AddIncome
+          newIncome={newIncome}
+          setNewIncome={setNewIncome}
+          onCancel={() => setIsAddingIncome(false)}
+          onSave={handleCreateIncome}
+        />
+      )}
 
-//       {/* Crear nuevo ingreso */}
-//       <div className="mb-6">
-//         <h2 className="text-lg font-semibold mb-2">Nuevo Ingreso</h2>
-//         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-//           <input
-//             type="number"
-//             placeholder="Monto"
-//             value={newIncome.amount || ""}
-//             className="border p-2 rounded w-full"
-//             onChange={(e) =>
-//               setNewIncome((prev) => ({ ...prev, amount: parseFloat(e.target.value) }))
-//             }
-//           />
-//           <input
-//             type="text"
-//             placeholder="Origen"
-//             value={newIncome.origin || ""}
-//             className="border p-2 rounded w-full"
-//             onChange={(e) =>
-//               setNewIncome((prev) => ({ ...prev, origin: e.target.value }))
-//             }
-//           />
-//           <input
-//             type="text"
-//             placeholder="Categoría"
-//             value={newIncome.category || ""}
-//             className="border p-2 rounded w-full"
-//             onChange={(e) =>
-//               setNewIncome((prev) => ({ ...prev, category: e.target.value }))
-//             }
-//           />
-//           <input
-//             type="date"
-//             value={newIncome.date || ""}
-//             className="border p-2 rounded w-full"
-//             onChange={(e) =>
-//               setNewIncome((prev) => ({ ...prev, date: e.target.value }))
-//             }
-//           />
-//         </div>
-//         <button
-//           className="bg-blue-500 text-white p-2 mt-4 rounded"
-//           onClick={handleCreateIncome}
-//         >
-//           Crear Ingreso
-//         </button>
-//       </div>
+      {/* Income Table */}
+      <div className="relative">
+        <div className="bg-[#DDDEEC] shadow-md rounded-lg text-sm font-semibold text-gray-500 grid grid-cols-4 mb-2">
+          <div className="p-4">DESCRIPCIÓN</div>
+          <div className="p-4">CATEGORÍA</div>
+          <div className="p-4">FECHA</div>
+          <div className="p-4">MONTO</div>
+        </div>
 
-//       {/* Filtrar ingresos por mes */}
-//       <div className="mb-6">
-//         <h2 className="text-lg font-semibold mb-2">Filtrar por Mes</h2>
-//         <input
-//           type="month"
-//           value={filterMonth}
-//           className="border p-2 rounded w-full"
-//           onChange={(e) => setFilterMonth(e.target.value)}
-//         />
-//         <button
-//           className="bg-green-500 text-white p-2 mt-2 rounded"
-//           onClick={handleFilterByMonth}
-//         >
-//           Filtrar
-//         </button>
-//       </div>
+        <div className="space-y-2 relative">
+          {incomes.map((income) => (
+            <div
+              key={income.id}
+              className="bg-white shadow-md rounded-lg grid grid-cols-4 text-gray-700 text-sm relative"
+            >
+              {editRowId === income.id ? (
+                <>
+                  <input
+                    className="p-4 border  border-gray-300 rounded-md"
+                    value={editedIncome.origin || income.origin}
+                    onChange={(e) =>
+                      setEditedIncome((prev) => ({ ...prev, origin: e.target.value }))
+                    }
+                  />
+                  <select
+                    className={`p-4 border border-gray-300 rounded-md ${newIncome.category ? "text-black" : "text-gray-500"
+                      }`}
+                    name="category"
+                    value={newIncome.category || ""}
+                    onChange={(e) =>
+                      setNewIncome((prev) => ({ ...prev, category: e.target.value }))
+                    }
+                  >
+                    <option value="" disabled>
+                      Seleccionar categoría
+                    </option>
+                    <option value="colaboracion">Colaboración</option>
+                    <option value="campaña">Campaña</option>
+                  </select>
+                  <input
+                    className="p-4 border border-gray-300 rounded-md"
+                    type="date"
+                    value={editedIncome.date || income.date}
+                    onChange={(e) =>
+                      setEditedIncome((prev) => ({ ...prev, date: e.target.value }))
+                    }
+                  />
+                  <input
+                    className="p-4 border border-gray-300 rounded-md"
+                    type="number"
+                    value={editedIncome.amount || income.amount}
+                    onChange={(e) =>
+                      setEditedIncome((prev) => ({
+                        ...prev,
+                        amount: parseFloat(e.target.value) || 0,
+                      }))
+                    }
+                  />
+                </>
+              ) : (
+                <>
+                  <div className="p-4">{income.origin}</div>
+                  <div className="p-4">{income.category}</div>
+                  <div className="p-4">{income.date}</div>
+                  <div className="p-4">${income.amount.toFixed(2)}</div>
+                </>
+              )}
 
-//       {/* Lista de ingresos */}
-//       <div>
-//         <h2 className="text-lg font-semibold mb-4">Lista de Ingresos</h2>
-//         {incomes.length === 0 ? (
-//           <p className="text-gray-500">No hay ingresos registrados.</p>
-//         ) : (
-//           <ul className="space-y-4">
-//             {incomes.map((income) => (
-//               <li
-//                 key={income.id}
-//                 className="border p-4 rounded flex justify-between items-center bg-white shadow"
-//               >
-//                 <div>
-//                   <p className="font-bold">Monto: ${income.amount}</p>
-//                   <p>Origen: {income.origin}</p>
-//                   <p>Categoría: {income.category}</p>
-//                   <p className="text-sm text-gray-500">Fecha: {income.date}</p>
-//                 </div>
-//                 <div className="flex space-x-2">
-//                   <button
-//                     className="bg-yellow-500 text-white p-2 rounded"
-//                     onClick={() =>
-//                       handleUpdateIncome(income.id, { amount: income.amount + 10 })
-//                     }
-//                   >
-//                     Actualizar
-//                   </button>
-//                   <button
-//                     className="bg-red-500 text-white p-2 rounded"
-//                     onClick={() => handleDeleteIncome(income.id)}
-//                   >
-//                     Eliminar
-//                   </button>
-//                 </div>
-//               </li>
-//             ))}
-//           </ul>
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
+              {/* Edit button */}
+              <button
+                onClick={() => {
+                  if (editRowId === income.id) {
+                    handleUpdateIncome(income.id);
+                  } else {
+                    setEditRowId(income.id);
+                    setEditedIncome(income);
+                  }
+                }}
+                className="absolute right-16 top-1/2 transform -translate-y-1/2 bg-gray-200 hover:bg-gray-300 shadow-md rounded-full p-2"
+              >
+                <img className="w-4 h-4" src={Edit} alt="Editar" />
+              </button>
+
+              {/* Delete button */}
+              <button
+                onClick={() => handleDeleteIncome(income.id)}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-200 hover:bg-gray-300 shadow-md rounded-full p-2"
+              >
+                <img className="w-4 h-4" src={DeleteIcon} alt="Eliminar" />
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
