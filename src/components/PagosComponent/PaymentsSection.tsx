@@ -136,7 +136,7 @@ export const PaymentsSection: React.FC = () => {
                 </thead>
                 <tbody>
                 {collaboratorsList?.map((collaborator, index) => (
-                    <tr key={index} className="border-t">
+                    <tr key={index} className="border-t my-3">
                         <td className="p-2">{collaborator.name}</td>
                         <td className="p-2">$ {collaborator.amount}</td>
                         <td className="p-2">{collaborator.date}</td>
