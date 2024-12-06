@@ -1,23 +1,26 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import logo from "../../assets/icons/logo.svg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faGear, faUser } from "@fortawesome/free-solid-svg-icons";
 import { PaymentsSection } from "../PagosComponent/PaymentsSection";
-import { CollaboratorsSection } from "../CollaboratorsComponent/CollaboratorsSection";
 import { SocialSection } from "../SocialComponent/SocialSection";
+import {IconProp} from "@fortawesome/fontawesome-svg-core";
+import {useParams} from "react-router-dom";
 
 export const Dashboard: React.FC = () => {
+
+    const { section } = useParams();
     const [activeSection, setActiveSection] = useState<string>("Dashboard");
 
-    const taxes = [
-        { type: "IVA", amount: "$100", dueDate: "2024-12-01", status: "Pendiente" },
-        { type: "ISR", amount: "$200", dueDate: "2024-12-15", status: "Pagado" },
-    ];
-
-    const collaborators = [
-        { name: "John Doe", amount: "$150", date: "2024-12-01", status: "Pendiente" },
-        { name: "Jane Smith", amount: "$200", date: "2024-12-15", status: "Pagado" },
-    ];
+    useEffect(() => {
+        if (section) {
+            if (section === "mis-pagos") {
+                setActiveSection("Mis pagos");
+            } else {
+                setActiveSection("Dashboard");
+            }
+        }
+    }, [section]);
 
     return (
         <div className="bg-gray-400 h-100 w-screen">
@@ -34,7 +37,7 @@ export const Dashboard: React.FC = () => {
                             placeholder="Buscar"
                         />
                         <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-xl text-gray-800">
-                            <FontAwesomeIcon icon={faMagnifyingGlass} />
+                            <FontAwesomeIcon icon={faMagnifyingGlass as IconProp} />
                         </div>
                     </div>
 
@@ -43,13 +46,13 @@ export const Dashboard: React.FC = () => {
                             type="button"
                             className="bg-gray-200 hover:bg-gray-400 text-black text-2xl font-bold w-10 h-10 rounded-full"
                         >
-                            <FontAwesomeIcon icon={faGear} />
+                            <FontAwesomeIcon icon={faGear  as IconProp} />
                         </button>
                         <button
                             type="button"
                             className="bg-gray-200 hover:bg-gray-400 text-black text-3xl font-bold w-12 h-10 sm:w-14 sm:h-14 rounded-full"
                         >
-                            <FontAwesomeIcon icon={faUser} />
+                            <FontAwesomeIcon icon={faUser  as IconProp} />
                         </button>
                     </div>
                 </nav>
@@ -86,12 +89,7 @@ export const Dashboard: React.FC = () => {
                         </div>
 
                         <div className="flex-1 p-4 sm:p-8">
-                            {activeSection === "Mis pagos" && (
-                                <>
-                                    <PaymentsSection taxes={taxes} />
-                                    <CollaboratorsSection collaborators={collaborators} />
-                                </>
-                            )}
+                            {activeSection === "Mis pagos" && <PaymentsSection  />}
                             {activeSection === "Mis redes" && <SocialSection />}
                         </div>
                     </div>

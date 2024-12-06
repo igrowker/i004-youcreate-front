@@ -3,40 +3,40 @@ import React, { useState } from "react";
 interface AddCollaboratorModalProps {
     isOpen: boolean;
     onClose: () => void;
-    onSave: (data: { name: string; amount: string; date: string; campaign: string }) => void;
 }
 
-const AddCollaboratorModal: React.FC<AddCollaboratorModalProps> = ({ isOpen, onClose, onSave }) => {
+export const AddCollaboratorModal: React.FC<AddCollaboratorModalProps> = ({ isOpen, onClose, }) => {
     const [name, setName] = useState("");
     const [amount, setAmount] = useState("");
     const [date, setDate] = useState("");
     const [campaign, setCampaign] = useState("");
-
-    if (!isOpen) return null; // No renderizar si el modal está cerrado
+    const [status, setStatus] = useState<"Pendiente" | "Pagado">("Pendiente");
 
     const handleSave = () => {
-        onSave({ name, amount, date, campaign });
+
         onClose();
     };
+
+    if (!isOpen) return null;
 
     return (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
             <div className="bg-white rounded shadow-lg p-6 w-96">
-                <h2 className="text-lg font-semibold mb-4">Nuevo colaborador</h2>
+                <h2 className="text-lg font-semibold mb-4">Agregar Colaborador</h2>
                 <div className="mb-4">
                     <label className="block text-sm font-medium">Nombre</label>
                     <input
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        placeholder="Ingresar nombre del colaborador"
+                        placeholder="Ingresar nombre"
                         className="w-full border border-gray-300 rounded px-3 py-2"
                     />
                 </div>
                 <div className="mb-4">
                     <label className="block text-sm font-medium">Monto</label>
                     <input
-                        type="number"
+                        type="text"
                         value={amount}
                         onChange={(e) => setAmount(e.target.value)}
                         placeholder="Ingresar monto"
@@ -58,10 +58,11 @@ const AddCollaboratorModal: React.FC<AddCollaboratorModalProps> = ({ isOpen, onC
                         type="text"
                         value={campaign}
                         onChange={(e) => setCampaign(e.target.value)}
-                        placeholder="Indicar campaña"
+                        placeholder="Ingresar campaña"
                         className="w-full border border-gray-300 rounded px-3 py-2"
                     />
                 </div>
+
                 <div className="flex justify-end gap-4">
                     <button onClick={onClose} className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">
                         Cancelar
@@ -77,5 +78,3 @@ const AddCollaboratorModal: React.FC<AddCollaboratorModalProps> = ({ isOpen, onC
         </div>
     );
 };
-
-export default AddCollaboratorModal;

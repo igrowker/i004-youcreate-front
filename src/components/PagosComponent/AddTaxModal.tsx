@@ -3,10 +3,9 @@ import React, { useState } from "react";
 interface AddTaxModalProps {
     isOpen: boolean;
     onClose: () => void;
-    onSave: (data: { type: string; amount: string; dueDate: string }) => void;
 }
 
-export const AddTaxModal: React.FC<AddTaxModalProps> = ({ isOpen, onClose, onSave }) => {
+export const AddTaxModal: React.FC<AddTaxModalProps> = ({ isOpen, onClose }) => {
     const [type, setType] = useState("");
     const [amount, setAmount] = useState("");
     const [dueDate, setDueDate] = useState("");
@@ -14,7 +13,7 @@ export const AddTaxModal: React.FC<AddTaxModalProps> = ({ isOpen, onClose, onSav
     if (!isOpen) return null; // No renderizar si el modal está cerrado
 
     const handleSave = () => {
-        onSave({ type, amount, dueDate });
+        // Aquí se enviaría la información al servidor
         onClose();
     };
 

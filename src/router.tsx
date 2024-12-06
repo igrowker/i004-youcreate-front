@@ -20,6 +20,7 @@ export const AppRouter: FC = () => {
             <Route path="/admin" element={<UserAdmin />} />
 
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard/:section" element={<Dashboard />} />
             <Route path="/cuenta" element={<Cuenta />} />
 
 
