@@ -2,25 +2,24 @@ import React, { useState, useEffect } from "react";
 import {
   getIncomesByUser,
   createIncome,
-  updateIncome,
-  deleteIncome,
-  filterIncomesByMonth,
   Income,
 } from "../../services/Incomes/IncomesService";
 import { toast } from "react-toastify";
 import { useUser } from "../../context/UserContext";
+import { AddIncome } from "./AddIncome";
+import Edit from "../../assets/vectors/edit.svg";
 
 export const IncomeSection: React.FC = () => {
   const { user } = useUser();
   const userId = user?.id;
   const [incomes, setIncomes] = useState<Income[]>([]);
+  const [isAddingIncome, setIsAddingIncome] = useState(false);
   const [newIncome, setNewIncome] = useState<Partial<Income>>({
-    amount: 0,
     origin: "",
-    date: "",
     category: "",
+    date: "",
+    amount: 0,
   });
-  const [filterMonth, setFilterMonth] = useState("");
 
   const fetchIncomes = async () => {
     try {
@@ -39,38 +38,75 @@ export const IncomeSection: React.FC = () => {
     fetchIncomes();
   }, [userId]);
 
+  const handleCreateIncome = async () => {
+    try {
+      if (userId) {
+        if (!newIncome.origin || !newIncome.category || !newIncome.date || !newIncome.amount) {
+          toast.error("Todos los campos son obligatorios");
+          return;
+        }
+
+        await createIncome({ ...newIncome, user_id: userId });
+        toast.success("Ingreso creado exitosamente");
+        setIsAddingIncome(false);
+        fetchIncomes();
+      }
+    } catch (error: any) {
+      toast.error("Error al agregar el ingreso");
+    }
+  };
+
   return (
-    <div>
+    <div className="relative">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-2xl font-Nunito-bold ">Mis ingresos</h2>
 
-  <div className="mb-2">
-  <div className="flex justify-between items-center mb-4">
-      <h2 className="text-2xl font-semibold">Mis ingresos</h2>
-      <button className="bg-blue-500 text-white px-4 py-3 rounded-lg hover:bg-blue-600 transition duration-200">
-        Agregar ingreso
-      </button>
-    </div>
-    <div className="bg-[#DDDEEC] shadow-md rounded-lg text-sm font-Nunito-bold text-gray-500 grid grid-cols-4">
-        
-      <div className="p-4">DESCRIPCIÓN</div>
-      <div className="p-4">CATEGORÍA</div>
-      <div className="p-4">FECHA</div>
-      <div className="p-4">MONTO</div>
-    </div>
-  </div>
+        <div className="flex items-center space-x-4">
+          <button>
+            <img
+              className="w-8 h-8 hover:bg-gray-300 shadow-md rounded-full bg-gray-200"
+              src={Edit}
+              alt="Editar"
+            />
+          </button>
 
-  
-  <div className="space-y-2">
-    {incomes.map((income, index) => (
-      <div
-        key={income.id}
-        className={`bg-[#FFFFFF] shadow-md rounded-lg grid grid-cols-4  text-gray-700 text-sm`}
-      >
-        <div className="p-4">{income.origin}</div>
-        <div className="p-4">{income.category}</div>
-        <div className="p-4">{income.date}</div>
-        <div className="p-4">${income.amount.toFixed(2)}</div>
+          <button
+            onClick={() => setIsAddingIncome(!isAddingIncome)}
+            className="bg-[#56588C] shadow-full text-white px-4 py-3 rounded-lg hover:bg-[#56587C] "
+          >
+            Agregar ingreso
+          </button>
+        </div>
       </div>
-    ))}
-  </div>
-</div>
-  )}
+
+      {isAddingIncome && (
+        <AddIncome
+          newIncome={newIncome}
+          setNewIncome={setNewIncome}
+          onCancel={() => setIsAddingIncome(false)}
+          onSave={handleCreateIncome}
+        />
+      )}
+
+      <div className="bg-[#DDDEEC] shadow-md rounded-lg text-sm font-semibold text-gray-500 grid grid-cols-4 mb-2">
+        <div className="p-4">DESCRIPCIÓN</div>
+        <div className="p-4">CATEGORÍA</div>
+        <div className="p-4">FECHA</div>
+        <div className="p-4">MONTO</div>
+      </div>
+      <div className="space-y-2">
+        {incomes.map((income) => (
+          <div
+            key={income.id}
+            className="bg-white shadow-md rounded-lg grid grid-cols-4 text-gray-700 text-sm"
+          >
+            <div className="p-4">{income.origin}</div>
+            <div className="p-4">{income.category}</div>
+            <div className="p-4">{income.date}</div>
+            <div className="p-4">${income.amount.toFixed(2)}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};

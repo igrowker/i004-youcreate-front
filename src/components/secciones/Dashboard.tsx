@@ -61,8 +61,8 @@ export const Dashboard: React.FC = () => {
             </header>
 
             <main className="flex flex-col sm:flex-row h-5/6 justify-center">
-                <div className="flex bg-gray-200 bg-opacity-40 w-full h-full sm:w-[95%] justify-center py-6 sm:py-12 rounded-r-3xl">
-                    <div className="flex bg-gray-50 h-full w-full sm:w-[95%] rounded-r-lg rounded-r-3xl">
+                <div className="flex bg-[gray-200] bg-opacity-40 w-full h-full sm:w-[95%] justify-center py-6 sm:py-12 rounded-r-3xl">
+                    <div className="flex bg-[#FFFFFF] h-full w-full sm:w-[95%] rounded-r-lg rounded-r-3xl">
                         <div className="flex flex-col h-full">
                             {/* Menú lateral */}
                             <nav className="flex flex-col h-full bg-gray-300 justify-between">
