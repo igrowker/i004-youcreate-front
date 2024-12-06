@@ -70,29 +70,29 @@ export const PaymentsSection: React.FC = () => {
             <div className="flex justify-between items-center mb-4">
                 <h2 className="text-xl font-semibold">Impuestos</h2>
                 <button
-                    className="flex items-center gap-2 bg-gray-200 text-gray-600 px-4 py-2 rounded hover:bg-gray-300"
+                    className="flex items-center gap-1 bg-indigo-800 text-white px-2 py-2 rounded"
                     onClick={() => setIsModalTaxesOpen(true)}
                 >
                     Agregar impuesto
                 </button>
             </div>
-            <table className="w-full border border-gray-200 rounded">
-                <thead>
-                <tr className="bg-gray-100 text-left">
-                    <th className="p-2">Tipo de Impuesto</th>
-                    <th className="p-2">Monto</th>
-                    <th className="p-2">Vencimiento</th>
-                    <th className="p-2">Estado</th>
-                    <th className="p-2">Pagar</th>
+            <table className="w-full text-sm text-left rtl:text-right text-black dark:text-gray-400">
+                <thead className="text-xs text-black uppercase">
+                <tr className="bg-indigo-300 text-left">
+                    <th scope= 'col' className="px-6 py-3">Tipo de Impuesto</th>
+                    <th scope= 'col' className="px-6 py-3">Monto</th>
+                    <th scope= 'col' className="px-6 py-3">Vencimiento</th>
+                    <th scope= 'col' className="px-6 py-3">Estado</th>
+                    <th scope= 'col' className="px-6 py-3">Pagar</th>
                 </tr>
                 </thead>
                 <tbody>
                 {taxList?.map((tax, index) => (
                     <tr key={index} className="border-t">
-                        <td className="p-2">{tax.category}</td>
-                        <td className="p-2">$ {tax.amount}</td>
-                        <td className="p-2">{tax.expired_date}</td>
-                        <td className="p-2">
+                        <td scope='row' className="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-black">{tax.category}</td>
+                        <td scope='row' className="px-6 py-4 font-medium text-indigo-400 whitespace-nowrap dark:text-black">$ {tax.amount}</td>
+                        <td scope='row' className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black">{tax.expired_date}</td>
+                        <td scope='row' className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black">
                                 <span
                                     className={`px-2 py-1 rounded ${
                                         tax.status === "PENDING"
@@ -115,9 +115,9 @@ export const PaymentsSection: React.FC = () => {
             <AddTaxModal isOpen={isModalTaxesOpen} onClose={() => setIsModalTaxesOpen(false)}/>
 
             <div className="flex justify-between items-center mb-4 pt-5">
-                <h2 className="text-xl font-semibold">Colaboradores</h2>
+                <h3 className="text-xl font-semibold">Colaboradores</h3>
                 <button
-                    className="flex items-center gap-2 bg-gray-200 text-gray-600 px-4 py-2 rounded hover:bg-gray-300"
+                    className="flex items-center gap-2 bg-indigo-800 text-white px-2 py-2 rounded "
                     onClick={() => setIsModalCollaboratorsOpen(true)}
                 >
                     Agregar colaborador
@@ -125,7 +125,7 @@ export const PaymentsSection: React.FC = () => {
             </div>
             <table className="w-full border border-gray-200 rounded">
                 <thead>
-                <tr className="bg-gray-100 text-left">
+                <tr className="bg-indigo-200 text-left">
                     <th className="p-2">Nombre</th>
                     <th className="p-2">Monto</th>
                     <th className="p-2">Fecha</th>
