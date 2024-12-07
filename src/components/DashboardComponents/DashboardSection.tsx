@@ -1,5 +1,5 @@
 import React from "react";
-import Incomeschart from "./components/Incomeschart";
+import Incomeschart from "./components/Incomescharts";
 import BalanceChart from "./components/BalanceChart";
 import ExpenseChart from "./components/TotalExpensesChart";
 
