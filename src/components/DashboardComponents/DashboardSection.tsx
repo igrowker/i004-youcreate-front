@@ -1,5 +1,5 @@
 import React from 'react';
-import Incomeschart from './components/IncomesCharts';
+import Incomeschart from './components/Incomescharts.tsx';
 
 
 const DashboardSection: React.FC = () => {
