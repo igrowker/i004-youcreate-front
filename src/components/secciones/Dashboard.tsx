@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import logo from "../../assets/icons/logo.svg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faGear, faUser } from "@fortawesome/free-solid-svg-icons";
-import DashboardSection from "../DashboardComponents/DashboardSection";
+import DashboardSection from "../DashboardComponents/DashboardSection.tsx";
 import { PaymentsSection } from "../PagosComponent/PaymentsSection";
 
 import { IncomeSection } from "../IncomesComponent/IncomeSection";
