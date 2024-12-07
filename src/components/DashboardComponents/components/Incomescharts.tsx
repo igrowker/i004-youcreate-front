@@ -36,6 +36,7 @@ interface Income {
 
 const Incomeschart: React.FC = () => {
   const { user } = useUser(); // Obtener el usuario actual del contexto
+
   const [chartData, setChartData] = useState<ChartData<"line", number[], string>>({
     labels: [], // Inicialmente vacío
     datasets: [
@@ -69,8 +70,11 @@ const Incomeschart: React.FC = () => {
     },
   };
 
+
+  // Función para obtener los datos y actualizar el gráfico
   const fetchData = async () => {
-    if (!user) return; // usuario logueado
+    if (!user) return; // Asegúrate de que haya un usuario logueado
+
 
     const currentYear = new Date().getFullYear().toString();
     const months = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
@@ -83,7 +87,7 @@ const Incomeschart: React.FC = () => {
         // Llamada a la API para cada mes
         const incomes: Income[] = await filterIncomesByMonth(user.id, months[i], currentYear);
   
-        // incomes? sea un array antes de usar reduce
+
         const totalIncome = Array.isArray(incomes) && incomes.length > 0
           ? incomes.reduce((sum, income) => sum + income.amount, 0)
           : 0;
@@ -118,13 +122,17 @@ const Incomeschart: React.FC = () => {
   }, [user]); // Llamar a la API cuando el usuario cambie
 
   return (
+
     <div className="w-[500px] max-w-[500px] h-auto">
       <h2 className="mb-5 font-semibold text-xl">Evolución de ingresos</h2>
       <div className="bg-gray-100 p-4 border-[1px] rounded-lg shadow-xl min-h-60 max-h-64">
+
         <Line data={chartData} options={chartOptions} />
       </div>
     </div>
   );
 };
 
+
 export default Incomeschart;
+
