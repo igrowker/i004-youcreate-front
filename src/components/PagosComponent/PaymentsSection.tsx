@@ -4,14 +4,14 @@ import axios from "axios";
 import { AddCollaboratorModal } from "./AddCollaboratorModal.tsx";
 
 interface Tax {
-  id: number;
-  amount: number;
+  
+  taxDue: number;
   status: "PENDING" | "PAID" | "EXPIRED";
   category: string;
   collaborator_id: number;
-  date: string;
-  expired_date: string;
-  service: string;
+  deadline: string;
+  action: string;
+ taxName: string;
 }
 
 interface Collaborator {
@@ -22,6 +22,8 @@ interface Collaborator {
   campaign?: string;
 }
 
+
+
 export const PaymentsSection: React.FC = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
 
@@ -30,9 +32,30 @@ export const PaymentsSection: React.FC = () => {
   const [taxList, setTaxList] = useState<Tax[]>();
   const [collaboratorsList, setCollaboratorsList] = useState<Collaborator[]>();
 
+  const addTaxes = async () => {
+    try {
+      const user = JSON.parse(localStorage.getItem("loginData") as string);
+  
+      if (user?.id) {
+        const response = await axios.post(`${baseUrl}/api/v1/taxes/initialize-balance/${user.id}`);
+        const data = response.data;
+  
+        console.log("Impuestos calculados: ", data);
+  
+        // Actualiza la lista de impuestos
+        setTaxList(data.taxes);
+      } else {
+        console.error("Usuario no encontrado en localStorage.");
+      }
+    } catch (error) {
+      console.error("Error al calcular impuestos: ", error);
+    }
+  };
+
   const getTaxes = async () => {
     try {
-      const response = await axios.get(`${baseUrl}/api/v1/taxes`);
+      const user = JSON.parse(localStorage.getItem("loginData") as string);
+      const response = await axios.get(`${baseUrl}/api/v1/taxes/taxes/${user.id}`);
       const data = response.data;
       console.log("taxes: ", data);
       setTaxList(data);
@@ -67,7 +90,12 @@ export const PaymentsSection: React.FC = () => {
     <section className="mb-8">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold">Impuestos</h2>
-       
+        <button
+          className="bg-[#56588C] shadow-full text-white px-4 py-3 rounded-lg hover:bg-[#56587C]"
+           onClick={addTaxes}
+        >
+         Calcular impuestos
+        </button>
       </div>
 
       <div className="relative">
@@ -87,9 +115,11 @@ export const PaymentsSection: React.FC = () => {
               key={index}
               className="bg-[#DDDEEC] shadow-md rounded-lg text-sm font-semibold text-gray-500 grid grid-cols-5 mb-2"
             >
-              <div className="p-4 font-medium text-gray-900">{tax.category}</div>
-              <div className="p-4 font-medium text-indigo-400">${tax.amount}</div>
-              <div className="p-4 font-medium text-gray-900">{tax.expired_date}</div>
+              <div className="p-4 font-medium text-gray-900">{tax.taxName}</div>
+              <div className="p-4 font-medium text-indigo-400">${tax.taxDue}</div>
+              <div className="p-4 font-medium text-gray-900">{tax.deadline}</div>
+              <div className="p-4 font-medium text-gray-900">{tax.status}</div>
+              <div className="p-4 font-medium text-gray-900">{tax.action}</div>
               <div className="p-4 font-medium">
                 <span
                   className={`px-2 py-1 rounded ${

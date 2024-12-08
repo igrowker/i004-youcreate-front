@@ -63,3 +63,22 @@
   font-weight: 900;
   font-style: italic;
 }
+
+@layer utilities {
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: #a0aec0; /* Color del thumb */
+    border-radius: 8px; /* Bordes redondeados */
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background-color: #f7fafc; /* Fondo del track */
+  }
+
+  .scrollbar-thin:hover::-webkit-scrollbar-thumb {
+    background-color: #718096; /* Cambia el color al hover */
+  }
+}

@@ -95,9 +95,12 @@ export const Register: React.FC = () => {
           className="mb-2 p-2 border rounded w-full"
         >
           <option value="">País</option>
-          <option value="MX">México</option>
-          <option value="US">Estados Unidos</option>
-          <option value="ES">España</option>
+          <option value="Bolivia">Bolivia</option>
+          <option value="Argentina">Argentina</option>
+          <option value="Spain">España</option>
+          <option value="Costa Rica">Costa Rica</option>
+          <option value="Colombia">Colombia</option>
+          <option value="Dominican Republic">Republica Dominicana</option>
         </select>
         {errors.country && <span className="text-red-500 text-sm">{errors.country.message}</span>}
 
