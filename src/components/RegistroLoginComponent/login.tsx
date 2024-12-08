@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { FaGoogle, FaFacebook, FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { login, LoginType } from "../../services/auth/auth-services.ts";
 import { Flip, toast } from "react-toastify";
 import { Loader } from "../Loader/Loader.tsx";
-
+import { useUser } from "../../context/UserContext"; 
+import arrowLeft from "../../assets/vectors/arrowLeft.svg";
+import landing from "../../assets/images/img-landing.png"
 export const Login: React.FC = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<LoginType>();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { setUser } = useUser(); // 
 
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
@@ -31,13 +34,24 @@ export const Login: React.FC = () => {
     try {
       const response = await login(data);
       if (response.status === 200) {
+        // Guardar el usuario en el contexto
+        setUser({
+          id: response.data.id,
+          name: response.data.name,
+          email: response.data.email,
+        });
+
+        // Opcional: Guardar los datos en el localStorage
         localStorage.setItem("loginData", JSON.stringify(response.data));
+
         toast.update(id, {
           render: "Sesión iniciada correctamente.",
           type: "success",
           isLoading: false,
           autoClose: 4000,
         });
+
+        // Redirigir al dashboard
         navigate("/dashboard");
       }
     } catch (error: any) {
@@ -59,22 +73,22 @@ export const Login: React.FC = () => {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-screen bg-cover bg-center  bg-[url('/images/fondoDash.png')]">
+        <img
+        onClick={() => navigate("/")}
+        className="absolute top-7 left-5"
+        src={arrowLeft}
+        alt="Regresar"
+      />
       <div className="w-full max-w-md bg-white rounded-lg shadow-lg">
-        <div className="relative">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlbzQSwEkbwmAZ0yt9AKLOPbz_8mYlFM7bCg&s"
-            alt="Fondo"
-            className="w-full h-48 object-cover rounded-t-lg"
-          />
-          <div className="absolute bottom-0 left-4 transform translate-y-1/2 bg-gray-200 rounded-full border-4 border-white w-24 h-24 flex items-center justify-center shadow-lg">
-            <span className="text-3xl text-gray-600">👤</span>
-          </div>
+        <div className="flex justify-center items-center h screen">
+        <img src={landing} alt="Imagen principal" className="justify-center"/>
+          
         </div>
 
         <div className="p-6">
-          <h2 className="text-lg font-medium text-center mb-6">
-           Bienvenido a YouCreate <span className="font-bold"></span>
+          <h2 className="text-3xl font-nunito font-bold  text-center mb-6">
+          Iniciar sesión 
           </h2>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             {/* Email Input */}
@@ -115,7 +129,7 @@ export const Login: React.FC = () => {
                 onClick={togglePasswordVisibility}
                 className="absolute right-3 top-11 transform -translate-y-1/2 text-gray-500"
               >
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                {showPassword ?  <FaEye />:<FaEyeSlash /> }
               </button>
               {errors.password && <p className="text-sm text-red-500">{errors.password.message}</p>}
             </div>
@@ -134,28 +148,14 @@ export const Login: React.FC = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-gray-800 text-white py-2 rounded-lg hover:bg-gray-900 transition focus:ring-2 focus:ring-gray-300 focus:outline-none"
+              className="w-full bg-[#56588C] hover:bg-gray-900 text-white py-2 rounded-lg  transition focus:ring-2 focus:ring-gray-300 focus:outline-none"
             >
               Iniciar Sesión
             </button>
           </form>
 
-          {/* Social Login */}
-          <div className="mt-6">
-            <div className="flex items-center space-x-4">
-              <div className="flex-1 h-px bg-gray-300" />
-              <span className="text-sm text-gray-500">o inicia sesión con</span>
-              <div className="flex-1 h-px bg-gray-300" />
-            </div>
-            <div className="flex justify-center space-x-4 mt-4">
-              <button className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center shadow-md hover:bg-gray-200">
-                <FaFacebook className="text-blue-600 text-xl" />
-              </button>
-              <button className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center shadow-md hover:bg-gray-200">
-                <FaGoogle className="text-red-500 text-xl" />
-              </button>
-            </div>
-          </div>
+         
+          
 
           {/* Register Link */}
           <p className="mt-6 text-center text-sm text-gray-500">

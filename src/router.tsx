@@ -1,3 +1,4 @@
+
 import { FC } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Login } from "./components/RegistroLoginComponent/login.tsx";
@@ -11,16 +12,17 @@ import VerifyAccountSuccess from "./components/RegistroLoginComponent/VerifyAcco
 import UserAdmin from "./pages/UserAdmin.tsx";
 import { ResetPassword } from "./components/RegistroLoginComponent/ResetPassword.tsx";
 import {Dashboard} from "./components/secciones/Dashboard.tsx";
-import {Profile} from "./components/ProfileComponent/ProfileSection.tsx";
+import {ProfileSection} from "./components/ProfileComponent/ProfileSection.tsx";
 
 export const AppRouter: FC = () => {
     return (
+        
         <Routes>
             <Route path="*" element={<NotFound />} />
             <Route path="/admin" element={<UserAdmin />} />
 
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile" element={<ProfileSection/>} />
 
 
             <Route path="/" element={<RouterLayout />}>
