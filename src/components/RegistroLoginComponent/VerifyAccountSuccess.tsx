@@ -10,7 +10,7 @@ const VerifyAccountSuccess: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-gray-100">
+    <div className="flex items-center justify-center min-h-screen bg-cover bg-center  bg-[url('/images/fondoDash.png')]">
       <div className="bg-white md:p-16 text-center max-w-lg rounded-lg mx-4 shadow-lg">
         <div className="flex justify-center mb-6">
           <img
@@ -19,7 +19,7 @@ const VerifyAccountSuccess: React.FC = () => {
             alt="Restablecer contraseña"
           />
         </div>
-        <h2 className="text-3xl font-semibold text-black mb-4">
+        <h2 className="text-3xl font-raleway font-bold text-black mb-4">
           ¡Verificación completada!
         </h2>
         <div className="flex justify-center mb-6"></div>
@@ -28,7 +28,7 @@ const VerifyAccountSuccess: React.FC = () => {
         </p>
         <button
           onClick={handleContinue}
-          className="bg-black text-white py-2 w-full rounded-lg hover:bg-gray-700 transition-colors"
+          className="bg-[#56588C] hover:bg-gray-900 text-white py-2 w-full rounded-lg  transition-colors"
         >
           Continuar
         </button>

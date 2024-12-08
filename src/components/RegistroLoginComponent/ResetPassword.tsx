@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Logo from "../../assets/vectors/uCreate.svg";
+import Logo from "../../assets/vectors/Notificaciones.svg";
 
 type ResetPasswordType = {
   email: string;
@@ -36,7 +36,7 @@ export const ResetPassword: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex items-center justify-center min-h-screen bg-cover bg-center  bg-[url('/images/fondoDash.png')]">
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
         <div className="flex justify-center mb-6">
           <img className="w-20 h-20" src={Logo} alt="Restablecer contraseña" />
@@ -65,7 +65,7 @@ export const ResetPassword: React.FC = () => {
           </div>
           <button
             type="submit"
-            className="w-full p-3 mt-4 text-white bg-black rounded-lg hover:bg-gray-500"
+            className="w-full p-3 mt-4 text-white bg-[#56588C] hover:bg-gray-900 rounded-lg hover:bg-gray-500"
           >
             ENVIAR ENLACE DE RESTABLECIMIENTO
           </button>

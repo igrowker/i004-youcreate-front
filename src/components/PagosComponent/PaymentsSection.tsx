@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AddTaxModal } from "./AddTaxModal.tsx";
+
 import axios from "axios";
 import { AddCollaboratorModal } from "./AddCollaboratorModal.tsx";
 
@@ -67,12 +67,7 @@ export const PaymentsSection: React.FC = () => {
     <section className="mb-8">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold">Impuestos</h2>
-        <button
-          className="bg-[#56588C] shadow-full text-white px-4 py-3 rounded-lg hover:bg-[#56587C]"
-          onClick={() => setIsModalTaxesOpen(true)}
-        >
-          Agregar impuesto
-        </button>
+       
       </div>
 
       <div className="relative">
@@ -118,11 +113,7 @@ export const PaymentsSection: React.FC = () => {
         </div>
       </div>
 
-      <AddTaxModal
-        isOpen={isModalTaxesOpen}
-        onClose={() => setIsModalTaxesOpen(false)}
-      />
-
+      
       <div className="flex justify-between items-center mb-4 pt-5">
         <h3 className="text-xl font-semibold">Colaboradores</h3>
         <button

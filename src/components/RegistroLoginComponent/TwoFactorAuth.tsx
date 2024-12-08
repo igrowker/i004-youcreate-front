@@ -48,7 +48,7 @@ const TwoFactorAuth: FC = () => {
   };
 
   return (
-    <section className="bg-gray-100 w-full h-[100vh] relative overflow-hidden flex items-center">
+    <section className="flex items-center justify-center min-h-screen bg-cover bg-center  bg-[url('/images/fondoDash.png')]">
       <img
         onClick={() => navigate(-1)}
         className="absolute top-7 left-5"
@@ -60,10 +60,10 @@ const TwoFactorAuth: FC = () => {
         className="bg-white rounded-xl m-auto w-4/5 max-w-[630px] p-3 flex flex-col justify-center items-center gap-5"
       >
         <img src={Verify} alt="Verificación" />
-        <span className="absolute top-5 right-5">Paso 2 de 2</span>
-        <h2 className="text-center font-bold text-2xl">Verificación de seguridad</h2>
-        <p className="w-full max-w-[400px] text-center">
-          Hemos enviado un código de verificación a tu correo. Por favor, ingrésalo a continuación.
+        
+        <h2 className="text-center font-raleway font-bold text-2xl">Verificación de seguridad</h2>
+        <p className="w-full max-w-[400px] font-nunito font-regular text-center">
+        Por favor, ingresa el código de acceso que hemos enviado a tu correo electrónico.
         </p>
         <div className="flex my-6 gap-3">
           {userCode.map((digit, index) => (
@@ -79,7 +79,7 @@ const TwoFactorAuth: FC = () => {
         </div>
         <button
           type="submit"
-          className="bg-black text-white rounded-md w-[200px] h-[50px] hover:bg-gray-700"
+          className="bg-[#56588C] hover:bg-gray-900  text-white rounded-md w-[200px] h-[50px] "
         >
           Verificar cuenta
         </button>
