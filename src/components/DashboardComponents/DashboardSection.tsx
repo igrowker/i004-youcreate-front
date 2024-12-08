@@ -7,7 +7,7 @@ import ExpenseChart from "./components/TotalExpensesChart";
 
 const DashboardSection: React.FC = () => {
   return (
-    <div className="flex flex-wrap gap-x-10">
+    <div className="pb-10 flex flex-wrap gap-x-10">
       {/* ACA VA A IR IMPORTADOS LOS COMPONENTES QUE VAYA A UTILIZAR COMO LOS GRAFICOS ETC */}
 
       <Incomeschart />
