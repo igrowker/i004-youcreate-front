@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import logo from "../../assets/icons/logo.svg";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass, faGear, faUser } from "@fortawesome/free-solid-svg-icons";
+import config from "../../assets/vectors/Configuracion.svg"
 import DashboardSection from "../DashboardComponents/DashboardSection.tsx";
 import { PaymentsSection } from "../PagosComponent/PaymentsSection";
-
+import perfil from "../../assets/vectors/Perfil.svg";
 import { IncomeSection } from "../IncomesComponent/IncomeSection";
 import { SocialSection } from "../SocialComponent/SocialSection";
 import { useUser } from "../../context/UserContext"; 
@@ -23,7 +22,7 @@ export const Dashboard: React.FC = () => {
     };
 
     return (
-        <div className="h-screen w-screen bg-cover bg-center bg-[url('/images/fondoDash.png')]">
+        <div className="h-screen w-screen pb-10 overflow-hidden bg-cover bg-center bg-[url('/images/fondoDash.png')]">
             <header>
                 <nav className="flex flex-wrap justify-between items-center w-full p-4 mb-6">
                     <div className="flex items-center mb-3 sm:mb-0">
@@ -31,14 +30,8 @@ export const Dashboard: React.FC = () => {
                     </div>
 
                     <div className="relative w-full sm:w-auto sm:ml-44 mb-3 sm:mb-0">
-                        <input
-                            className="rounded-md h-9}7 text-xl pl-10 w-full sm:w-[500px]"
-                            type="search"
-                            placeholder="Buscar"
-                        />
-                        <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-xl text-gray-800">
-                            <FontAwesomeIcon icon={faMagnifyingGlass} />
-                        </div>
+                        
+                       
                     </div>
 
                     <div className="flex items-center space-x-3 pt-5 sm:pt-0">
@@ -47,7 +40,7 @@ export const Dashboard: React.FC = () => {
                         className="bg-gray-200 hover:bg-gray-400 text-black text-2xl font-bold w-10 h-10 rounded-full"
                        
                         >
-                    <FontAwesomeIcon icon={faGear} />
+                    <img src={config} alt="Avatar" />
                         </button>
 
                         <button
@@ -55,7 +48,7 @@ export const Dashboard: React.FC = () => {
                             className="bg-gray-200 hover:bg-gray-400 text-black text-3xl font-bold w-12 h-10 sm:w-14 sm:h-14 rounded-full"
                             onClick={() => setActiveSection("Profile")}
                         >
-                            <FontAwesomeIcon icon={faUser} />
+                             <img src={perfil} alt="Avatar" />
                         </button>
                     </div>
                 </nav>
@@ -100,7 +93,7 @@ export const Dashboard: React.FC = () => {
                         </div>
 
                         {/* Contenido Principal */}
-                        <div className="flex-1 bg-white p-4 sm:p-8">
+                        <div className="flex-1 overflow-auto bg-white p-4 sm:p-8">
                             {/* Renderizado condicional de secciones */}
                             {activeSection === "Mis pagos" && <PaymentsSection />}
                             {activeSection === "Mis ingresos" && <IncomeSection />}
