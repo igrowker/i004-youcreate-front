@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+/* import React, { useEffect, useState } from "react";
 import { getUserProfile } from "../../services/Profile/ProfileSevice"; // Asegúrate de que la ruta es correcta
 import { toast } from "react-toastify";
 import { useUser } from "../../context/UserContext"; // Si estás usando un contexto para el usuario
@@ -117,4 +117,4 @@ export const ProfileSection: React.FC = () => {
             </div>
         </div>
     );
-};
+}; */
