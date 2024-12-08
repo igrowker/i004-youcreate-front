@@ -25,7 +25,7 @@ interface Collaborator {
 export const PaymentsSection: React.FC = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
 
-  const [isModalTaxesOpen, setIsModalTaxesOpen] = useState(false);
+ 
   const [isModalCollaboratorsOpen, setIsModalCollaboratorsOpen] = useState(false);
   const [taxList, setTaxList] = useState<Tax[]>();
   const [collaboratorsList, setCollaboratorsList] = useState<Collaborator[]>();

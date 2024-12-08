@@ -10,7 +10,7 @@ export const AddCollaboratorModal: React.FC<AddCollaboratorModalProps> = ({ isOp
     const [amount, setAmount] = useState("");
     const [date, setDate] = useState("");
     const [campaign, setCampaign] = useState("");
-    const [status, setStatus] = useState<"Pendiente" | "Pagado">("Pendiente");
+    
 
     const handleSave = () => {
 

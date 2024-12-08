@@ -12,7 +12,7 @@ import { ProfileSection } from "../ProfileComponent/ProfileSection";
 
 export const Dashboard: React.FC = () => {
     const [activeSection, setActiveSection] = useState<string>("Dashboard");
-    const { user, setUser } = useUser();
+    const {setUser } = useUser();
     const navigate = useNavigate();
 
     const handleLogout = () => {
