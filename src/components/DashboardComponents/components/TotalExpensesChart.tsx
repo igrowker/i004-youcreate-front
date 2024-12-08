@@ -30,6 +30,7 @@ const ExpenseChart: React.FC = () => {
   // Opciones del gráfico
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: "bottom" as const, // Leyenda en la parte inferior
@@ -49,9 +50,9 @@ const ExpenseChart: React.FC = () => {
   };
 
   return (
-    <div className="">
+    <div className="md:h-80">
       <h2 className="mb-5 font-semibold text-xl">Egresos totales: $180.000</h2>
-      <div className="bg-gray-100 border-[1px] p-8 rounded-lg shadow-xl h-80 max-h-96">
+      <div className="bg-gray-100 border-[1px] p-8 rounded-lg shadow-xl h-full max-h-96">
         <Pie data={data} options={options} />
       </div>
     </div>
