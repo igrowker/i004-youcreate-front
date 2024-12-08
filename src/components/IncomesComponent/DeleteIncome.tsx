@@ -1,6 +1,5 @@
 import React from "react";
-import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 
 interface DeleteIncomeConfirmationProps {
   incomeId: number;
@@ -9,7 +8,7 @@ interface DeleteIncomeConfirmationProps {
 }
 
 export const DeleteIncomeConfirmation: React.FC<DeleteIncomeConfirmationProps> = ({
-  incomeId,
+  
   onCancel,
   onConfirm,
 }) => {

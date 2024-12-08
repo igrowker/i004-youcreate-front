@@ -7,7 +7,7 @@ import { Flip, toast } from "react-toastify";
 import { Loader } from "../Loader/Loader.tsx";
 import { useUser } from "../../context/UserContext"; 
 import arrowLeft from "../../assets/vectors/arrowLeft.svg";
-
+import landing from "../../assets/images/img-landing.png"
 export const Login: React.FC = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<LoginType>();
   const [showPassword, setShowPassword] = useState(false);
@@ -82,11 +82,7 @@ export const Login: React.FC = () => {
       />
       <div className="w-full max-w-md bg-white rounded-lg shadow-lg">
         <div className="flex justify-center items-center h screen">
-          <img
-            src="src\assets\images\img-landing.png"
-            alt="Fondo"
-            className="w-80 h-80 "
-          />
+        <img src={landing} alt="Imagen principal" className="justify-center"/>
           
         </div>
 
