@@ -18,7 +18,7 @@ export const Dashboard: React.FC = () => {
     const handleLogout = () => {
         setUser(null);
         localStorage.removeItem("user");
-        navigate("/login");
+        navigate("/");
     };
 
     return (
@@ -55,20 +55,20 @@ export const Dashboard: React.FC = () => {
             </header>
 
             <main className="flex flex-col sm:flex-row h-5/6 justify-center">
-                <div className="flex bg-white bg-opacity-30 w-full h-full sm:w-[95%] justify-center py-6 sm:py-12 rounded-r-3xl">
+                <div className="flex bg-white bg-opacity-20 w-full h-full sm:w-[95%] justify-center py-6 sm:py-12 rounded-r-3xl">
                     <div className="flex  h-full w-full sm:w-[95%] rounded-r-lg rounded-r-3xl">
                         <div className="flex flex-col h-full">
                             {/* Menú lateral */}
                             <nav className="flex flex-col bg-white bg-opacity-35 h-full justify-between">
                                 <div>
-                                    <ul className="flex sm:flex-col overflow-x-auto  sm:overflow-visible">
+                                    <ul className="flex sm:flex-col overflow-x-auto font-nunito font-bold  sm:overflow-visible">
                                         {["Dashboard", "Mis pagos", "Mis ingresos", "Mis redes"].map((section) => (
                                             <li
                                                 key={section}
                                                 className={`flex items-center px-6 py-4 sm:py-8 text-black text-base sm:text-xl font-semibold cursor-pointer ${
                                                     activeSection === section
-                                                        ? "bg-white border-r-8 border-pink-500"
-                                                        : "hover:bg-white hover:border-r-8 hover:border-pink-500"
+                                                        ? "bg-white border-r-8 border-[#56588C]"
+                                                        : "hover:bg-white hover:border-r-8 hover:border-[#56588C]"
                                                 }`}
                                                 onClick={() => setActiveSection(section)}
                                             >
@@ -79,21 +79,23 @@ export const Dashboard: React.FC = () => {
                                     </ul>
                                 </div>
 
-                                <div className="px-6 pt-6 border-t border-gray-300">
+                                <div className="px-6 pt-6 ">
                                     <button 
                                     className="flex items-center w-full px-4 py-6 sm:py-9 text-red-600 hover:bg-white text-lg sm:text-2xl font-semibold"
                                     onClick={handleLogout}
                                     >
 
-                                        <span className="material-icons text-slate-500">logout</span>
-                                        <span className="ml-4 text-black">Cerrar sesión</span>
+                                        <span className="material-icons text-red">logout</span>
+                                        <span className="ml-4 font-nunito font-bold text-black ">Cerrar sesión</span>
                                     </button>
                                 </div>
                             </nav>
                         </div>
 
                         {/* Contenido Principal */}
-                        <div className="flex-1 overflow-auto scrollbar-thin bg-white p-4 sm:p-8">
+
+                        <div className="flex-1 overflow-auto scrollbar-thin bg-[#FAFAFA] p-4 sm:p-8">
+
                             {/* Renderizado condicional de secciones */}
                             {activeSection === "Mis pagos" && <PaymentsSection />}
                             {activeSection === "Mis ingresos" && <IncomeSection />}

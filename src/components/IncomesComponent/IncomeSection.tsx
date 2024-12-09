@@ -9,6 +9,7 @@ import {
 import { toast } from "react-toastify";
 import { useUser } from "../../context/UserContext";
 import { AddIncome } from "./AddIncome";
+import { DeleteIncomeConfirmation } from "./DeleteIncome"; // Importar el componente
 import Edit from "../../assets/vectors/edit.svg";
 import DeleteIcon from "../../assets/vectors/delete.svg";
 
@@ -18,6 +19,7 @@ export const IncomeSection: React.FC = () => {
   const [incomes, setIncomes] = useState<Income[]>([]);
   const [isAddingIncome, setIsAddingIncome] = useState(false);
   const [editRowId, setEditRowId] = useState<number | null>(null);
+  const [incomeToDelete, setIncomeToDelete] = useState<number | null>(null); // Estado para el ingreso a eliminar
   const [newIncome, setNewIncome] = useState<Partial<Income>>({
     origin: "",
     category: "",
@@ -75,11 +77,13 @@ export const IncomeSection: React.FC = () => {
   };
 
   // Handle income deletion
-  const handleDeleteIncome = async (id: number) => {
+  const handleDeleteIncome = async () => {
+    if (incomeToDelete === null) return;
     try {
-      await deleteIncome(id);
-      setIncomes((prev) => prev.filter((income) => income.id !== id));
+      await deleteIncome(incomeToDelete);
+      setIncomes((prev) => prev.filter((income) => income.id !== incomeToDelete));
       toast.success("Ingreso eliminado exitosamente");
+      setIncomeToDelete(null); // Cerrar el modal después de eliminar
     } catch (error) {
       toast.error("Error al eliminar el ingreso");
     }
@@ -89,7 +93,7 @@ export const IncomeSection: React.FC = () => {
     <div className="relative">
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-Nunito-bold">Mis ingresos</h2>
+        <h2 className="text-2xl font-nunito font-bold">Mis ingresos</h2>
         <div className="flex items-center space-x-4">
           <button
             onClick={() => setIsAddingIncome(!isAddingIncome)}
@@ -123,12 +127,12 @@ export const IncomeSection: React.FC = () => {
           {incomes.map((income) => (
             <div
               key={income.id}
-              className="bg-white shadow-md rounded-lg grid grid-cols-4 text-gray-700 text-sm relative"
+              className="bg-white shadow-lg rounded-lg grid grid-cols-4 text-gray-700 text-sm relative"
             >
               {editRowId === income.id ? (
                 <>
                   <input
-                    className="p-4 border  border-gray-300 rounded-md"
+                    className="p-4 border border-gray-300 rounded-md"
                     value={editedIncome.origin || income.origin}
                     onChange={(e) =>
                       setEditedIncome((prev) => ({ ...prev, origin: e.target.value }))
@@ -195,7 +199,7 @@ export const IncomeSection: React.FC = () => {
 
               {/* Delete button */}
               <button
-                onClick={() => handleDeleteIncome(income.id)}
+                onClick={() => setIncomeToDelete(income.id)} // Abre el modal
                 className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-200 hover:bg-gray-300 shadow-md rounded-full p-2"
               >
                 <img className="w-4 h-4" src={DeleteIcon} alt="Eliminar" />
@@ -204,6 +208,17 @@ export const IncomeSection: React.FC = () => {
           ))}
         </div>
       </div>
+
+      {/* Modal de confirmación para eliminar */}
+      {incomeToDelete !== null && (
+        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
+          <DeleteIncomeConfirmation
+            incomeId={incomeToDelete}
+            onCancel={() => setIncomeToDelete(null)} // Cierra el modal
+            onConfirm={handleDeleteIncome} // Elimina el ingreso
+          />
+        </div>
+      )}
     </div>
   );
 };
