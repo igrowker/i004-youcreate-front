@@ -93,7 +93,9 @@ export const Dashboard: React.FC = () => {
                         </div>
 
                         {/* Contenido Principal */}
-                        <div className="flex-1 overflow-auto bg-[#FAFAFA] p-4 sm:p-8">
+
+                        <div className="flex-1 overflow-auto scrollbar-thin bg-[#FAFAFA] p-4 sm:p-8">
+
                             {/* Renderizado condicional de secciones */}
                             {activeSection === "Mis pagos" && <PaymentsSection />}
                             {activeSection === "Mis ingresos" && <IncomeSection />}
