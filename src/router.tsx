@@ -12,7 +12,7 @@ import VerifyAccountSuccess from "./components/RegistroLoginComponent/VerifyAcco
 import UserAdmin from "./pages/UserAdmin.tsx";
 import { ResetPassword } from "./components/RegistroLoginComponent/ResetPassword.tsx";
 import {Dashboard} from "./components/secciones/Dashboard.tsx";
-import {ProfileSection} from "./components/ProfileComponent/ProfileSection.tsx";
+
 
 export const AppRouter: FC = () => {
     return (
@@ -22,7 +22,7 @@ export const AppRouter: FC = () => {
             <Route path="/admin" element={<UserAdmin />} />
 
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/profile" element={<ProfileSection/>} />
+            
 
 
             <Route path="/" element={<RouterLayout />}>

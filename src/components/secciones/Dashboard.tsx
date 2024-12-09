@@ -6,13 +6,14 @@ import { PaymentsSection } from "../PagosComponent/PaymentsSection";
 import perfil from "../../assets/vectors/Perfil.svg";
 import { IncomeSection } from "../IncomesComponent/IncomeSection";
 import { SocialSection } from "../SocialComponent/SocialSection";
-import { useUser } from "../../context/UserContext"; 
+import { useUser } from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { ProfileSection } from "../ProfileComponent/ProfileSection";
+import { ConfigSection } from "../ProfileComponent/ConfigSection.tsx";
 
 export const Dashboard: React.FC = () => {
     const [activeSection, setActiveSection] = useState<string>("Dashboard");
-    const {setUser } = useUser();
+    const { setUser } = useUser();
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -30,17 +31,17 @@ export const Dashboard: React.FC = () => {
                     </div>
 
                     <div className="relative w-full sm:w-auto sm:ml-44 mb-3 sm:mb-0">
-                        
-                       
+
+
                     </div>
 
                     <div className="flex items-center space-x-3 pt-5 sm:pt-0">
                         <button
-                        type="button"
-                        className="bg-gray-200 hover:bg-gray-400 text-black text-2xl font-bold w-10 h-10 rounded-full"
-                       
+                            type="button"
+                            className="bg-gray-200 hover:bg-gray-400 text-black text-2xl font-bold w-10 h-10 rounded-full"
+                            onClick={() => setActiveSection("Config")}
                         >
-                    <img src={config} alt="Avatar" />
+                            <img src={config} alt="Avatar" />
                         </button>
 
                         <button
@@ -48,15 +49,17 @@ export const Dashboard: React.FC = () => {
                             className="bg-gray-200 hover:bg-gray-400 text-black text-3xl font-bold w-12 h-10 sm:w-14 sm:h-14 rounded-full"
                             onClick={() => setActiveSection("Profile")}
                         >
-                             <img src={perfil} alt="Avatar" />
+                            <img src={perfil} alt="Avatar" />
                         </button>
                     </div>
                 </nav>
             </header>
 
             <main className="flex flex-col sm:flex-row h-5/6 justify-center">
+
                 <div className="flex bg-white bg-opacity-20 w-full h-full sm:w-[95%] justify-center py-6 sm:py-12 rounded-r-3xl">
                     <div className="flex  h-full w-full sm:w-[95%] rounded-r-lg rounded-r-3xl">
+
                         <div className="flex flex-col h-full">
                             {/* Menú lateral */}
                             <nav className="flex flex-col bg-white bg-opacity-35 h-full justify-between">
@@ -65,11 +68,13 @@ export const Dashboard: React.FC = () => {
                                         {["Dashboard", "Mis pagos", "Mis ingresos", "Mis redes"].map((section) => (
                                             <li
                                                 key={section}
+
                                                 className={`flex items-center px-6 py-4 sm:py-8 text-black text-base sm:text-xl font-semibold cursor-pointer ${
                                                     activeSection === section
                                                         ? "bg-white border-r-8 border-[#56588C]"
                                                         : "hover:bg-white hover:border-r-8 hover:border-[#56588C]"
                                                 }`}
+
                                                 onClick={() => setActiveSection(section)}
                                             >
                                                 <span className="material-icons">{getIcon(section)}</span>
@@ -83,6 +88,7 @@ export const Dashboard: React.FC = () => {
                                     <button 
                                     className="flex items-center w-full px-4 py-6 sm:py-9 text-red-600 hover:bg-white text-lg sm:text-2xl font-semibold"
                                     onClick={handleLogout}
+
                                     >
 
                                         <span className="material-icons text-red">logout</span>
@@ -101,7 +107,8 @@ export const Dashboard: React.FC = () => {
                             {activeSection === "Mis ingresos" && <IncomeSection />}
                             {activeSection === "Mis redes" && <SocialSection />}
                             {activeSection === "Profile" && <ProfileSection />}
-                             {activeSection === "Dashboard" && <DashboardSection />}
+                            {activeSection === "Config" && <ConfigSection/>}
+                            {activeSection === "Dashboard" && <DashboardSection />}
                         </div>
                     </div>
                 </div>
@@ -118,7 +125,7 @@ const getIcon = (section: string) => {
             return "dashboard";
         case "Mis pagos":
             return "payments";
-       
+
         case "Mis ingresos":
             return "bar_chart";
         case "Mis redes":
@@ -127,3 +134,4 @@ const getIcon = (section: string) => {
             return "";
     }
 };
+
