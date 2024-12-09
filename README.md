@@ -79,7 +79,7 @@ El frontend de YouCreate aporta una serie de mejoras y características que opti
 
 - **Visualización Avanzada**: Gracias a la integración de **Chart.js**, los usuarios pueden visualizar métricas clave de sus finanzas de forma clara y detallada, facilitando la toma de decisiones.
 
-- **Experiencia de Usuario Optimizada**: El uso de **Tailwind CSS** permite crear una interfaz moderna, limpia y responsiva, adaptada para dispositivos móviles y de escritorio.
+- **Experiencia de Usuario Optimizada**: El uso de **Tailwind CSS** permite crear una interfaz moderna y limpia.
 
 - **Interacción en Tiempo Real**: La integración directa con el backend garantiza que todos los datos se sincronicen automáticamente, mostrando información actualizada de manera instantánea.
 
