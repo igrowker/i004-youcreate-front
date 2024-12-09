@@ -21,4 +21,3 @@ export const getUserProfile = async (id:number): Promise<Profile> => {
         throw error; // Lanza el error para ser manejado en el componente
     }
 };
-

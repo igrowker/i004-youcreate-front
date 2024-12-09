@@ -1,21 +1,23 @@
-/* import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getUserProfile } from "../../services/Profile/ProfileSevice"; // Asegúrate de que la ruta es correcta
+import { updateUserProfile } from "../../services/Profile/ConfigService"; // Importamos el servicio para actualizar el perfil
 import { toast } from "react-toastify";
-import { useUser } from "../../context/UserContext"; // Si estás usando un contexto para el usuario
+const user = JSON.parse(localStorage.getItem("loginData") as string);
 
-export const ProfileSection: React.FC = () => {
-    const { user } = useUser(); // Si estás usando un contexto para obtener los datos del usuario
-    const userId = user?.id; // Asegúrate de que 'user' y 'id' existen
-    const [profile, setProfile] = useState<any>(null); // Estado para almacenar la información del perfil
-    const [loading, setLoading] = useState<boolean>(true); // Estado para manejar la carga
+export const ConfigSection: React.FC = () => {
+    const [profile, setProfile] = useState<any>(null); // Estado para almacenar los datos del perfil
+    const [loading, setLoading] = useState<boolean>(true); // 
+    const [isEditing, setIsEditing] = useState<boolean>(false); 
+    
 
-    // Función para obtener los datos del perfil desde la API
+    // Función para obtener los datos del perfil
     const fetchProfile = async () => {
-        if (userId) {
+        if (user.id) {
             try {
-                const profileData = await getUserProfile(userId); // Llamada al servicio con el 'id'
+                
+                const profileData = await getUserProfile(user.id); // Llamada al servicio para obtener los datos del perfil
                 setProfile(profileData);
-                setLoading(false); // Actualizamos el estado cuando los datos están disponibles
+                setLoading(false); 
             } catch (error) {
                 toast.error("Error al cargar los datos del perfil");
                 setLoading(false);
@@ -26,19 +28,32 @@ export const ProfileSection: React.FC = () => {
         }
     };
 
-    // Usamos useEffect para llamar a la API cuando el componente se monta
+    // Función para manejar la actualización del perfil
+    const handleUpdateProfile = async () => {
+        if (user.id) {
+            try {
+                await updateUserProfile(profile); 
+                toast.success("Perfil actualizado correctamente");
+                setIsEditing(false); 
+                fetchProfile();
+            } catch (error) {
+                toast.error("Error al actualizar el perfil");
+            }
+        }
+    };
+
+
     useEffect(() => {
         fetchProfile();
-    }, [userId]); // Se ejecuta cada vez que 'userId' cambia
+    }, [user.id]); 
 
-    // Verificamos si los datos aún están cargando
     if (loading) {
         return <div>Cargando...</div>;
     }
 
     return (
         <div>
-            <h1 className="text-2xl font-bold mb-4">Perfil</h1>
+            <h1 className="text-2xl font-bold mb-4">Editar Perfil</h1>
 
             <div className="bg-white shadow-lg rounded-lg p-6">
                 <form className="w-full max-w-3xl">
@@ -50,9 +65,11 @@ export const ProfileSection: React.FC = () => {
                             <input
                                 className="appearance-none block w-full bg-gray-50 border-2 text-gray-700 border-gray-300 rounded-lg py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                 type="text"
-                                placeholder={profile.userName || "Nombre"}
                                 value={profile.userName || ""}
-                                readOnly
+                                disabled={!isEditing}
+                                onChange={(e) =>
+                                    setProfile({ ...profile, userName: e.target.value })
+                                }
                             />
                         </div>
                         <div className="w-full md:w-1/2 px-3">
@@ -62,9 +79,11 @@ export const ProfileSection: React.FC = () => {
                             <input
                                 className="appearance-none block w-full bg-gray-50 border-2 text-gray-700 border-gray-300 rounded-lg py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                                 type="text"
-                                placeholder={profile.lastName || "Apellido"}
                                 value={profile.lastName || ""}
-                                readOnly
+                                disabled={!isEditing}
+                                onChange={(e) =>
+                                    setProfile({ ...profile, lastName: e.target.value })
+                                }
                             />
                         </div>
                     </div>
@@ -77,9 +96,11 @@ export const ProfileSection: React.FC = () => {
                             <input
                                 className="appearance-none block w-full bg-gray-50 border-2 text-gray-700 border-gray-300 rounded-lg py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                 type="email"
-                                placeholder={profile.email || "Correo electrónico"}
                                 value={profile.email || ""}
-                                readOnly
+                                disabled={!isEditing}
+                                onChange={(e) =>
+                                    setProfile({ ...profile, email: e.target.value })
+                                }
                             />
                         </div>
                     </div>
@@ -92,9 +113,11 @@ export const ProfileSection: React.FC = () => {
                             <input
                                 className="appearance-none block w-full bg-gray-50 border-2 text-gray-700 border-gray-300 rounded-lg py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                 type="text"
-                                placeholder={profile.phone || "Teléfono"}
                                 value={profile.phone || ""}
-                                readOnly
+                                disabled={!isEditing}
+                                onChange={(e) =>
+                                    setProfile({ ...profile, phone: e.target.value })
+                                }
                             />
                         </div>
                     </div>
@@ -107,14 +130,43 @@ export const ProfileSection: React.FC = () => {
                             <select
                                 className="block appearance-none w-full bg-gray-50 border-2 text-gray-700 border-gray-300 rounded-lg py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                                 value={profile.country || ""}
-                                disabled
+                                disabled={!isEditing}
+                                onChange={(e) =>
+                                    setProfile({ ...profile, country: e.target.value })
+                                }
                             >
-                                <option>{profile.country || "País"}</option>
+                                <option value="Bolivia">Bolivia</option>
+                                <option value="Argentina">Argentina</option>
+                                <option value="Spain">España</option>
+                                <option value="Costa Rica">Costa Rica</option>
+                                <option value="Colombia">Colombia</option>
+                                <option value="Dominican Republic">Republica Dominicana</option>
                             </select>
                         </div>
+                    </div>
+
+                    {/* Botones */}
+                    <div className="flex justify-end mt-6 space-x-3">
+                        <button
+                            type="button"
+                            onClick={() => setIsEditing(!isEditing)}
+                            className=" flex bg-gray-700 text-white px-4 py-2 rounded-md text-end"
+                        >
+                            {isEditing ? "Cancelar" : "Editar Perfil"}
+                        </button>
+
+                        {isEditing && (
+                            <button
+                                type="button"
+                                onClick={handleUpdateProfile}
+                                className="bg-purple-400 text-white px-4 py-2 rounded-md"
+                            >
+                                Guardar
+                            </button>
+                        )}
                     </div>
                 </form>
             </div>
         </div>
     );
-}; */
+};

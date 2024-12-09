@@ -9,6 +9,7 @@ import { SocialSection } from "../SocialComponent/SocialSection";
 import { useUser } from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { ProfileSection } from "../ProfileComponent/ProfileSection";
+import { ConfigSection } from "../ProfileComponent/ConfigSection.tsx";
 
 export const Dashboard: React.FC = () => {
     const [activeSection, setActiveSection] = useState<string>("Dashboard");
@@ -98,6 +99,7 @@ export const Dashboard: React.FC = () => {
                             {activeSection === "Mis ingresos" && <IncomeSection />}
                             {activeSection === "Mis redes" && <SocialSection />}
                             {activeSection === "Profile" && <ProfileSection />}
+                            {activeSection === "Config" && <ConfigSection/>}
                             {activeSection === "Dashboard" && <DashboardSection />}
                         </div>
                     </div>
@@ -124,3 +126,4 @@ const getIcon = (section: string) => {
             return "";
     }
 };
+
