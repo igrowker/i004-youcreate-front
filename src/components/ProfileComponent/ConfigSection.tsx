@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { getUserProfile } from "../../services/Profile/ProfileSevice"; // Asegúrate de que la ruta es correcta
-import { updateUserProfile } from "../../services/Profile/ConfigService"; // Importamos el servicio para actualizar el perfil
+import { ConfigProfile, mapProfileToConfigProfile, updateUserProfile } from "../../services/Profile/ConfigService"; // Importamos el servicio para actualizar el perfil
 import { toast } from "react-toastify";
-const user = JSON.parse(localStorage.getItem("loginData") as string);
+import { useUser } from "../../context/UserContext";
 
 export const ConfigSection: React.FC = () => {
     const [profile, setProfile] = useState<any>(null); // Estado para almacenar los datos del perfil
     const [loading, setLoading] = useState<boolean>(true); // 
     const [isEditing, setIsEditing] = useState<boolean>(false); 
-    
+    const {user}=useUser()
 
     // Función para obtener los datos del perfil
     const fetchProfile = async () => {
-        if (user.id) {
+        if (user) {
             try {
                 
                 const profileData = await getUserProfile(user.id); // Llamada al servicio para obtener los datos del perfil
                 setProfile(profileData);
+                console.log(profileData);
+                
                 setLoading(false); 
             } catch (error) {
                 toast.error("Error al cargar los datos del perfil");
@@ -28,37 +30,46 @@ export const ConfigSection: React.FC = () => {
         }
     };
 
-    // Función para manejar la actualización del perfil
-    const handleUpdateProfile = async () => {
-        if (user.id) {
-            try {
-                await updateUserProfile(profile); 
-                toast.success("Perfil actualizado correctamente");
-                setIsEditing(false); 
-                fetchProfile();
-            } catch (error) {
-                toast.error("Error al actualizar el perfil");
-            }
+  
+
+
+
+// Lógica de actualización de perfil
+const handleUpdateProfile = async () => {
+    if (user) {
+        try {
+            const profileData: ConfigProfile = mapProfileToConfigProfile(profile); // 👈 Conversión de Profile a ConfigProfile
+            console.log('Datos a enviar:', profileData); // 👈 Depuración para ver el payload de la API
+            await updateUserProfile(profileData); 
+            
+            toast.success("Perfil actualizado correctamente");
+            setIsEditing(false); 
+            fetchProfile(); 
+        } catch (error) {
+            toast.error("Error al actualizar el perfil");
         }
-    };
-
-
-    useEffect(() => {
-        fetchProfile();
-    }, [user.id]); 
-
-    if (loading) {
-        return <div>Cargando...</div>;
     }
+};
+
+// Hook useEffect para cargar el perfil
+useEffect(() => {
+    fetchProfile();
+}, [user]); 
+
+// Mostrar un mensaje de carga mientras se obtienen los datos
+if (loading) {
+    return <div>Cargando...</div>;
+}
+
 
     return (
         <div>
             <h1 className="text-2xl font-bold mb-4">Editar Perfil</h1>
 
-            <div className="bg-white shadow-lg rounded-lg p-6">
-                <form className="w-full max-w-3xl">
+            <div className="bg-white w-3/5 items-center shadow-lg rounded-lg p-6">
+                <form className=" max-w-3xl">
                     <div className="flex flex-wrap -mx-3">
-                        <div className="w-full md:w-1/2 px-3 mb-2 md:mb-0">
+                    <div className=" px-3 mb-2 md:mb-0">
                             <label className="block text-gray-700 text-sm font-semibold mb-1">
                                 Nombre
                             </label>
@@ -97,7 +108,7 @@ export const ConfigSection: React.FC = () => {
                                 className="appearance-none block w-full bg-gray-50 border-2 text-gray-700 border-gray-300 rounded-lg py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                 type="email"
                                 value={profile.email || ""}
-                                disabled={!isEditing}
+                                readOnly
                                 onChange={(e) =>
                                     setProfile({ ...profile, email: e.target.value })
                                 }

@@ -15,6 +15,8 @@ export interface Profile {
 export const getUserProfile = async (id:number): Promise<Profile> => {
     try {
         const response = await axios.get(`${baseUrl}/api/v1/user/${id}`);
+        console.log(response);
+        
         return response.data.data;
     } catch (error) {
         console.error("Error al obtener el perfil:", error);

@@ -4,6 +4,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Logo from "../../assets/vectors/Notificaciones.svg";
+import arrowLeft from "../../assets/vectors/arrowLeft.svg";
+import { useNavigate } from "react-router-dom";
 
 type ResetPasswordType = {
   email: string;
@@ -34,9 +36,16 @@ export const ResetPassword: React.FC = () => {
       }
     }
   };
+  const navigate = useNavigate();
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-cover bg-center  bg-[url('/images/fondoDash.png')]">
+      <img
+        onClick={() => navigate("/")}
+        className="absolute top-7 left-5"
+        src={arrowLeft}
+        alt="Regresar"
+      />
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
         <div className="flex justify-center mb-6">
           <img className="w-20 h-20" src={Logo} alt="Restablecer contraseña" />
