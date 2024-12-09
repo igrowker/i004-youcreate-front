@@ -10,7 +10,7 @@ interface Tax {
   category: string;
   collaborator_id: number;
   deadline: string;
-  action: string;
+  
  taxName: string;
 }
 
@@ -18,19 +18,18 @@ interface Collaborator {
   name: string;
   amount: string;
   date: string;
-  status: "Pendiente" | "Pagado";
-  campaign?: string;
+  
+ service?: string;
 }
 
 
 
 export const PaymentsSection: React.FC = () => {
   const baseUrl = import.meta.env.VITE_API_URL;
-
- 
   const [isModalCollaboratorsOpen, setIsModalCollaboratorsOpen] = useState(false);
-  const [taxList, setTaxList] = useState<Tax[]>();
-  const [collaboratorsList, setCollaboratorsList] = useState<Collaborator[]>();
+  const [taxList, setTaxList] = useState<Tax[]>([]);
+  const [collaboratorsList, setCollaboratorsList] = useState<Collaborator[]>([]);
+  
 
   const addTaxes = async () => {
     try {
@@ -42,8 +41,8 @@ export const PaymentsSection: React.FC = () => {
   
         console.log("Impuestos calculados: ", data);
   
-        // Actualiza la lista de impuestos
-        setTaxList(data.taxes);
+        // Vuelve a obtener los impuestos después de calcularlos
+        await getTaxes();
       } else {
         console.error("Usuario no encontrado en localStorage.");
       }
@@ -51,6 +50,8 @@ export const PaymentsSection: React.FC = () => {
       console.error("Error al calcular impuestos: ", error);
     }
   };
+  
+  
 
   const getTaxes = async () => {
     try {
@@ -64,23 +65,45 @@ export const PaymentsSection: React.FC = () => {
     }
   };
 
+   // Función para obtener la lista de colaboradores
   const getCollaborators = async () => {
     try {
       const user = JSON.parse(localStorage.getItem("loginData") as string);
-
       if (user.id) {
-        const response = await axios.get(
-          `${baseUrl}/api/v1/collaborator/all/${user.id}`
-        );
+        const response = await axios.get(`${baseUrl}/api/v1/collaborator/all/${user.id}`);
         const data = response.data.data;
-        console.log("collabs: ", data);
+        console.log("Colaboradores: ", data);
         setCollaboratorsList(data);
       }
     } catch (e) {
-      console.error(e);
+      console.error("Error al obtener los colaboradores:", e);
     }
   };
 
+  const addCollaborator = async (collaboratorData: Collaborator) => {
+    try {
+      const user = JSON.parse(localStorage.getItem("loginData") as string);
+  
+      if (user?.id) {
+        const response = await axios.post(`${baseUrl}/api/v1/collaborator/create`, {
+          ...collaboratorData,
+          user_id: user.id, // Incluye el ID del usuario en el cuerpo de la solicitud
+        });
+  
+        const newCollaborator = response.data; // La respuesta de la API
+        console.log("Colaborador agregado: ", newCollaborator);
+  
+        // Actualiza la lista de colaboradores inmediatamente
+      
+        await getCollaborators();
+        setIsModalCollaboratorsOpen(false); // Cierra el modal después de agregar
+      }
+    } catch (error) {
+      console.error("Error al agregar el colaborador:", error);
+    }
+  };
+  
+  
   useEffect(() => {
     getTaxes();
     getCollaborators();
@@ -89,7 +112,7 @@ export const PaymentsSection: React.FC = () => {
   return (
     <section className="mb-8">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-semibold">Impuestos</h2>
+        <h2 className="text-2xl font-nunito font-bold">Impuestos</h2>
         <button
           className="bg-[#56588C] shadow-full text-white px-4 py-3 rounded-lg hover:bg-[#56587C]"
            onClick={addTaxes}
@@ -100,12 +123,12 @@ export const PaymentsSection: React.FC = () => {
 
       <div className="relative">
         {/* Encabezado */}
-        <div className="bg-[#DDDEEC] shadow-md rounded-lg text-sm font-semibold text-gray-500 grid grid-cols-5 mb-2">
-          <div className="p-4">Tipo de Impuesto</div>
-          <div className="p-4">Monto</div>
-          <div className="p-4">Vencimiento</div>
-          <div className="p-4">Estado</div>
-          <div className="p-4">Pagar</div>
+        <div className="bg-[#DDDEEC] shadow-lg rounded-lg text-sm font-semibold text-gray-500 grid grid-cols-5 mb-2">
+          <div className="p-4">TIPO DE IMPUESTO</div>
+          <div className="p-4">MONTO</div>
+          <div className="p-4">VENCIMIENTO</div>
+          <div className="p-4">ESTADO</div>
+          <div className="p-4">PAGAR</div>
         </div>
 
         {/* Lista de Impuestos */}
@@ -113,28 +136,28 @@ export const PaymentsSection: React.FC = () => {
           {taxList?.map((tax, index) => (
             <div
               key={index}
-              className="bg-[#DDDEEC] shadow-md rounded-lg text-sm font-semibold text-gray-500 grid grid-cols-5 mb-2"
+              className="bg-white shadow-lg rounded-lg text-sm font-nunito text-gray-700 grid grid-cols-5 mb-2"
             >
-              <div className="p-4 font-medium text-gray-900">{tax.taxName}</div>
-              <div className="p-4 font-medium text-indigo-400">${tax.taxDue}</div>
-              <div className="p-4 font-medium text-gray-900">{tax.deadline}</div>
-              <div className="p-4 font-medium text-gray-900">{tax.status}</div>
-              <div className="p-4 font-medium text-gray-900">{tax.action}</div>
+              <div className="p-4 font-medium text-gray-700">{tax.taxName}</div>
+              <div className="p-4 font-medium text-gray-700">${tax.taxDue}</div>
+              <div className="p-4 font-medium text-gray-700">{tax.deadline}</div>
+           
+              
               <div className="p-4 font-medium">
                 <span
                   className={`px-2 py-1 rounded ${
                     tax.status === "PENDING"
-                      ? "bg-yellow-200 text-yellow-700"
+                      ? "bg-yellow-200 text-gray-900"
                       : tax.status === "EXPIRED"
-                      ? "bg-red-200 text-red-700"
-                      : "bg-green-200 text-green-700"
+                      ? "bg-red-200 text-gray-900"
+                      : "bg-green-200 text-gray-900"
                   }`}
                 >
                   {tax.status}
                 </span>
               </div>
               <div className="p-4">
-                <button className="bg-gray-200 px-4 py-1 rounded hover:bg-gray-300">
+                <button className="bg-gray-200 px-4  rounded hover:bg-gray-300">
                   Ir
                 </button>
               </div>
@@ -145,7 +168,7 @@ export const PaymentsSection: React.FC = () => {
 
       
       <div className="flex justify-between items-center mb-4 pt-5">
-        <h3 className="text-xl font-semibold">Colaboradores</h3>
+        <h3 className="text-2xl font-nunito font-bold">Colaboradores</h3>
         <button
           className="bg-[#56588C] shadow-full text-white px-4 py-3 rounded-lg hover:bg-[#56587C]"
           onClick={() => setIsModalCollaboratorsOpen(true)}
@@ -156,12 +179,12 @@ export const PaymentsSection: React.FC = () => {
 
       <div className="relative">
         {/* Encabezado */}
-        <div className="bg-[#DDDEEC] shadow-md rounded-lg text-sm font-semibold text-gray-500 grid grid-cols-5 mb-2">
-          <div className="p-4">Nombre</div>
-          <div className="p-4">Monto</div>
-          <div className="p-4">Fecha</div>
-          <div className="p-4">Campaña</div>
-          <div className="p-4">Estado</div>
+        <div className="bg-[#DDDEEC] shadow-lg rounded-lg text-sm font-nunito font-bold text-gray-500 grid grid-cols-5 mb-2">
+          <div className="p-4">NOMBRE</div>
+          <div className="p-4">MONTO</div>
+          <div className="p-4">FECHA</div>
+          <div className="p-4">SERVICIO</div>
+          <div className="p-4">ESTADO</div>
         </div>
 
         {/* Lista de Colaboradores */}
@@ -169,34 +192,26 @@ export const PaymentsSection: React.FC = () => {
           {collaboratorsList?.map((collaborator, index) => (
             <div
               key={index}
-              className="bg-white  shadow-md rounded-lg text-sm font-semibold text-gray-500 grid grid-cols-5 mb-2"
+              className="bg-white  shadow-lg rounded-lg text-sm font-nunito text-gray-500 grid grid-cols-5 mb-2"
             >
-              <div className="p-4 font-medium text-gray-900">{collaborator.name}</div>
-              <div className="p-4 font-medium text-indigo-400">${collaborator.amount}</div>
-              <div className="p-4 font-medium text-gray-900">{collaborator.date}</div>
-              <div className="p-4 font-medium text-gray-900">
-                {collaborator.campaign || "-"}
+              <div className="p-4 font-medium text-gray-700">{collaborator.name}</div>
+              <div className="p-4 font-medium text-gray-700">${collaborator.amount}</div>
+              <div className="p-4 font-medium text-gray-700">{collaborator.date}</div>
+              <div className="p-4 font-medium text-gray-700">
+                {collaborator.service || "-"}
+               
               </div>
-              <div className="p-4 font-medium">
-                <span
-                  className={`px-2 py-1 rounded ${
-                    collaborator.status === "Pendiente"
-                      ? "bg-yellow-200 text-yellow-700"
-                      : "bg-green-200 text-green-700"
-                  }`}
-                >
-                  {collaborator.status}
-                </span>
-              </div>
+             <div className="p-4 font-medium text-gray-700">🟢Pagado</div>
             </div>
           ))}
         </div>
       </div>
 
       <AddCollaboratorModal
-        isOpen={isModalCollaboratorsOpen}
-        onClose={() => setIsModalCollaboratorsOpen(false)}
-      />
+  isOpen={isModalCollaboratorsOpen}
+  onClose={() => setIsModalCollaboratorsOpen(false)}
+  addCollaborator={addCollaborator} // Pasa la función aquí
+/>
     </section>
   );
 };

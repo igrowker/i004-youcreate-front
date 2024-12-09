@@ -22,6 +22,7 @@ export const SocialSection: React.FC = () => {
             followers: 250000,
             growth: "4.5%",
             icon: faInstagram,
+        
         },
         {
             platform: "Twitch",
@@ -63,21 +64,21 @@ export const SocialSection: React.FC = () => {
         <div className="p-6 space-y-6">
             {/* Título principal */}
             <div className="flex justify-between items-center">
-                <h1 className="text-2xl font-bold">Mis Redes - Carolina Perez</h1>
-                <span className="text-lg font-semibold text-gray-600">
+                <h1 className="text-2xl font-nunito font-bold">Mis Redes - Carolina Perez</h1>
+                <span className="text-lg font-nunito font-bold text-gray-600">
                     Seguidores Totales:{" "}
                     <span className="text-black">{totalFollowers.toLocaleString()}</span>
                 </span>
             </div>
 
             {/* Redes conectadas */}
-            <div className="bg-white shadow-md rounded-lg p-6">
+            <div className="bg-white shadow-lg rounded-lg p-6">
                 <h2 className="text-lg font-semibold mb-4">Redes Conectadas</h2>
                 <ul className="space-y-4">
                     {socialAccounts.map((account, index) => (
                         <li
                             key={index}
-                            className="p-4 bg-[#DDDEEC] rounded-lg flex items-center justify-between shadow"
+                            className="p-4 bg-[#DDDEEC] rounded-lg flex items-center justify-between shadow-lg"
                         >
                             <div className="flex items-center space-x-4">
                                 <FontAwesomeIcon
@@ -104,7 +105,7 @@ export const SocialSection: React.FC = () => {
             </div>
 
             {/* Gráfico de seguidores */}
-            <div className="bg-white shadow-md rounded-lg p-4">
+            <div className="bg-white shadow-lg rounded-lg p-4">
     <h2 className="text-lg font-semibold mb-4">Seguidores</h2>
     <div style={{ width: "400px", height: "200px", margin: "0 auto" }}>
         <Bar
