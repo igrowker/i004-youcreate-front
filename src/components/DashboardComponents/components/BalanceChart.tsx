@@ -76,7 +76,8 @@ const IncomesAndExpensesChart: React.FC = () => {
   };
 
   return (
-    <div className="w-[450px] max-w-[450px] h-auto">
+
+       <div className="w-[50%] max-w-[450px] h-auto">
       <h2 className="mb-5 font-nunito font-bold text-xl">Balance</h2>
 
       <div className="bg-gray-100 border-[1px] p-4 rounded-lg shadow-xl min-h-80 max-h-96">

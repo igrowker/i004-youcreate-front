@@ -128,7 +128,7 @@ const Incomeschart: React.FC = () => {
       <h2 className="mb-5 font-nunito font-bold text-xl">Evolución de ingresos</h2>
 
     
-    
+
 
       <div className="bg-gray-100 p-4 border-[1px] rounded-lg shadow-xl min-h-60 max-h-64">
 
