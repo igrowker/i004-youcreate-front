@@ -123,8 +123,12 @@ const Incomeschart: React.FC = () => {
 
   return (
 
-    <div className="w-[500px] max-w-[500px] h-auto">
+
+      <div className="w-[46%] h-auto">
       <h2 className="mb-5 font-nunito font-bold text-xl">Evolución de ingresos</h2>
+
+    
+
       <div className="bg-gray-100 p-4 border-[1px] rounded-lg shadow-xl min-h-60 max-h-64">
 
         <Line data={chartData} options={chartOptions} />

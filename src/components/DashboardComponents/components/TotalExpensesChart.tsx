@@ -37,7 +37,7 @@ const ExpenseChart: React.FC = () => {
         labels: {
           usePointStyle: true, // Estilo de punto en lugar de cuadros
           boxWidth: 20, // Ajustar el tamaño de los círculos en la leyenda
-          padding: 25,
+          padding: 20,
         },
       },
     },
@@ -50,8 +50,9 @@ const ExpenseChart: React.FC = () => {
   };
 
   return (
-    <div className="md:h-80">
+      <div className="w-[25%] md:h-80">
       <h2 className="mb-5 font-nunito font-bold text-xl">Egresos totales: $180.000</h2>
+
       <div className="bg-gray-100 border-[1px] p-8 rounded-lg shadow-xl h-full max-h-96">
         <Pie data={data} options={options} />
       </div>
