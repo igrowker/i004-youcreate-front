@@ -10,6 +10,7 @@ import {
     Tooltip,
     Legend,
 } from "chart.js";
+import { useUser } from "../../context/UserContext";
 
 // Registramos los componentes necesarios de Chart.js
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
@@ -44,6 +45,11 @@ export const SocialSection: React.FC = () => {
         (total, account) => total + account.followers,
         0
     );
+    const {user}=useUser()
+    console.log(user)
+
+    
+
 
     // Configuración del gráfico
     const data = {
@@ -64,7 +70,7 @@ export const SocialSection: React.FC = () => {
         <div className="p-6 space-y-6">
             {/* Título principal */}
             <div className="flex justify-between items-center">
-                <h1 className="text-2xl font-nunito font-bold">Mis Redes - Carolina Perez</h1>
+                <h1 className="text-2xl font-nunito font-bold"> Mis Redes - {user?.email}</h1>
                 <span className="text-lg font-nunito font-bold text-gray-600">
                     Seguidores Totales:{" "}
                     <span className="text-black">{totalFollowers.toLocaleString()}</span>
